@@ -63,7 +63,7 @@ contract FlightDelayInsurance is ChainlinkClient, Ownable {
 
     // You probably do not want onlyOwner here
     // But then, you need some mechanism to prevent people from spamming this
-    function requestResult() external returns (bytes32 requestId)    // Without onlyOwner
+    function requestResultOfFlightDelay() external returns (bytes32 requestId)    // Without onlyOwner
     //function requestResult() external onlyOwner returns (bytes32 requestId)
     {
         require(!resultReceived, "The result has already been received.");

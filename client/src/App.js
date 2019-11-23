@@ -15,7 +15,17 @@ const GAS = 500000;
 const GAS_PRICE = "20000000000";
 
 class App extends Component {
-    state = { web3: null, accounts: null, contract: null, betAmount: 0 };
+    state = { 
+        web3: null, 
+        accounts: null,
+
+        //// Flight Delay Insurance
+        flight_delay_insurance: null,
+
+        //// Honeycomb Example Project
+        contract: null, 
+        betAmount: 0 
+    };
 
     componentDidMount = async () => {
         try {
@@ -30,13 +40,20 @@ class App extends Component {
             if (networkId !== 3) {
                 throw new Error("Select the Ropsten network from your MetaMask plugin");
             }
+
+            const deployedNetworkFlightDelayInsurance = FlightDelayInsurancel.networks[networkId];
+            const flight_delay_insurance = new web3.eth.Contract(
+                FlightDelayInsurance.abi,
+                deployedNetworkFlightDelayInsurance && deployedNetworkFlightDelayInsurance.address,
+            );
+
             const deployedNetwork = HoneycombBetPool.networks[networkId];
             const contract = new web3.eth.Contract(
                 HoneycombBetPool.abi,
                 deployedNetwork && deployedNetwork.address,
             );
 
-            this.setState({ web3, accounts, contract });
+            this.setState({ web3, accounts, flight_delay_insurance: flight_delay_insurance, contract: contract });
 
             window.ethereum.on('accountsChanged', async (accounts) => {
                 const newAccounts = await web3.eth.getAccounts();
@@ -90,6 +107,33 @@ class App extends Component {
         this.setState({ [name]: value });
     }
 
+
+    /***********************************************************************
+     * Flight Delay Insurance Project
+     ***********************************************************************/
+    handleRequestResultsOfFlightDelay = async () => {
+        const lastBlock = await this.state.web3.eth.getBlock("latest");
+        this.setState({ message: "Requesting the result from the oracle..." });
+        try {
+            await this.state.contract.methods.requestResultOfFlightDelay().send({ from: this.state.accounts[0], gas: GAS, gasPrice: GAS_PRICE });
+            while (true) {
+                const responseEvents = await this.state.contract.getPastEvents('ChainlinkFulfilled', { fromBlock: lastBlock.number, toBlock: 'latest' });
+                if (responseEvents.length !== 0) {
+                    break;
+                }
+            }
+            this.refreshState();
+            this.setState({ message: "The result is delivered" });
+        } catch (error) {
+            console.error(error);
+            this.setState({ message: "Failed getting the result" });
+        }
+    }
+
+
+    /***********************************************************************
+     * Honeycomb Example Project
+     ***********************************************************************/
     handleRequestResults = async () => {
         const lastBlock = await this.state.web3.eth.getBlock("latest");
         this.setState({ message: "Requesting the result from the oracle..." });
@@ -289,7 +333,7 @@ class App extends Component {
                         <Grid item xs={3}>
                         </Grid>
                         <Grid item xs={3}>
-                            <Button variant="contained" color="primary" onClick={() => this.handleRequestResults()}>
+                            <Button variant="contained" color="primary" onClick={() => this.handleRequestResultsOfFlightDelay()}>
                                 Request result
                             </Button>
                         </Grid>
