@@ -7,6 +7,8 @@ import getWeb3 from "./utils/getWeb3";
 
 import { theme } from './utils/theme';
 import Header from './components/Header';
+import HeaderFlightDelay from './components/HeaderFlightDelay.js';
+
 import "./App.css";
 
 const GAS = 500000;
@@ -257,12 +259,44 @@ class App extends Component {
                         <Grid item xs={3}>
                             <Button variant="contained" color="primary" onClick={() => this.handleRequestResults()}>
                                 Request result
-                </Button>
+                            </Button>
                         </Grid>
                         <Grid item xs={3}>
                             <Button variant="contained" color="primary" onClick={() => this.handleWithdraw()}>
                                 Withdraw winnings
-              </Button>
+                            </Button>
+                        </Grid>
+                    </Grid>
+
+                    <Typography variant="h5" style={{ marginTop: 32 }}>
+                        {this.state.message}
+                    </Typography>
+                </div>
+
+                <hr />
+
+
+                <div className="App">
+                    <HeaderFlightDelay />
+                    <Typography variant="h5" style={{ marginTop: 32 }}>
+                        Flight Delay Insurance
+                    </Typography>
+                    <Typography variant="h5" style={{ marginTop: 32 }}>
+                        {this.state.resultMessage}
+                    </Typography>
+
+                    <Grid container style={{ marginTop: 32 }}>
+                        <Grid item xs={3}>
+                        </Grid>
+                        <Grid item xs={3}>
+                            <Button variant="contained" color="primary" onClick={() => this.handleRequestResults()}>
+                                Request result
+                            </Button>
+                        </Grid>
+                        <Grid item xs={3}>
+                            <Button variant="contained" color="primary" onClick={() => this.handleWithdraw()}>
+                                Withdraw winnings
+                            </Button>
                         </Grid>
                     </Grid>
 
