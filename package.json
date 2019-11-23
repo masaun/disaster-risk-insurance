@@ -4,6 +4,7 @@
   "description": "An example dApp that connects to the Honeycomb marketplace",
   "main": "index.js",
   "scripts": {
+    "client": "cd client && npm run start",
     "deploy-ropsten": "truffle migrate --network ropsten --reset"
   },
   "author": "Burak Benligiray",
