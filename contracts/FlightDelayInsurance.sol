@@ -70,7 +70,7 @@ contract FlightDelayInsurance is ChainlinkClient, Ownable {
         Chainlink.Request memory req = buildChainlinkRequest(jobId, this, this.fulfill.selector);
         req.add("iataCode", "JFK");
         req.add("type", "arrival");
-        req.add("copyPath", [0].arrival.scheduledTime);
+        req.add("copyPath", "[0].arrival.scheduledTime");
         requestId = sendChainlinkRequestTo(chainlinkOracleAddress(), req, oraclePaymentAmount);
     }
 
