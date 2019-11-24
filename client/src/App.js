@@ -12,6 +12,7 @@ import getWeb3 from "./utils/getWeb3";
 import { theme } from './utils/theme';
 import Header from './components/Header';
 import HeaderFlightDelay from './components/HeaderFlightDelay.js';
+import HeaderDisasterRisk from './components/HeaderDisasterRisk.js';
 
 import "./App.css";
 
@@ -336,7 +337,7 @@ class App extends Component {
 
 
                 <div className="App">
-                    <HeaderFlightDelay />
+                    <HeaderDisasterRisk />
                     <Typography variant="h5" style={{ marginTop: 32 }}>
                         Disaster Risk Insurance
                     </Typography>
