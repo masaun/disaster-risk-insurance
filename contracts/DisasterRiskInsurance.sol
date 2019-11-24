@@ -3,8 +3,11 @@ pragma solidity 0.4.24;
 import "../node_modules/chainlink/contracts/ChainlinkClient.sol";
 import "../node_modules/openzeppelin-solidity/contracts/ownership/Ownable.sol";
 
+import "./storage/DrStorage.sol";
+import "./storage/DrConstants.sol";
 
-contract DisasterRiskInsurance is ChainlinkClient, Ownable {
+
+contract DisasterRiskInsurance is ChainlinkClient, Ownable, DrStorage, DrConstants {
     mapping(address => uint256) private fundTrue;
     mapping(address => uint256) private fundFalse;
     uint256 public totalFundTrue;
