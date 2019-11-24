@@ -134,6 +134,7 @@ class App extends Component {
             await disaster_risk_insurance.methods.requestResultOfDisasterRisk().send({ from: this.state.accounts[0], gas: GAS, gasPrice: GAS_PRICE });
             while (true) {
                 const responseEvents = await disaster_risk_insurance.getPastEvents('ChainlinkFulfilled', { fromBlock: lastBlock.number, toBlock: 'latest' });
+                console.log('=== responseEvents ===', responseEvents)
                 if (responseEvents.length !== 0) {
                     break;
                 }
@@ -157,6 +158,7 @@ class App extends Component {
             await this.state.contract.methods.requestResult().send({ from: this.state.accounts[0], gas: GAS, gasPrice: GAS_PRICE });
             while (true) {
                 const responseEvents = await this.state.contract.getPastEvents('ChainlinkFulfilled', { fromBlock: lastBlock.number, toBlock: 'latest' });
+                console.log("=== responseEvents ===", responseEvents);
                 if (responseEvents.length !== 0) {
                     break;
                 }
