@@ -29,6 +29,7 @@ class App extends Component {
 
         //// Disaster Risk Insurance        
         disaster_risk_insurance: null,
+        fundAmount: 0,
 
         //// Honeycomb Example Project
         contract: null, 
@@ -91,6 +92,91 @@ class App extends Component {
         }
     };
 
+
+    /***********************************************************************
+     * Disaster Risk Insurance Project
+     ***********************************************************************/
+    refreshState = async () => {
+        const { disaster_risk_insurance } = this.state;
+
+        const totalFundTrue = await this.state.web3.utils.fromWei(await disaster_risk_insurance.methods.totalFundTrue().call());
+        const totalFundFalse = await this.state.web3.utils.fromWei(await disaster_risk_insurance.methods.totalFundFalse().call());
+
+        const myFundTrue = await this.state.web3.utils.fromWei(await disaster_risk_insurance.methods.getFundAmount(true).call({ from: this.state.accounts[0] }));
+        const myFundFalse = await this.state.web3.utils.fromWei(await disaster_risk_insurance.methods.getFundAmount(false).call({ from: this.state.accounts[0] }));
+
+        const resultReceived = await disaster_risk_insurance.methods.resultReceived().call();
+        const result = await disaster_risk_insurance.methods.result().call();
+
+        var resultMessage;
+        if (resultReceived) {
+            if (result) {
+                resultMessage = "Result is complete fund";
+            }
+            else {
+                resultMessage = "Result is not complete fund";
+            }
+        }
+        else {
+            resultMessage = "Result has not been received yet";
+        }
+
+        this.setState({ totalFundTrue, totalFundFalse, myFundTrue, myFundFalse, resultReceived, result, resultMessage });
+    }
+
+    handleUpdateFundForm = (name, value) => {
+        this.setState({ [name]: value });
+    }
+
+    handleFund = async (fundResultString) => {
+        const { disaster_risk_insurance } = this.state;
+
+        this.setState({ message: 'Placing fund...' });
+
+        var fundResult;
+        if (fundResultString === "true") {
+            fundResult = true;
+        }
+        else if (fundResultString === "false") {
+            fundResult = false;
+        }
+
+        try {
+            await disaster_risk_insurance.methods.fundInsurance(fundResult).send({ from: this.state.accounts[0], value: this.state.web3.utils.toWei(this.state.fundAmount), gas: GAS, gasPrice: GAS_PRICE });
+            this.refreshState();
+            this.setState({ message: 'Fund placed' });
+        } catch (error) {
+            console.error(error);
+            this.setState({ message: 'Failed placing the fund' });
+        }
+    }
+
+    handleRequestResultsOfDisasterRisk = async () => {
+        const { disaster_risk_insurance } = this.state;
+
+        const lastBlock = await this.state.web3.eth.getBlock("latest");
+        this.setState({ message: "Requesting the result from the oracle..." });
+        try {
+            await disaster_risk_insurance.methods.requestResultOfDisasterRisk().send({ from: this.state.accounts[0], gas: GAS, gasPrice: GAS_PRICE });
+            while (true) {
+                const responseEvents = await disaster_risk_insurance.getPastEvents('ChainlinkFulfilled', { fromBlock: lastBlock.number, toBlock: 'latest' });
+                console.log('=== responseEvents ===', responseEvents)
+                if (responseEvents.length !== 0) {
+                    break;
+                }
+            }
+            this.refreshState();
+            this.setState({ message: "The result is delivered" });
+        } catch (error) {
+            console.error(error);
+            this.setState({ message: "Failed getting the result" });
+        }
+    }
+
+
+    /***********************************************************************
+     * Honeycomb Example Project
+     ***********************************************************************/
     refreshState = async () => {
         const totalBetTrue = await this.state.web3.utils.fromWei(await this.state.contract.methods.totalBetTrue().call());
         const totalBetFalse = await this.state.web3.utils.fromWei(await this.state.contract.methods.totalBetFalse().call());
@@ -121,36 +207,6 @@ class App extends Component {
         this.setState({ [name]: value });
     }
 
-
-    /***********************************************************************
-     * Disaster Risk Insurance Project
-     ***********************************************************************/
-    handleRequestResultsOfDisasterRisk = async () => {
-        const { disaster_risk_insurance } = this.state;
-
-        const lastBlock = await this.state.web3.eth.getBlock("latest");
-        this.setState({ message: "Requesting the result from the oracle..." });
-        try {
-            await disaster_risk_insurance.methods.requestResultOfDisasterRisk().send({ from: this.state.accounts[0], gas: GAS, gasPrice: GAS_PRICE });
-            while (true) {
-                const responseEvents = await disaster_risk_insurance.getPastEvents('ChainlinkFulfilled', { fromBlock: lastBlock.number, toBlock: 'latest' });
-                console.log('=== responseEvents ===', responseEvents)
-                if (responseEvents.length !== 0) {
-                    break;
-                }
-            }
-            this.refreshState();
-            this.setState({ message: "The result is delivered" });
-        } catch (error) {
-            console.error(error);
-            this.setState({ message: "Failed getting the result" });
-        }
-    }
-
-
-    /***********************************************************************
-     * Honeycomb Example Project
-     ***********************************************************************/
     handleRequestResults = async () => {
         const lastBlock = await this.state.web3.eth.getBlock("latest");
         this.setState({ message: "Requesting the result from the oracle..." });
@@ -346,6 +402,72 @@ class App extends Component {
                     <Typography variant="h5" style={{ marginTop: 32 }}>
                         {this.state.resultMessage}
                     </Typography>
+
+
+                    <Grid container style={{ marginTop: 32 }}>
+                        <Grid item xs={3}>
+                        <Typography variant="h5">
+                                Fund for insurance
+                            </Typography>
+                        </Grid>
+                        <Grid item xs={3}>
+                            <Typography variant="h5">
+                                1〜5 LINK per month
+                            </Typography>
+                        </Grid>
+                    </Grid>
+
+                    <Grid container style={{ marginTop: 32 }}>
+                        <Grid item xs={3}>
+                            <Typography variant="h5">
+                                {"Total fund"}
+                            </Typography>
+                        </Grid>
+                        <Grid item xs={3}>
+                            <Typography variant="h5">
+                                {`${this.state.totalFundTrue}`}
+                            </Typography>
+                        </Grid>
+                    </Grid>
+
+                    <Grid container>
+                        <Grid item xs={3}>
+                            <Typography variant="h5">
+                                {"This month fund"}
+                            </Typography>
+                        </Grid>
+                        <Grid item xs={3}>
+                            <Typography variant="h5">
+                                {`${this.state.myFundTrue}`}
+                            </Typography>
+                        </Grid>
+                    </Grid>
+
+                    <Grid container style={{ marginTop: 32 }}>
+                        <Grid item xs={3}>
+                            <Typography variant="h5">
+                                {"Fund amount / this month"}
+                            </Typography>
+                        </Grid>
+                        <Grid item xs={6}>
+                            <TextField
+                                id="bet-amount"
+                                className="input"
+                                value={this.state.fundAmount}
+                                onChange={e => this.handleUpdateFundForm('fundAmount', e.target.value)}
+                            />
+                        </Grid>
+                    </Grid>
+
+                    <Grid container style={{ marginTop: 32 }}>
+                        <Grid item xs={3}>
+                        </Grid>
+                        <Grid item xs={3}>
+                            <Button variant="contained" color="primary" onClick={() => this.handleFund("true")}>
+                                Fund amount for this month
+                            </Button>
+                        </Grid>
+                    </Grid>
 
                     <Grid container style={{ marginTop: 32 }}>
                         <Grid item xs={3}>

@@ -5,10 +5,10 @@ import "../node_modules/openzeppelin-solidity/contracts/ownership/Ownable.sol";
 
 
 contract DisasterRiskInsurance is ChainlinkClient, Ownable {
-    mapping(address => uint256) private betsTrue;
-    mapping(address => uint256) private betsFalse;
-    uint256 public totalBetTrue;
-    uint256 public totalBetFalse;
+    mapping(address => uint256) private fundTrue;
+    mapping(address => uint256) private fundFalse;
+    uint256 public totalFundTrue;
+    uint256 public totalFundFalse;
 
     uint256 private oraclePaymentAmount;
     bytes32 private jobId;
@@ -41,7 +41,7 @@ contract DisasterRiskInsurance is ChainlinkClient, Ownable {
         }
         else
         {
-            fundsFalse[msg.sender] += msg.value;
+            fundFalse[msg.sender] += msg.value;
             totalFundFalse += msg.value;
         }
     }
@@ -51,13 +51,13 @@ contract DisasterRiskInsurance is ChainlinkClient, Ownable {
         require(resultReceived, "You cannot withdraw before the result has been received.");
         if (result)
         {
-            msg.sender.transfer(((totalBetTrue + totalBetFalse) * betsTrue[msg.sender]) / totalBetTrue);
-            betsTrue[msg.sender] = 0;
+            msg.sender.transfer(((totalFundTrue + totalFundFalse) * fundTrue[msg.sender]) / totalFundTrue);
+            fundTrue[msg.sender] = 0;
         }
         else
         {
-            msg.sender.transfer(((totalBetTrue + totalBetFalse) * betsFalse[msg.sender]) / totalBetFalse);
-            betsFalse[msg.sender] = 0;
+            msg.sender.transfer(((totalFundTrue + totalFundFalse) * fundFalse[msg.sender]) / totalFundFalse);
+            fundFalse[msg.sender] = 0;
         }
     }
 
@@ -74,15 +74,15 @@ contract DisasterRiskInsurance is ChainlinkClient, Ownable {
         requestId = sendChainlinkRequestTo(chainlinkOracleAddress(), req, oraclePaymentAmount);
     }
 
-    function getBetAmount(bool outcome) external view returns (uint256 betAmount)
+    function getFundAmount(bool outcome) external view returns (uint256 fundAmount)
     {
         if (outcome)
         {
-            betAmount = betsTrue[msg.sender];
+            fundAmount = fundTrue[msg.sender];
         }
         else
         {
-            betAmount = betsFalse[msg.sender];
+            fundAmount = fundFalse[msg.sender];
         }
     }
 
