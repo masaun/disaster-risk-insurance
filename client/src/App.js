@@ -5,6 +5,7 @@ import { ThemeProvider } from '@material-ui/styles';
 // Import json file for artifact
 import HoneycombBetPool from "./contracts/HoneycombBetPool.json";
 import FlightDelayInsurance from "./contracts/FlightDelayInsurance.json";
+import DisasterRiskInsurance from "./contracts/DisasterRiskInsurance.json";
 
 import getWeb3 from "./utils/getWeb3";
 
@@ -24,6 +25,9 @@ class App extends Component {
 
         //// Flight Delay Insurance
         flight_delay_insurance: null,
+
+        //// Disaster Risk Insurance        
+        disaster_risk_insurance: null,
 
         //// Honeycomb Example Project
         contract: null, 
@@ -56,7 +60,13 @@ class App extends Component {
                 deployedNetworkFlightDelayInsurance && deployedNetworkFlightDelayInsurance.address,
             );
 
-            this.setState({ web3, accounts, flight_delay_insurance: flight_delay_insurance, contract: contract });
+            const deployedNetworkDisasterRiskInsurance = DisasterRiskInsurance.networks[networkId];
+            const disaster_risk_insurance = new web3.eth.Contract(
+                DisasterRiskInsurance.abi,
+                deployedNetworkDisasterRiskInsurance && deployedNetworkDisasterRiskInsurance.address,
+            );
+
+            this.setState({ web3, accounts, contract: contract, flight_delay_insurance: flight_delay_insurance, disaster_risk_insurance: disaster_risk_insurance });
 
             window.ethereum.on('accountsChanged', async (accounts) => {
                 const newAccounts = await web3.eth.getAccounts();
@@ -112,17 +122,17 @@ class App extends Component {
 
 
     /***********************************************************************
-     * Flight Delay Insurance Project
+     * Disaster Risk Insurance Project
      ***********************************************************************/
-    handleRequestResultsOfFlightDelay = async () => {
-        const { flight_delay_insurance } = this.state;
+    handleRequestResultsOfDisasterRisk = async () => {
+        const { disaster_risk_insurance } = this.state;
 
         const lastBlock = await this.state.web3.eth.getBlock("latest");
         this.setState({ message: "Requesting the result from the oracle..." });
         try {
-            await flight_delay_insurance.methods.requestResultOfFlightDelay().send({ from: this.state.accounts[0], gas: GAS, gasPrice: GAS_PRICE });
+            await disaster_risk_insurance.methods.requestResultOfDisasterRisk().send({ from: this.state.accounts[0], gas: GAS, gasPrice: GAS_PRICE });
             while (true) {
-                const responseEvents = await flight_delay_insurance.getPastEvents('ChainlinkFulfilled', { fromBlock: lastBlock.number, toBlock: 'latest' });
+                const responseEvents = await disaster_risk_insurance.getPastEvents('ChainlinkFulfilled', { fromBlock: lastBlock.number, toBlock: 'latest' });
                 if (responseEvents.length !== 0) {
                     break;
                 }
@@ -328,7 +338,7 @@ class App extends Component {
                 <div className="App">
                     <HeaderFlightDelay />
                     <Typography variant="h5" style={{ marginTop: 32 }}>
-                        Flight Delay Insurance
+                        Disaster Risk Insurance
                     </Typography>
                     <Typography variant="h5" style={{ marginTop: 32 }}>
                         {this.state.resultMessage}
@@ -338,7 +348,7 @@ class App extends Component {
                         <Grid item xs={3}>
                         </Grid>
                         <Grid item xs={3}>
-                            <Button variant="contained" color="primary" onClick={() => this.handleRequestResultsOfFlightDelay()}>
+                            <Button variant="contained" color="primary" onClick={() => this.handleRequestResultsOfDisasterRisk()}>
                                 Request result
                             </Button>
                         </Grid>
