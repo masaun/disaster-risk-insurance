@@ -31,17 +31,17 @@ contract DisasterRiskInsurance is ChainlinkClient, Ownable {
         oraclePaymentAmount = _oraclePaymentAmount;
     }
 
-    function FundInsurance(bool _fundInsuranceOutcome) external payable
+    function fundInsurance(bool fundOutcome) external payable
     {
-        require(!resultReceived, "You cannot bet after the result has been received.");
-        if (betOutcome)
+        require(!resultReceived, "You cannot fund after the result has been received.");
+        if (fundOutcome)
         {
-            FundTrue[msg.sender] += msg.value;
+            fundTrue[msg.sender] += msg.value;
             totalFundTrue += msg.value;
         }
         else
         {
-            FundsFalse[msg.sender] += msg.value;
+            fundsFalse[msg.sender] += msg.value;
             totalFundFalse += msg.value;
         }
     }
