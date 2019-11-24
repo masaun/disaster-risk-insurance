@@ -2,7 +2,10 @@ import React, { Component } from "react";
 import { Button, Typography, Grid, TextField } from '@material-ui/core';
 import { ThemeProvider } from '@material-ui/styles';
 
+// Import json file for artifact
 import HoneycombBetPool from "./contracts/HoneycombBetPool.json";
+import FlightDelayInsurance from "./contracts/FlightDelayInsurance.json";
+
 import getWeb3 from "./utils/getWeb3";
 
 import { theme } from './utils/theme';
@@ -41,16 +44,16 @@ class App extends Component {
                 throw new Error("Select the Ropsten network from your MetaMask plugin");
             }
 
-            const deployedNetworkFlightDelayInsurance = FlightDelayInsurancel.networks[networkId];
-            const flight_delay_insurance = new web3.eth.Contract(
-                FlightDelayInsurance.abi,
-                deployedNetworkFlightDelayInsurance && deployedNetworkFlightDelayInsurance.address,
-            );
-
             const deployedNetwork = HoneycombBetPool.networks[networkId];
             const contract = new web3.eth.Contract(
                 HoneycombBetPool.abi,
                 deployedNetwork && deployedNetwork.address,
+            );
+
+            const deployedNetworkFlightDelayInsurance = FlightDelayInsurance.networks[networkId];
+            const flight_delay_insurance = new web3.eth.Contract(
+                FlightDelayInsurance.abi,
+                deployedNetworkFlightDelayInsurance && deployedNetworkFlightDelayInsurance.address,
             );
 
             this.setState({ web3, accounts, flight_delay_insurance: flight_delay_insurance, contract: contract });
