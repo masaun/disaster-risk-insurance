@@ -46,7 +46,7 @@ contract DisasterRiskInsurance is ChainlinkClient, Ownable {
         }
     }
 
-    function withdraw() external
+    function withdrawFromFundPool() external
     {
         require(resultReceived, "You cannot withdraw before the result has been received.");
         if (result)

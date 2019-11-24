@@ -96,14 +96,12 @@ class App extends Component {
     /***********************************************************************
      * Disaster Risk Insurance Project
      ***********************************************************************/
-    refreshState = async () => {
+    refreshDisasterState = async () => {
         const { disaster_risk_insurance } = this.state;
 
         const totalFundTrue = await this.state.web3.utils.fromWei(await disaster_risk_insurance.methods.totalFundTrue().call());
-        const totalFundFalse = await this.state.web3.utils.fromWei(await disaster_risk_insurance.methods.totalFundFalse().call());
 
         const myFundTrue = await this.state.web3.utils.fromWei(await disaster_risk_insurance.methods.getFundAmount(true).call({ from: this.state.accounts[0] }));
-        const myFundFalse = await this.state.web3.utils.fromWei(await disaster_risk_insurance.methods.getFundAmount(false).call({ from: this.state.accounts[0] }));
 
         const resultReceived = await disaster_risk_insurance.methods.resultReceived().call();
         const result = await disaster_risk_insurance.methods.result().call();
@@ -121,7 +119,7 @@ class App extends Component {
             resultMessage = "Result has not been received yet";
         }
 
-        this.setState({ totalFundTrue, totalFundFalse, myFundTrue, myFundFalse, resultReceived, result, resultMessage });
+        this.setState({ totalFundTrue, myFundTrue, resultReceived, result, resultMessage });
     }
 
     handleUpdateFundForm = (name, value) => {
@@ -143,7 +141,7 @@ class App extends Component {
 
         try {
             await disaster_risk_insurance.methods.fundInsurance(fundResult).send({ from: this.state.accounts[0], value: this.state.web3.utils.toWei(this.state.fundAmount), gas: GAS, gasPrice: GAS_PRICE });
-            this.refreshState();
+            this.refreshDisasterState();
             this.setState({ message: 'Fund placed' });
         } catch (error) {
             console.error(error);
@@ -165,13 +163,30 @@ class App extends Component {
                     break;
                 }
             }
-            this.refreshState();
+            this.refreshDisasterState();
             this.setState({ message: "The result is delivered" });
         } catch (error) {
             console.error(error);
             this.setState({ message: "Failed getting the result" });
         }
     }
+
+    handleWithdrawFromFundPool = async () => {
+        const { disaster_risk_insurance } = this.state;
+        try {
+            const balanceBefore = await this.state.web3.utils.fromWei(await this.state.web3.eth.getBalance(this.state.accounts[0]));
+            await this.state.contract.methods.withdrawFromFundPool().send({ from: this.state.accounts[0], gas: GAS, gasPrice: GAS_PRICE });
+            const balanceAfter = await this.state.web3.utils.fromWei(await this.state.web3.eth.getBalance(this.state.accounts[0]))
+            this.refreshState();
+            this.setState({ message: `You received ${balanceAfter - balanceBefore} ETH` });
+        }
+        catch (error) {
+            console.error(error);
+            this.setState({ message: "Failed withdrawing" });
+        }
+    }
+
+
 
 
     /***********************************************************************
@@ -232,7 +247,7 @@ class App extends Component {
             const balanceBefore = await this.state.web3.utils.fromWei(await this.state.web3.eth.getBalance(this.state.accounts[0]));
             await this.state.contract.methods.withdraw().send({ from: this.state.accounts[0], gas: GAS, gasPrice: GAS_PRICE });
             const balanceAfter = await this.state.web3.utils.fromWei(await this.state.web3.eth.getBalance(this.state.accounts[0]))
-            this.refreshState();
+            this.refreshDisasterState();
             this.setState({ message: `You received ${balanceAfter - balanceBefore} ETH` });
         }
         catch (error) {
@@ -254,7 +269,7 @@ class App extends Component {
 
         try {
             await this.state.contract.methods.bet(betResult).send({ from: this.state.accounts[0], value: this.state.web3.utils.toWei(this.state.betAmount), gas: GAS, gasPrice: GAS_PRICE });
-            this.refreshState();
+            this.refreshDisasterState();
             this.setState({ message: 'Bet placed' });
         } catch (error) {
             console.error(error);
@@ -478,8 +493,8 @@ class App extends Component {
                             </Button>
                         </Grid>
                         <Grid item xs={3}>
-                            <Button variant="contained" color="primary" onClick={() => this.handleWithdraw()}>
-                                Withdraw winnings
+                            <Button variant="contained" color="primary" onClick={() => this.handleWithdrawFromFundPool()}>
+                                Withdraw from Fund Pool
                             </Button>
                         </Grid>
                     </Grid>
