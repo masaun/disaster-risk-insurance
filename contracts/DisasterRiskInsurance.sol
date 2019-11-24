@@ -4,11 +4,11 @@ import "../node_modules/chainlink/contracts/ChainlinkClient.sol";
 import "../node_modules/openzeppelin-solidity/contracts/ownership/Ownable.sol";
 
 
-contract FlightDelayInsurance is ChainlinkClient, Ownable {
-    mapping(address => uint256) private betsTrue;
-    mapping(address => uint256) private betsFalse;
-    uint256 public totalBetTrue;
-    uint256 public totalBetFalse;
+contract DisasterRiskInsurance is ChainlinkClient, Ownable {
+    mapping(address => uint256) private fundTrue;
+    mapping(address => uint256) private fundFalse;
+    uint256 public totalFundTrue;
+    uint256 public totalFundFalse;
 
     uint256 private oraclePaymentAmount;
     bytes32 private jobId;
@@ -31,59 +31,59 @@ contract FlightDelayInsurance is ChainlinkClient, Ownable {
         oraclePaymentAmount = _oraclePaymentAmount;
     }
 
-    function bet(bool betOutcome) external payable
+    function fundInsurance(bool fundOutcome) external payable
     {
-        require(!resultReceived, "You cannot bet after the result has been received.");
-        if (betOutcome)
+        require(!resultReceived, "You cannot fund after the result has been received.");
+        if (fundOutcome)
         {
-            betsTrue[msg.sender] += msg.value;
-            totalBetTrue += msg.value;
+            fundTrue[msg.sender] += msg.value;
+            totalFundTrue += msg.value;
         }
         else
         {
-            betsFalse[msg.sender] += msg.value;
-            totalBetFalse += msg.value;
+            fundFalse[msg.sender] += msg.value;
+            totalFundFalse += msg.value;
         }
     }
 
-    function withdraw() external
+    function withdrawFromFundPool() external
     {
         require(resultReceived, "You cannot withdraw before the result has been received.");
+
         if (result)
         {
-            msg.sender.transfer(((totalBetTrue + totalBetFalse) * betsTrue[msg.sender]) / totalBetTrue);
-            betsTrue[msg.sender] = 0;
+            msg.sender.transfer(((totalFundTrue + totalFundFalse) * fundTrue[msg.sender]) / totalFundTrue);
+            fundTrue[msg.sender] = 0;
         }
         else
         {
-            msg.sender.transfer(((totalBetTrue + totalBetFalse) * betsFalse[msg.sender]) / totalBetFalse);
-            betsFalse[msg.sender] = 0;
+            msg.sender.transfer(((totalFundTrue + totalFundFalse) * fundFalse[msg.sender]) / totalFundFalse);
+            fundFalse[msg.sender] = 0;
         }
     }
 
     // You probably do not want onlyOwner here
     // But then, you need some mechanism to prevent people from spamming this
-    function requestResultOfFlightDelay() external returns (bytes32 requestId)    // Without onlyOwner
+    function requestResultOfDisasterRisk() external returns (bytes32 requestId)    // Without onlyOwner
     //function requestResult() external onlyOwner returns (bytes32 requestId)
     {
         require(!resultReceived, "The result has already been received.");
         Chainlink.Request memory req = buildChainlinkRequest(jobId, this, this.fulfill.selector);
-        // Using Aviation Edge - Flight schedules API
-        req.add("iataCode", "JFK");
-        req.add("type", "arrival");
-        req.add("copyPath", "0.arrival.scheduledTime");
+        // Using Ipstack - IP geolocation API
+        req.add("ip", "194.199.104.14");
+        req.add("copyPath", "connection.isp");
         requestId = sendChainlinkRequestTo(chainlinkOracleAddress(), req, oraclePaymentAmount);
     }
 
-    function getBetAmount(bool outcome) external view returns (uint256 betAmount)
+    function getFundAmount(bool outcome) external view returns (uint256 fundAmount)
     {
         if (outcome)
         {
-            betAmount = betsTrue[msg.sender];
+            fundAmount = fundTrue[msg.sender];
         }
         else
         {
-            betAmount = betsFalse[msg.sender];
+            fundAmount = fundFalse[msg.sender];
         }
     }
 
@@ -92,7 +92,7 @@ contract FlightDelayInsurance is ChainlinkClient, Ownable {
     recordChainlinkFulfillment(_requestId)
     {
         resultReceived = true;
-        if (data == 6)
+        if (data > 0)
         {
             result = true;
         }

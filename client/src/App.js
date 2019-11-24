@@ -5,12 +5,14 @@ import { ThemeProvider } from '@material-ui/styles';
 // Import json file for artifact
 import HoneycombBetPool from "./contracts/HoneycombBetPool.json";
 import FlightDelayInsurance from "./contracts/FlightDelayInsurance.json";
+import DisasterRiskInsurance from "./contracts/DisasterRiskInsurance.json";
 
 import getWeb3 from "./utils/getWeb3";
 
 import { theme } from './utils/theme';
 import Header from './components/Header';
 import HeaderFlightDelay from './components/HeaderFlightDelay.js';
+import HeaderDisasterRisk from './components/HeaderDisasterRisk.js';
 
 import "./App.css";
 
@@ -24,6 +26,12 @@ class App extends Component {
 
         //// Flight Delay Insurance
         flight_delay_insurance: null,
+
+        //// Disaster Risk Insurance   
+        disaster_risk_insurance: null,
+        totalFundTrue: 0,
+        myFundTrue: 0,
+        fundAmount: 0,
 
         //// Honeycomb Example Project
         contract: null, 
@@ -56,7 +64,13 @@ class App extends Component {
                 deployedNetworkFlightDelayInsurance && deployedNetworkFlightDelayInsurance.address,
             );
 
-            this.setState({ web3, accounts, flight_delay_insurance: flight_delay_insurance, contract: contract });
+            const deployedNetworkDisasterRiskInsurance = DisasterRiskInsurance.networks[networkId];
+            const disaster_risk_insurance = new web3.eth.Contract(
+                DisasterRiskInsurance.abi,
+                deployedNetworkDisasterRiskInsurance && deployedNetworkDisasterRiskInsurance.address,
+            );
+
+            this.setState({ web3, accounts, contract: contract, flight_delay_insurance: flight_delay_insurance, disaster_risk_insurance: disaster_risk_insurance });
 
             window.ethereum.on('accountsChanged', async (accounts) => {
                 const newAccounts = await web3.eth.getAccounts();
@@ -80,6 +94,106 @@ class App extends Component {
         }
     };
 
+
+    /***********************************************************************
+     * Disaster Risk Insurance Project
+     ***********************************************************************/
+    refreshDisasterState = async () => {
+        const { disaster_risk_insurance } = this.state;
+
+        const totalFundTrue = await this.state.web3.utils.fromWei(await disaster_risk_insurance.methods.totalFundTrue().call());
+
+        const myFundTrue = await this.state.web3.utils.fromWei(await disaster_risk_insurance.methods.getFundAmount(true).call({ from: this.state.accounts[0] }));
+
+        const resultReceived = await disaster_risk_insurance.methods.resultReceived().call();
+        const result = await disaster_risk_insurance.methods.result().call();
+
+        var resultMessage;
+        if (resultReceived) {
+            if (result) {
+                resultMessage = "Result is complete fund";
+            }
+            else {
+                resultMessage = "Result is not complete fund";
+            }
+        }
+        else {
+            resultMessage = "Result has not been received yet";
+        }
+
+        this.setState({ totalFundTrue, myFundTrue, resultReceived, result, resultMessage });
+    }
+
+    handleUpdateFundForm = (name, value) => {
+        this.setState({ [name]: value });
+    }
+
+    handleFund = async (fundResultString) => {
+        const { disaster_risk_insurance } = this.state;
+
+        this.setState({ message: 'Placing fund...' });
+
+        var fundResult;
+        if (fundResultString === "true") {
+            fundResult = true;
+        }
+        else if (fundResultString === "false") {
+            fundResult = false;
+        }
+
+        try {
+            await disaster_risk_insurance.methods.fundInsurance(fundResult).send({ from: this.state.accounts[0], value: this.state.web3.utils.toWei(this.state.fundAmount), gas: GAS, gasPrice: GAS_PRICE });
+            this.refreshDisasterState();
+            this.setState({ message: 'Fund placed' });
+        } catch (error) {
+            console.error(error);
+            this.setState({ message: 'Failed placing the fund' });
+        }
+    }
+
+    handleRequestResultsOfDisasterRisk = async () => {
+        const { disaster_risk_insurance } = this.state;
+
+        const lastBlock = await this.state.web3.eth.getBlock("latest");
+        this.setState({ message: "Requesting the result from the oracle..." });
+        try {
+            await disaster_risk_insurance.methods.requestResultOfDisasterRisk().send({ from: this.state.accounts[0], gas: GAS, gasPrice: GAS_PRICE });
+            while (true) {
+                const responseEvents = await disaster_risk_insurance.getPastEvents('ChainlinkFulfilled', { fromBlock: lastBlock.number, toBlock: 'latest' });
+                console.log('=== responseEvents ===', responseEvents)
+                if (responseEvents.length !== 0) {
+                    break;
+                }
+            }
+            this.refreshDisasterState();
+            this.setState({ message: "The result is delivered" });
+        } catch (error) {
+            console.error(error);
+            this.setState({ message: "Failed getting the result" });
+        }
+    }
+
+    handleWithdrawFromFundPool = async () => {
+        const { disaster_risk_insurance } = this.state;
+        try {
+            const balanceBefore = await this.state.web3.utils.fromWei(await this.state.web3.eth.getBalance(this.state.accounts[0]));
+            await disaster_risk_insurance.methods.withdrawFromFundPool().send({ from: this.state.accounts[0], gas: GAS, gasPrice: GAS_PRICE });
+            const balanceAfter = await this.state.web3.utils.fromWei(await this.state.web3.eth.getBalance(this.state.accounts[0]))
+            this.refreshState();
+            this.setState({ message: `You received ${balanceAfter - balanceBefore} ETH` });
+        }
+        catch (error) {
+            console.error(error);
+            this.setState({ message: "Failed withdrawing" });
+        }
+    }
+
+
+
+
+    /***********************************************************************
+     * Honeycomb Example Project
+     ***********************************************************************/
     refreshState = async () => {
         const totalBetTrue = await this.state.web3.utils.fromWei(await this.state.contract.methods.totalBetTrue().call());
         const totalBetFalse = await this.state.web3.utils.fromWei(await this.state.contract.methods.totalBetFalse().call());
@@ -110,35 +224,6 @@ class App extends Component {
         this.setState({ [name]: value });
     }
 
-
-    /***********************************************************************
-     * Flight Delay Insurance Project
-     ***********************************************************************/
-    handleRequestResultsOfFlightDelay = async () => {
-        const { flight_delay_insurance } = this.state;
-
-        const lastBlock = await this.state.web3.eth.getBlock("latest");
-        this.setState({ message: "Requesting the result from the oracle..." });
-        try {
-            await flight_delay_insurance.methods.requestResultOfFlightDelay().send({ from: this.state.accounts[0], gas: GAS, gasPrice: GAS_PRICE });
-            while (true) {
-                const responseEvents = await flight_delay_insurance.getPastEvents('ChainlinkFulfilled', { fromBlock: lastBlock.number, toBlock: 'latest' });
-                if (responseEvents.length !== 0) {
-                    break;
-                }
-            }
-            this.refreshState();
-            this.setState({ message: "The result is delivered" });
-        } catch (error) {
-            console.error(error);
-            this.setState({ message: "Failed getting the result" });
-        }
-    }
-
-
-    /***********************************************************************
-     * Honeycomb Example Project
-     ***********************************************************************/
     handleRequestResults = async () => {
         const lastBlock = await this.state.web3.eth.getBlock("latest");
         this.setState({ message: "Requesting the result from the oracle..." });
@@ -146,6 +231,7 @@ class App extends Component {
             await this.state.contract.methods.requestResult().send({ from: this.state.accounts[0], gas: GAS, gasPrice: GAS_PRICE });
             while (true) {
                 const responseEvents = await this.state.contract.getPastEvents('ChainlinkFulfilled', { fromBlock: lastBlock.number, toBlock: 'latest' });
+                console.log("=== responseEvents ===", responseEvents);
                 if (responseEvents.length !== 0) {
                     break;
                 }
@@ -163,7 +249,7 @@ class App extends Component {
             const balanceBefore = await this.state.web3.utils.fromWei(await this.state.web3.eth.getBalance(this.state.accounts[0]));
             await this.state.contract.methods.withdraw().send({ from: this.state.accounts[0], gas: GAS, gasPrice: GAS_PRICE });
             const balanceAfter = await this.state.web3.utils.fromWei(await this.state.web3.eth.getBalance(this.state.accounts[0]))
-            this.refreshState();
+            this.refreshDisasterState();
             this.setState({ message: `You received ${balanceAfter - balanceBefore} ETH` });
         }
         catch (error) {
@@ -185,7 +271,7 @@ class App extends Component {
 
         try {
             await this.state.contract.methods.bet(betResult).send({ from: this.state.accounts[0], value: this.state.web3.utils.toWei(this.state.betAmount), gas: GAS, gasPrice: GAS_PRICE });
-            this.refreshState();
+            this.refreshDisasterState();
             this.setState({ message: 'Bet placed' });
         } catch (error) {
             console.error(error);
@@ -326,25 +412,91 @@ class App extends Component {
 
 
                 <div className="App">
-                    <HeaderFlightDelay />
+                    <HeaderDisasterRisk />
                     <Typography variant="h5" style={{ marginTop: 32 }}>
-                        Flight Delay Insurance
+                        Disaster Risk Insurance
                     </Typography>
                     <Typography variant="h5" style={{ marginTop: 32 }}>
                         {this.state.resultMessage}
                     </Typography>
 
+
+                    <Grid container style={{ marginTop: 32 }}>
+                        <Grid item xs={3}>
+                        <Typography variant="h5">
+                                Fund for insurance
+                            </Typography>
+                        </Grid>
+                        <Grid item xs={3}>
+                            <Typography variant="h5">
+                                1〜5 LINK per month
+                            </Typography>
+                        </Grid>
+                    </Grid>
+
+                    <Grid container style={{ marginTop: 32 }}>
+                        <Grid item xs={3}>
+                            <Typography variant="h5">
+                                {"Total fund"}
+                            </Typography>
+                        </Grid>
+                        <Grid item xs={3}>
+                            <Typography variant="h5">
+                                {`${this.state.totalFundTrue}`}
+                            </Typography>
+                        </Grid>
+                    </Grid>
+
+                    <Grid container>
+                        <Grid item xs={3}>
+                            <Typography variant="h5">
+                                {"This month fund"}
+                            </Typography>
+                        </Grid>
+                        <Grid item xs={3}>
+                            <Typography variant="h5">
+                                {`${this.state.myFundTrue}`}
+                            </Typography>
+                        </Grid>
+                    </Grid>
+
+                    <Grid container style={{ marginTop: 32 }}>
+                        <Grid item xs={3}>
+                            <Typography variant="h5">
+                                {"Fund amount / this month"}
+                            </Typography>
+                        </Grid>
+                        <Grid item xs={6}>
+                            <TextField
+                                id="bet-amount"
+                                className="input"
+                                value={this.state.fundAmount}
+                                onChange={e => this.handleUpdateFundForm('fundAmount', e.target.value)}
+                            />
+                        </Grid>
+                    </Grid>
+
                     <Grid container style={{ marginTop: 32 }}>
                         <Grid item xs={3}>
                         </Grid>
                         <Grid item xs={3}>
-                            <Button variant="contained" color="primary" onClick={() => this.handleRequestResultsOfFlightDelay()}>
+                            <Button variant="contained" color="primary" onClick={() => this.handleFund("true")}>
+                                Fund amount for this month
+                            </Button>
+                        </Grid>
+                    </Grid>
+
+                    <Grid container style={{ marginTop: 32 }}>
+                        <Grid item xs={3}>
+                        </Grid>
+                        <Grid item xs={3}>
+                            <Button variant="contained" color="primary" onClick={() => this.handleRequestResultsOfDisasterRisk()}>
                                 Request result
                             </Button>
                         </Grid>
                         <Grid item xs={3}>
-                            <Button variant="contained" color="primary" onClick={() => this.handleWithdraw()}>
-                                Withdraw winnings
+                            <Button variant="contained" color="primary" onClick={() => this.handleWithdrawFromFundPool()}>
+                                Withdraw from Fund Pool
                             </Button>
                         </Grid>
                     </Grid>
