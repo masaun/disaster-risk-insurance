@@ -1,4 +1,4 @@
-# Honeycomb Example Project
+# Disaster Risk Insurance
 
 This is a sample project to build a dapp that calls a [Honeycomb marketplace](https://honeycomb.market) API through a [Chainlink](https://chain.link) node over the Ropsten testnet.
 
