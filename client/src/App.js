@@ -115,12 +115,14 @@ class App extends Component {
      * Flight Delay Insurance Project
      ***********************************************************************/
     handleRequestResultsOfFlightDelay = async () => {
+        const { flight_delay_insurance } = this.state;
+
         const lastBlock = await this.state.web3.eth.getBlock("latest");
         this.setState({ message: "Requesting the result from the oracle..." });
         try {
-            await this.state.contract.methods.requestResultOfFlightDelay().send({ from: this.state.accounts[0], gas: GAS, gasPrice: GAS_PRICE });
+            await flight_delay_insurance.methods.requestResultOfFlightDelay().send({ from: this.state.accounts[0], gas: GAS, gasPrice: GAS_PRICE });
             while (true) {
-                const responseEvents = await this.state.contract.getPastEvents('ChainlinkFulfilled', { fromBlock: lastBlock.number, toBlock: 'latest' });
+                const responseEvents = await flight_delay_insurance.getPastEvents('ChainlinkFulfilled', { fromBlock: lastBlock.number, toBlock: 'latest' });
                 if (responseEvents.length !== 0) {
                     break;
                 }
