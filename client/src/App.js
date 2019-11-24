@@ -27,8 +27,10 @@ class App extends Component {
         //// Flight Delay Insurance
         flight_delay_insurance: null,
 
-        //// Disaster Risk Insurance        
+        //// Disaster Risk Insurance   
         disaster_risk_insurance: null,
+        totalFundTrue: 0,
+        myFundTrue: 0,
         fundAmount: 0,
 
         //// Honeycomb Example Project
@@ -175,7 +177,7 @@ class App extends Component {
         const { disaster_risk_insurance } = this.state;
         try {
             const balanceBefore = await this.state.web3.utils.fromWei(await this.state.web3.eth.getBalance(this.state.accounts[0]));
-            await this.state.contract.methods.withdrawFromFundPool().send({ from: this.state.accounts[0], gas: GAS, gasPrice: GAS_PRICE });
+            await disaster_risk_insurance.methods.withdrawFromFundPool().send({ from: this.state.accounts[0], gas: GAS, gasPrice: GAS_PRICE });
             const balanceAfter = await this.state.web3.utils.fromWei(await this.state.web3.eth.getBalance(this.state.accounts[0]))
             this.refreshState();
             this.setState({ message: `You received ${balanceAfter - balanceBefore} ETH` });

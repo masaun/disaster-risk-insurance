@@ -49,6 +49,7 @@ contract DisasterRiskInsurance is ChainlinkClient, Ownable {
     function withdrawFromFundPool() external
     {
         require(resultReceived, "You cannot withdraw before the result has been received.");
+
         if (result)
         {
             msg.sender.transfer(((totalFundTrue + totalFundFalse) * fundTrue[msg.sender]) / totalFundTrue);
@@ -91,7 +92,7 @@ contract DisasterRiskInsurance is ChainlinkClient, Ownable {
     recordChainlinkFulfillment(_requestId)
     {
         resultReceived = true;
-        if (data == 6)
+        if (data > 0)
         {
             result = true;
         }
