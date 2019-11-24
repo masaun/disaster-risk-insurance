@@ -2,18 +2,33 @@ import React, { Component } from "react";
 import { Button, Typography, Grid, TextField } from '@material-ui/core';
 import { ThemeProvider } from '@material-ui/styles';
 
+// Import json file for artifact
 import HoneycombBetPool from "./contracts/HoneycombBetPool.json";
+import FlightDelayInsurance from "./contracts/FlightDelayInsurance.json";
+
 import getWeb3 from "./utils/getWeb3";
 
 import { theme } from './utils/theme';
 import Header from './components/Header';
+import HeaderFlightDelay from './components/HeaderFlightDelay.js';
+
 import "./App.css";
 
 const GAS = 500000;
 const GAS_PRICE = "20000000000";
 
 class App extends Component {
-    state = { web3: null, accounts: null, contract: null, betAmount: 0 };
+    state = { 
+        web3: null, 
+        accounts: null,
+
+        //// Flight Delay Insurance
+        flight_delay_insurance: null,
+
+        //// Honeycomb Example Project
+        contract: null, 
+        betAmount: 0 
+    };
 
     componentDidMount = async () => {
         try {
@@ -28,13 +43,20 @@ class App extends Component {
             if (networkId !== 3) {
                 throw new Error("Select the Ropsten network from your MetaMask plugin");
             }
+
             const deployedNetwork = HoneycombBetPool.networks[networkId];
             const contract = new web3.eth.Contract(
                 HoneycombBetPool.abi,
                 deployedNetwork && deployedNetwork.address,
             );
 
-            this.setState({ web3, accounts, contract });
+            const deployedNetworkFlightDelayInsurance = FlightDelayInsurance.networks[networkId];
+            const flight_delay_insurance = new web3.eth.Contract(
+                FlightDelayInsurance.abi,
+                deployedNetworkFlightDelayInsurance && deployedNetworkFlightDelayInsurance.address,
+            );
+
+            this.setState({ web3, accounts, flight_delay_insurance: flight_delay_insurance, contract: contract });
 
             window.ethereum.on('accountsChanged', async (accounts) => {
                 const newAccounts = await web3.eth.getAccounts();
@@ -88,6 +110,35 @@ class App extends Component {
         this.setState({ [name]: value });
     }
 
+
+    /***********************************************************************
+     * Flight Delay Insurance Project
+     ***********************************************************************/
+    handleRequestResultsOfFlightDelay = async () => {
+        const { flight_delay_insurance } = this.state;
+
+        const lastBlock = await this.state.web3.eth.getBlock("latest");
+        this.setState({ message: "Requesting the result from the oracle..." });
+        try {
+            await flight_delay_insurance.methods.requestResultOfFlightDelay().send({ from: this.state.accounts[0], gas: GAS, gasPrice: GAS_PRICE });
+            while (true) {
+                const responseEvents = await flight_delay_insurance.getPastEvents('ChainlinkFulfilled', { fromBlock: lastBlock.number, toBlock: 'latest' });
+                if (responseEvents.length !== 0) {
+                    break;
+                }
+            }
+            this.refreshState();
+            this.setState({ message: "The result is delivered" });
+        } catch (error) {
+            console.error(error);
+            this.setState({ message: "Failed getting the result" });
+        }
+    }
+
+
+    /***********************************************************************
+     * Honeycomb Example Project
+     ***********************************************************************/
     handleRequestResults = async () => {
         const lastBlock = await this.state.web3.eth.getBlock("latest");
         this.setState({ message: "Requesting the result from the oracle..." });
@@ -257,12 +308,44 @@ class App extends Component {
                         <Grid item xs={3}>
                             <Button variant="contained" color="primary" onClick={() => this.handleRequestResults()}>
                                 Request result
-                </Button>
+                            </Button>
                         </Grid>
                         <Grid item xs={3}>
                             <Button variant="contained" color="primary" onClick={() => this.handleWithdraw()}>
                                 Withdraw winnings
-              </Button>
+                            </Button>
+                        </Grid>
+                    </Grid>
+
+                    <Typography variant="h5" style={{ marginTop: 32 }}>
+                        {this.state.message}
+                    </Typography>
+                </div>
+
+                <hr />
+
+
+                <div className="App">
+                    <HeaderFlightDelay />
+                    <Typography variant="h5" style={{ marginTop: 32 }}>
+                        Flight Delay Insurance
+                    </Typography>
+                    <Typography variant="h5" style={{ marginTop: 32 }}>
+                        {this.state.resultMessage}
+                    </Typography>
+
+                    <Grid container style={{ marginTop: 32 }}>
+                        <Grid item xs={3}>
+                        </Grid>
+                        <Grid item xs={3}>
+                            <Button variant="contained" color="primary" onClick={() => this.handleRequestResultsOfFlightDelay()}>
+                                Request result
+                            </Button>
+                        </Grid>
+                        <Grid item xs={3}>
+                            <Button variant="contained" color="primary" onClick={() => this.handleWithdraw()}>
+                                Withdraw winnings
+                            </Button>
                         </Grid>
                     </Grid>
 
