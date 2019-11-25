@@ -7267,12 +7267,12 @@
         }
       },
       "links": {},
-      "address": "0x641b783cf0a099590B324ACCa435D1Dea7EC758D",
-      "transactionHash": "0x22207df08d054d905072afe929f454031cad3b6045c8b7cf72e6886891b23bcf"
+      "address": "0x92C74a98b471e4dc811b93E21EFd2E86B04e1B5c",
+      "transactionHash": "0xf1a31a580e357a34e2b76e65dfb5b5fe0877daf24af603c2f71de44a82297d24"
     }
   },
   "schemaVersion": "3.0.19",
-  "updatedAt": "2019-11-25T10:43:04.462Z",
+  "updatedAt": "2019-11-25T10:54:10.451Z",
   "networkType": "ethereum",
   "devdoc": {
     "methods": {

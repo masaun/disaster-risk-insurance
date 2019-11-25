@@ -152,32 +152,41 @@ class App extends Component {
     handleRequestResultsOfDisasterRisk = async () => {
         //const { disaster_risk_insurance } = this.state;
 
-        const lastBlock = await this.state.web3.eth.getBlock("latest");
-        this.setState({ message: "Requesting the result from the oracle..." });
-        try {
-            await this.state.disaster_risk_insurance.methods.requestResultOfDisasterRisk().send({ from: this.state.accounts[0], gas: GAS, gasPrice: GAS_PRICE });
-            //await disaster_risk_insurance.methods.requestResultOfDisasterRisk().send({ from: this.state.accounts[0], gas: GAS, gasPrice: GAS_PRICE });
-            while (true) {
-                const responseEvents = await this.state.disaster_risk_insurance.getPastEvents('ChainlinkFulfilled', { fromBlock: lastBlock.number, toBlock: 'latest' });
-                //const responseEvents = await disaster_risk_insurance.getPastEvents('ChainlinkFulfilled', { fromBlock: lastBlock.number, toBlock: 'latest' });
-                console.log('=== responseEvents ===', responseEvents)
-                if (responseEvents.length !== 0) {
-                    break;
-                }
-            }
+        let isDisaster = true;
 
-            let disaster_risk_insurance = await this.state.disaster_risk_insurance.resultReceived();
-            //let disaster_risk_insurance = await disaster_risk_insurance.resultReceived();
-            let result = await this.state.disaster_risk_insurance.result();
-            //let result = await disaster_risk_insurance.result();
-            console.log(`=== Final result: ${result.toString()} ===`);
+        if (isDisaster == true) {
+          this.setState({ message: "Area of your IP address is area of disaster" })
 
-            this.refreshDisasterState();
-            //this.refreshState();
-            this.setState({ message: "The result is delivered" });
-        } catch (error) {
-            console.error(error);
-            this.setState({ message: "Failed getting the result" });
+          const lastBlock = await this.state.web3.eth.getBlock("latest");
+          this.setState({ message: "Requesting the result from the oracle..." });
+          try {
+              await this.state.disaster_risk_insurance.methods.requestResultOfDisasterRisk().send({ from: this.state.accounts[0], gas: GAS, gasPrice: GAS_PRICE });
+              //await disaster_risk_insurance.methods.requestResultOfDisasterRisk().send({ from: this.state.accounts[0], gas: GAS, gasPrice: GAS_PRICE });
+              while (true) {
+                  const responseEvents = await this.state.disaster_risk_insurance.getPastEvents('ChainlinkFulfilled', { fromBlock: lastBlock.number, toBlock: 'latest' });
+                  //const responseEvents = await disaster_risk_insurance.getPastEvents('ChainlinkFulfilled', { fromBlock: lastBlock.number, toBlock: 'latest' });
+                  console.log('=== responseEvents ===', responseEvents)
+                  if (responseEvents.length !== 0) {
+                      break;
+                  }
+              }
+
+              let disaster_risk_insurance = await this.state.disaster_risk_insurance.resultReceived();
+              //let disaster_risk_insurance = await disaster_risk_insurance.resultReceived();
+              let result = await this.state.disaster_risk_insurance.result();
+              //let result = await disaster_risk_insurance.result();
+              console.log(`=== Final result: ${result.toString()} ===`);
+
+              this.refreshDisasterState();
+              //this.refreshState();
+              this.setState({ message: "The result is delivered" });
+          } catch (error) {
+              console.error(error);
+              this.setState({ message: "Failed getting the result" });
+          }
+
+        } else {
+          this.setState({ message: "Area of your IP address is not area of disaster" })
         }
     }
 

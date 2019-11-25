@@ -6262,12 +6262,13 @@
         }
       },
       "links": {},
-      "address": "0x4F1190668f40b6CD19281673a1eF5855fFeE17fD",
-      "transactionHash": "0xced22c20169baf9415548f312c62745f62c620e73df46bbea9c54e8a3aec14a4"
+      "address": "0x3BB0E0C00Ec2206f5f5Dc603d0e0376608B563C8",
+      "transactionHash": "0xc3a90ee765196fe3bf619df5d8e86357fb68ffdfd7fad59d880d2246b2f04efc"
     }
   },
   "schemaVersion": "3.0.19",
-  "updatedAt": "2019-11-25T10:50:15.053Z",
+  "updatedAt": "2019-11-25T10:56:09.999Z",
+  "networkType": "ethereum",
   "devdoc": {
     "methods": {
       "renounceOwnership()": {
