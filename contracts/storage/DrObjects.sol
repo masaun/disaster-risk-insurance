@@ -5,7 +5,7 @@ contract DrObjects {
 
 	// Beneficiaries of Insurance
 	struct Beneficiary {
-		address addr;      // Wallet address for funding and withdrawing 
+		address walletAddr;      // Wallet address for funding and withdrawing 
 		uint fundAmount;   // Total fund amount of insurance
 		string ipAddress;  // IP adress of beneficiary
 		bool isDisaster;   // Whether beneficiary live around areas of disaster or not

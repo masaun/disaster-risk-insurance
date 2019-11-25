@@ -1,25 +1,25 @@
 {
   "contractName": "DrObjects",
   "abi": [],
-  "metadata": "{\"compiler\":{\"version\":\"0.4.24+commit.e67f0147\"},\"language\":\"Solidity\",\"output\":{\"abi\":[],\"devdoc\":{\"methods\":{}},\"userdoc\":{\"methods\":{}}},\"settings\":{\"compilationTarget\":{\"/Users/unomasanori/projects/DEMO_MVP/Honeycomb_Hackathon/disaster-risk-insurance/contracts/storage/DrObjects.sol\":\"DrObjects\"},\"evmVersion\":\"byzantium\",\"libraries\":{},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"/Users/unomasanori/projects/DEMO_MVP/Honeycomb_Hackathon/disaster-risk-insurance/contracts/storage/DrObjects.sol\":{\"keccak256\":\"0x8076672c7fad857e9a7dcf147964da8ba591767da2a4714fa71d9c41382d6951\",\"urls\":[\"bzzr://578277e784a4e4f0ba02d4ed89c2193a0defb7404c112958ce5fc6636368c9fb\"]}},\"version\":1}",
-  "bytecode": "0x6080604052348015600f57600080fd5b50603580601d6000396000f3006080604052600080fd00a165627a7a72305820b0879924165453ff161c2254f599e0a4e12514afa7e393a7a48b4b8e42bbe80b0029",
-  "deployedBytecode": "0x6080604052600080fd00a165627a7a72305820b0879924165453ff161c2254f599e0a4e12514afa7e393a7a48b4b8e42bbe80b0029",
-  "sourceMap": "27:643:6:-;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;27:643:6;;;;;;;",
-  "deployedSourceMap": "27:643:6:-;;;;;",
-  "source": "pragma solidity ^0.4.24;\n\n\ncontract DrObjects {\n\n\t// Beneficiaries of Insurance\n\tstruct Beneficiary {\n\t\taddress addr;      // Wallet address for funding and withdrawing \n\t\tuint fundAmount;   // Total fund amount of insurance\n\t\tstring ipAddress;  // IP adress of beneficiary\n\t\tbool isDisaster;   // Whether beneficiary live around areas of disaster or not\n\t}\n\t\n\n    // Whether DisasterArea or not\n    struct DisasterArea {\n        string ipAddress;  // IP adress of area\n        bool isDisaster;   // Whether areas is happenn disaster or not\n    }\n    \n\n\n    struct ExampleObject {\n        uint exampleId;\n        string exampleName;\n        address exampleAddr;\n    }\n\n}\n",
+  "metadata": "{\"compiler\":{\"version\":\"0.4.24+commit.e67f0147\"},\"language\":\"Solidity\",\"output\":{\"abi\":[],\"devdoc\":{\"methods\":{}},\"userdoc\":{\"methods\":{}}},\"settings\":{\"compilationTarget\":{\"/Users/unomasanori/projects/DEMO_MVP/Honeycomb_Hackathon/disaster-risk-insurance/contracts/storage/DrObjects.sol\":\"DrObjects\"},\"evmVersion\":\"byzantium\",\"libraries\":{},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"/Users/unomasanori/projects/DEMO_MVP/Honeycomb_Hackathon/disaster-risk-insurance/contracts/storage/DrObjects.sol\":{\"keccak256\":\"0x1d26dbcf9c2eee017b0f0c57ee03313d5dfa9d01d361021b5ed11e1af92d05a9\",\"urls\":[\"bzzr://9439436a07bf59cf5ce978f595e4d31e1e925be3f362eb3b272fac5976dc8487\"]}},\"version\":1}",
+  "bytecode": "0x6080604052348015600f57600080fd5b50603580601d6000396000f3006080604052600080fd00a165627a7a723058201f1df53601463dc48ffbace91ec53e4033e99aff10a7c62e804ca48e83fa8d800029",
+  "deployedBytecode": "0x6080604052600080fd00a165627a7a723058201f1df53601463dc48ffbace91ec53e4033e99aff10a7c62e804ca48e83fa8d800029",
+  "sourceMap": "27:649:7:-;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;27:649:7;;;;;;;",
+  "deployedSourceMap": "27:649:7:-;;;;;",
+  "source": "pragma solidity ^0.4.24;\n\n\ncontract DrObjects {\n\n\t// Beneficiaries of Insurance\n\tstruct Beneficiary {\n\t\taddress walletAddr;      // Wallet address for funding and withdrawing \n\t\tuint fundAmount;   // Total fund amount of insurance\n\t\tstring ipAddress;  // IP adress of beneficiary\n\t\tbool isDisaster;   // Whether beneficiary live around areas of disaster or not\n\t}\n\t\n\n    // Whether DisasterArea or not\n    struct DisasterArea {\n        string ipAddress;  // IP adress of area\n        bool isDisaster;   // Whether areas is happenn disaster or not\n    }\n    \n\n\n    struct ExampleObject {\n        uint exampleId;\n        string exampleName;\n        address exampleAddr;\n    }\n\n}\n",
   "sourcePath": "/Users/unomasanori/projects/DEMO_MVP/Honeycomb_Hackathon/disaster-risk-insurance/contracts/storage/DrObjects.sol",
   "ast": {
     "absolutePath": "/Users/unomasanori/projects/DEMO_MVP/Honeycomb_Hackathon/disaster-risk-insurance/contracts/storage/DrObjects.sol",
     "exportedSymbols": {
       "DrObjects": [
-        871
+        667
       ]
     },
-    "id": 872,
+    "id": 668,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 849,
+        "id": 645,
         "literals": [
           "solidity",
           "^",
@@ -27,7 +27,7 @@
           ".24"
         ],
         "nodeType": "PragmaDirective",
-        "src": "0:24:6"
+        "src": "0:24:7"
       },
       {
         "baseContracts": [],
@@ -35,24 +35,24 @@
         "contractKind": "contract",
         "documentation": null,
         "fullyImplemented": true,
-        "id": 871,
+        "id": 667,
         "linearizedBaseContracts": [
-          871
+          667
         ],
         "name": "DrObjects",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "canonicalName": "DrObjects.Beneficiary",
-            "id": 858,
+            "id": 654,
             "members": [
               {
                 "constant": false,
-                "id": 851,
-                "name": "addr",
+                "id": 647,
+                "name": "walletAddr",
                 "nodeType": "VariableDeclaration",
-                "scope": 858,
-                "src": "104:12:6",
+                "scope": 654,
+                "src": "104:18:7",
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
@@ -60,10 +60,10 @@
                   "typeString": "address"
                 },
                 "typeName": {
-                  "id": 850,
+                  "id": 646,
                   "name": "address",
                   "nodeType": "ElementaryTypeName",
-                  "src": "104:7:6",
+                  "src": "104:7:7",
                   "typeDescriptions": {
                     "typeIdentifier": "t_address",
                     "typeString": "address"
@@ -74,11 +74,11 @@
               },
               {
                 "constant": false,
-                "id": 853,
+                "id": 649,
                 "name": "fundAmount",
                 "nodeType": "VariableDeclaration",
-                "scope": 858,
-                "src": "172:15:6",
+                "scope": 654,
+                "src": "178:15:7",
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
@@ -86,10 +86,10 @@
                   "typeString": "uint256"
                 },
                 "typeName": {
-                  "id": 852,
+                  "id": 648,
                   "name": "uint",
                   "nodeType": "ElementaryTypeName",
-                  "src": "172:4:6",
+                  "src": "178:4:7",
                   "typeDescriptions": {
                     "typeIdentifier": "t_uint256",
                     "typeString": "uint256"
@@ -100,11 +100,11 @@
               },
               {
                 "constant": false,
-                "id": 855,
+                "id": 651,
                 "name": "ipAddress",
                 "nodeType": "VariableDeclaration",
-                "scope": 858,
-                "src": "227:16:6",
+                "scope": 654,
+                "src": "233:16:7",
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
@@ -112,10 +112,10 @@
                   "typeString": "string"
                 },
                 "typeName": {
-                  "id": 854,
+                  "id": 650,
                   "name": "string",
                   "nodeType": "ElementaryTypeName",
-                  "src": "227:6:6",
+                  "src": "233:6:7",
                   "typeDescriptions": {
                     "typeIdentifier": "t_string_storage_ptr",
                     "typeString": "string"
@@ -126,11 +126,11 @@
               },
               {
                 "constant": false,
-                "id": 857,
+                "id": 653,
                 "name": "isDisaster",
                 "nodeType": "VariableDeclaration",
-                "scope": 858,
-                "src": "276:15:6",
+                "scope": 654,
+                "src": "282:15:7",
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
@@ -138,10 +138,10 @@
                   "typeString": "bool"
                 },
                 "typeName": {
-                  "id": 856,
+                  "id": 652,
                   "name": "bool",
                   "nodeType": "ElementaryTypeName",
-                  "src": "276:4:6",
+                  "src": "282:4:7",
                   "typeDescriptions": {
                     "typeIdentifier": "t_bool",
                     "typeString": "bool"
@@ -153,21 +153,21 @@
             ],
             "name": "Beneficiary",
             "nodeType": "StructDefinition",
-            "scope": 871,
-            "src": "81:276:6",
+            "scope": 667,
+            "src": "81:282:7",
             "visibility": "public"
           },
           {
             "canonicalName": "DrObjects.DisasterArea",
-            "id": 863,
+            "id": 659,
             "members": [
               {
                 "constant": false,
-                "id": 860,
+                "id": 656,
                 "name": "ipAddress",
                 "nodeType": "VariableDeclaration",
-                "scope": 863,
-                "src": "430:16:6",
+                "scope": 659,
+                "src": "436:16:7",
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
@@ -175,10 +175,10 @@
                   "typeString": "string"
                 },
                 "typeName": {
-                  "id": 859,
+                  "id": 655,
                   "name": "string",
                   "nodeType": "ElementaryTypeName",
-                  "src": "430:6:6",
+                  "src": "436:6:7",
                   "typeDescriptions": {
                     "typeIdentifier": "t_string_storage_ptr",
                     "typeString": "string"
@@ -189,11 +189,11 @@
               },
               {
                 "constant": false,
-                "id": 862,
+                "id": 658,
                 "name": "isDisaster",
                 "nodeType": "VariableDeclaration",
-                "scope": 863,
-                "src": "478:15:6",
+                "scope": 659,
+                "src": "484:15:7",
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
@@ -201,10 +201,10 @@
                   "typeString": "bool"
                 },
                 "typeName": {
-                  "id": 861,
+                  "id": 657,
                   "name": "bool",
                   "nodeType": "ElementaryTypeName",
-                  "src": "478:4:6",
+                  "src": "484:4:7",
                   "typeDescriptions": {
                     "typeIdentifier": "t_bool",
                     "typeString": "bool"
@@ -216,21 +216,21 @@
             ],
             "name": "DisasterArea",
             "nodeType": "StructDefinition",
-            "scope": 871,
-            "src": "400:146:6",
+            "scope": 667,
+            "src": "406:146:7",
             "visibility": "public"
           },
           {
             "canonicalName": "DrObjects.ExampleObject",
-            "id": 870,
+            "id": 666,
             "members": [
               {
                 "constant": false,
-                "id": 865,
+                "id": 661,
                 "name": "exampleId",
                 "nodeType": "VariableDeclaration",
-                "scope": 870,
-                "src": "589:14:6",
+                "scope": 666,
+                "src": "595:14:7",
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
@@ -238,10 +238,10 @@
                   "typeString": "uint256"
                 },
                 "typeName": {
-                  "id": 864,
+                  "id": 660,
                   "name": "uint",
                   "nodeType": "ElementaryTypeName",
-                  "src": "589:4:6",
+                  "src": "595:4:7",
                   "typeDescriptions": {
                     "typeIdentifier": "t_uint256",
                     "typeString": "uint256"
@@ -252,11 +252,11 @@
               },
               {
                 "constant": false,
-                "id": 867,
+                "id": 663,
                 "name": "exampleName",
                 "nodeType": "VariableDeclaration",
-                "scope": 870,
-                "src": "613:18:6",
+                "scope": 666,
+                "src": "619:18:7",
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
@@ -264,10 +264,10 @@
                   "typeString": "string"
                 },
                 "typeName": {
-                  "id": 866,
+                  "id": 662,
                   "name": "string",
                   "nodeType": "ElementaryTypeName",
-                  "src": "613:6:6",
+                  "src": "619:6:7",
                   "typeDescriptions": {
                     "typeIdentifier": "t_string_storage_ptr",
                     "typeString": "string"
@@ -278,11 +278,11 @@
               },
               {
                 "constant": false,
-                "id": 869,
+                "id": 665,
                 "name": "exampleAddr",
                 "nodeType": "VariableDeclaration",
-                "scope": 870,
-                "src": "641:19:6",
+                "scope": 666,
+                "src": "647:19:7",
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
@@ -290,10 +290,10 @@
                   "typeString": "address"
                 },
                 "typeName": {
-                  "id": 868,
+                  "id": 664,
                   "name": "address",
                   "nodeType": "ElementaryTypeName",
-                  "src": "641:7:6",
+                  "src": "647:7:7",
                   "typeDescriptions": {
                     "typeIdentifier": "t_address",
                     "typeString": "address"
@@ -305,29 +305,29 @@
             ],
             "name": "ExampleObject",
             "nodeType": "StructDefinition",
-            "scope": 871,
-            "src": "558:109:6",
+            "scope": 667,
+            "src": "564:109:7",
             "visibility": "public"
           }
         ],
-        "scope": 872,
-        "src": "27:643:6"
+        "scope": 668,
+        "src": "27:649:7"
       }
     ],
-    "src": "0:671:6"
+    "src": "0:677:7"
   },
   "legacyAST": {
     "absolutePath": "/Users/unomasanori/projects/DEMO_MVP/Honeycomb_Hackathon/disaster-risk-insurance/contracts/storage/DrObjects.sol",
     "exportedSymbols": {
       "DrObjects": [
-        871
+        667
       ]
     },
-    "id": 872,
+    "id": 668,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 849,
+        "id": 645,
         "literals": [
           "solidity",
           "^",
@@ -335,7 +335,7 @@
           ".24"
         ],
         "nodeType": "PragmaDirective",
-        "src": "0:24:6"
+        "src": "0:24:7"
       },
       {
         "baseContracts": [],
@@ -343,24 +343,24 @@
         "contractKind": "contract",
         "documentation": null,
         "fullyImplemented": true,
-        "id": 871,
+        "id": 667,
         "linearizedBaseContracts": [
-          871
+          667
         ],
         "name": "DrObjects",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "canonicalName": "DrObjects.Beneficiary",
-            "id": 858,
+            "id": 654,
             "members": [
               {
                 "constant": false,
-                "id": 851,
-                "name": "addr",
+                "id": 647,
+                "name": "walletAddr",
                 "nodeType": "VariableDeclaration",
-                "scope": 858,
-                "src": "104:12:6",
+                "scope": 654,
+                "src": "104:18:7",
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
@@ -368,10 +368,10 @@
                   "typeString": "address"
                 },
                 "typeName": {
-                  "id": 850,
+                  "id": 646,
                   "name": "address",
                   "nodeType": "ElementaryTypeName",
-                  "src": "104:7:6",
+                  "src": "104:7:7",
                   "typeDescriptions": {
                     "typeIdentifier": "t_address",
                     "typeString": "address"
@@ -382,11 +382,11 @@
               },
               {
                 "constant": false,
-                "id": 853,
+                "id": 649,
                 "name": "fundAmount",
                 "nodeType": "VariableDeclaration",
-                "scope": 858,
-                "src": "172:15:6",
+                "scope": 654,
+                "src": "178:15:7",
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
@@ -394,10 +394,10 @@
                   "typeString": "uint256"
                 },
                 "typeName": {
-                  "id": 852,
+                  "id": 648,
                   "name": "uint",
                   "nodeType": "ElementaryTypeName",
-                  "src": "172:4:6",
+                  "src": "178:4:7",
                   "typeDescriptions": {
                     "typeIdentifier": "t_uint256",
                     "typeString": "uint256"
@@ -408,11 +408,11 @@
               },
               {
                 "constant": false,
-                "id": 855,
+                "id": 651,
                 "name": "ipAddress",
                 "nodeType": "VariableDeclaration",
-                "scope": 858,
-                "src": "227:16:6",
+                "scope": 654,
+                "src": "233:16:7",
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
@@ -420,10 +420,10 @@
                   "typeString": "string"
                 },
                 "typeName": {
-                  "id": 854,
+                  "id": 650,
                   "name": "string",
                   "nodeType": "ElementaryTypeName",
-                  "src": "227:6:6",
+                  "src": "233:6:7",
                   "typeDescriptions": {
                     "typeIdentifier": "t_string_storage_ptr",
                     "typeString": "string"
@@ -434,11 +434,11 @@
               },
               {
                 "constant": false,
-                "id": 857,
+                "id": 653,
                 "name": "isDisaster",
                 "nodeType": "VariableDeclaration",
-                "scope": 858,
-                "src": "276:15:6",
+                "scope": 654,
+                "src": "282:15:7",
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
@@ -446,10 +446,10 @@
                   "typeString": "bool"
                 },
                 "typeName": {
-                  "id": 856,
+                  "id": 652,
                   "name": "bool",
                   "nodeType": "ElementaryTypeName",
-                  "src": "276:4:6",
+                  "src": "282:4:7",
                   "typeDescriptions": {
                     "typeIdentifier": "t_bool",
                     "typeString": "bool"
@@ -461,21 +461,21 @@
             ],
             "name": "Beneficiary",
             "nodeType": "StructDefinition",
-            "scope": 871,
-            "src": "81:276:6",
+            "scope": 667,
+            "src": "81:282:7",
             "visibility": "public"
           },
           {
             "canonicalName": "DrObjects.DisasterArea",
-            "id": 863,
+            "id": 659,
             "members": [
               {
                 "constant": false,
-                "id": 860,
+                "id": 656,
                 "name": "ipAddress",
                 "nodeType": "VariableDeclaration",
-                "scope": 863,
-                "src": "430:16:6",
+                "scope": 659,
+                "src": "436:16:7",
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
@@ -483,10 +483,10 @@
                   "typeString": "string"
                 },
                 "typeName": {
-                  "id": 859,
+                  "id": 655,
                   "name": "string",
                   "nodeType": "ElementaryTypeName",
-                  "src": "430:6:6",
+                  "src": "436:6:7",
                   "typeDescriptions": {
                     "typeIdentifier": "t_string_storage_ptr",
                     "typeString": "string"
@@ -497,11 +497,11 @@
               },
               {
                 "constant": false,
-                "id": 862,
+                "id": 658,
                 "name": "isDisaster",
                 "nodeType": "VariableDeclaration",
-                "scope": 863,
-                "src": "478:15:6",
+                "scope": 659,
+                "src": "484:15:7",
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
@@ -509,10 +509,10 @@
                   "typeString": "bool"
                 },
                 "typeName": {
-                  "id": 861,
+                  "id": 657,
                   "name": "bool",
                   "nodeType": "ElementaryTypeName",
-                  "src": "478:4:6",
+                  "src": "484:4:7",
                   "typeDescriptions": {
                     "typeIdentifier": "t_bool",
                     "typeString": "bool"
@@ -524,21 +524,21 @@
             ],
             "name": "DisasterArea",
             "nodeType": "StructDefinition",
-            "scope": 871,
-            "src": "400:146:6",
+            "scope": 667,
+            "src": "406:146:7",
             "visibility": "public"
           },
           {
             "canonicalName": "DrObjects.ExampleObject",
-            "id": 870,
+            "id": 666,
             "members": [
               {
                 "constant": false,
-                "id": 865,
+                "id": 661,
                 "name": "exampleId",
                 "nodeType": "VariableDeclaration",
-                "scope": 870,
-                "src": "589:14:6",
+                "scope": 666,
+                "src": "595:14:7",
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
@@ -546,10 +546,10 @@
                   "typeString": "uint256"
                 },
                 "typeName": {
-                  "id": 864,
+                  "id": 660,
                   "name": "uint",
                   "nodeType": "ElementaryTypeName",
-                  "src": "589:4:6",
+                  "src": "595:4:7",
                   "typeDescriptions": {
                     "typeIdentifier": "t_uint256",
                     "typeString": "uint256"
@@ -560,11 +560,11 @@
               },
               {
                 "constant": false,
-                "id": 867,
+                "id": 663,
                 "name": "exampleName",
                 "nodeType": "VariableDeclaration",
-                "scope": 870,
-                "src": "613:18:6",
+                "scope": 666,
+                "src": "619:18:7",
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
@@ -572,10 +572,10 @@
                   "typeString": "string"
                 },
                 "typeName": {
-                  "id": 866,
+                  "id": 662,
                   "name": "string",
                   "nodeType": "ElementaryTypeName",
-                  "src": "613:6:6",
+                  "src": "619:6:7",
                   "typeDescriptions": {
                     "typeIdentifier": "t_string_storage_ptr",
                     "typeString": "string"
@@ -586,11 +586,11 @@
               },
               {
                 "constant": false,
-                "id": 869,
+                "id": 665,
                 "name": "exampleAddr",
                 "nodeType": "VariableDeclaration",
-                "scope": 870,
-                "src": "641:19:6",
+                "scope": 666,
+                "src": "647:19:7",
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
@@ -598,10 +598,10 @@
                   "typeString": "address"
                 },
                 "typeName": {
-                  "id": 868,
+                  "id": 664,
                   "name": "address",
                   "nodeType": "ElementaryTypeName",
-                  "src": "641:7:6",
+                  "src": "647:7:7",
                   "typeDescriptions": {
                     "typeIdentifier": "t_address",
                     "typeString": "address"
@@ -613,16 +613,16 @@
             ],
             "name": "ExampleObject",
             "nodeType": "StructDefinition",
-            "scope": 871,
-            "src": "558:109:6",
+            "scope": 667,
+            "src": "564:109:7",
             "visibility": "public"
           }
         ],
-        "scope": 872,
-        "src": "27:643:6"
+        "scope": 668,
+        "src": "27:649:7"
       }
     ],
-    "src": "0:671:6"
+    "src": "0:677:7"
   },
   "compiler": {
     "name": "solc",
@@ -630,7 +630,7 @@
   },
   "networks": {},
   "schemaVersion": "3.0.19",
-  "updatedAt": "2019-11-25T08:33:58.678Z",
+  "updatedAt": "2019-11-25T10:50:15.057Z",
   "devdoc": {
     "methods": {}
   },

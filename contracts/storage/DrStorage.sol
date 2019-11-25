@@ -9,7 +9,7 @@ import "./DrEvents.sol";
 // shared storage
 contract DrStorage is DrObjects, DrEvents, Ownable {
 
-    
+    Beneficiary[] public beneficiaries;
 
     mapping (uint => ExampleObject) examples;
 

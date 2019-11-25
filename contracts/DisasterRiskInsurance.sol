@@ -16,8 +16,8 @@ contract DisasterRiskInsurance is ChainlinkClient, Ownable, DrStorage, DrConstan
     uint256 private oraclePaymentAmount;
     bytes32 private jobId;
 
-    //bool public resultReceived;  // default value is "false"
-    //bool public result;          // default value is "false"
+    bool public resultReceived;  // default value is "false"
+    bool public result;          // default value is "false"
 
     constructor(
         address _link,
