@@ -24,9 +24,6 @@ class App extends Component {
         web3: null, 
         accounts: null,
 
-        //// Flight Delay Insurance
-        flight_delay_insurance: null,
-
         //// Disaster Risk Insurance   
         disaster_risk_insurance: null,
         totalFundTrue: 0,
@@ -58,19 +55,13 @@ class App extends Component {
                 deployedNetwork && deployedNetwork.address,
             );
 
-            const deployedNetworkFlightDelayInsurance = FlightDelayInsurance.networks[networkId];
-            const flight_delay_insurance = new web3.eth.Contract(
-                FlightDelayInsurance.abi,
-                deployedNetworkFlightDelayInsurance && deployedNetworkFlightDelayInsurance.address,
-            );
-
             const deployedNetworkDisasterRiskInsurance = DisasterRiskInsurance.networks[networkId];
             const disaster_risk_insurance = new web3.eth.Contract(
                 DisasterRiskInsurance.abi,
                 deployedNetworkDisasterRiskInsurance && deployedNetworkDisasterRiskInsurance.address,
             );
 
-            this.setState({ web3, accounts, contract: contract, flight_delay_insurance: flight_delay_insurance, disaster_risk_insurance: disaster_risk_insurance });
+            this.setState({ web3, accounts, contract: contract, disaster_risk_insurance: disaster_risk_insurance });
 
             window.ethereum.on('accountsChanged', async (accounts) => {
                 const newAccounts = await web3.eth.getAccounts();

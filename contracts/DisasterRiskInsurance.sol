@@ -9,7 +9,9 @@ import "./storage/DrConstants.sol";
 
 contract DisasterRiskInsurance is ChainlinkClient, Ownable, DrStorage, DrConstants {
     mapping(address => uint256) private fundTrue;
+    mapping(address => uint256) private fundFalse;
     uint256 public totalFundTrue;
+    uint256 public totalFundFalse;
 
     uint256 private oraclePaymentAmount;
     bytes32 private jobId;
@@ -45,9 +47,15 @@ contract DisasterRiskInsurance is ChainlinkClient, Ownable, DrStorage, DrConstan
     function withdrawFromFundPool() external
     {
         //require(resultReceived, "You cannot withdraw before the result has been received.");
-        if (result) {
+        if (result) 
+        {
             msg.sender.transfer(((totalFundTrue) * fundTrue[msg.sender]) / totalFundTrue);
             fundTrue[msg.sender] = 0;
+        }
+        else
+        {
+            msg.sender.transfer(((totalFundTrue + totalFundFalse) * fundFalse[msg.sender]) / totalFundFalse);
+            fundFalse[msg.sender] = 0;
         }
     }
 
