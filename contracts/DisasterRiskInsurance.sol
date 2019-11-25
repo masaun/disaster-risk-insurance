@@ -62,13 +62,14 @@ contract DisasterRiskInsurance is ChainlinkClient, Ownable, DrStorage, DrConstan
 
     // You probably do not want onlyOwner here
     // But then, you need some mechanism to prevent people from spamming this
-    function requestResultOfDisasterRisk() external returns (bytes32 requestId)    // Without onlyOwner
+    function requestResultOfDisasterRisk(string ipAddress) external returns (bytes32 requestId)    // Without onlyOwner
     //function requestResult() external onlyOwner returns (bytes32 requestId)
     {
         //require(!resultReceived, "The result has already been received.");
         Chainlink.Request memory req = buildChainlinkRequest(jobId, this, this.fulfill.selector);
         // Using Ipstack - IP geolocation API
-        req.add("ip", "194.199.104.14");
+        req.add("ip", ipAddress);
+        //req.add("ip", "194.199.104.14");
         req.add("copyPath", "location.capital");
         //req.add("copyPath", "connection.isp");
         requestId = sendChainlinkRequestTo(chainlinkOracleAddress(), req, oraclePaymentAmount);
