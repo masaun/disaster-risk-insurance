@@ -165,6 +165,11 @@ class App extends Component {
                     break;
                 }
             }
+
+            let disaster_risk_insurance = await disaster_risk_insurance.resultReceived();
+            let result = await disaster_risk_insurance.result();
+            console.log(`=== Final result: ${result.toString()} ===`);
+
             this.refreshDisasterState();
             this.setState({ message: "The result is delivered" });
         } catch (error) {
