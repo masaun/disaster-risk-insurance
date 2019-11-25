@@ -16,7 +16,7 @@ contract Beneficiary is Ownable, DrStorage, DrConstants {
         string _ipAddress,  // IP adress of beneficiary
         bool _isDisaster   // Whether beneficiary live around areas of disaster or not
     ) public {
-        Beneficiary memory beneficiary = new Beneficiary({
+        Beneficiary memory beneficiary = Beneficiary({
             walletAddr: _walletAddr,
             fundAmount: _fundAmount,
             ipAddress: _ipAddress,

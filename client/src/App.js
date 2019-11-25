@@ -151,9 +151,19 @@ class App extends Component {
 
     handleRequestResultsOfDisasterRisk = async () => {
         //const { disaster_risk_insurance } = this.state;
+        let ipAddress = "194.199.104.14"
 
-        let isDisaster = true;
+        let ListOfAreaOfDisaster = ["194.199.104.14", "181.199.101.12", "173.124.111.16"]
 
+        /***** Judge area whehter area of disaster or not *****/
+        let isDisaster;
+        if (ListOfAreaOfDisaster.indexOf(ipAddress) !== -1) {
+          isDisaster = true
+        } else {
+          isDisaster = false
+        }
+
+        /***** Execute requestResult method depend on whehter area of disaster or not *****/
         if (isDisaster == true) {
           this.setState({ message: "Area of your IP address is area of disaster" })
 
