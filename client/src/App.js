@@ -125,7 +125,7 @@ class App extends Component {
     }
 
     handleFund = async (fundResultString) => {
-        const { disaster_risk_insurance } = this.state;
+        //const { disaster_risk_insurance } = this.state;
 
         this.setState({ message: 'Placing fund...' });
 
@@ -138,7 +138,8 @@ class App extends Component {
         }
 
         try {
-            await disaster_risk_insurance.methods.fundInsurance(fundResult).send({ from: this.state.accounts[0], value: this.state.web3.utils.toWei(this.state.fundAmount), gas: GAS, gasPrice: GAS_PRICE });
+            await this.state.disaster_risk_insurance.methods.fundInsurance(fundResult).send({ from: this.state.accounts[0], value: this.state.web3.utils.toWei(this.state.fundAmount), gas: GAS, gasPrice: GAS_PRICE });
+            //await disaster_risk_insurance.methods.fundInsurance(fundResult).send({ from: this.state.accounts[0], value: this.state.web3.utils.toWei(this.state.fundAmount), gas: GAS, gasPrice: GAS_PRICE });
             this.refreshState();
             this.setState({ message: 'Fund placed' });
         } catch (error) {
@@ -156,15 +157,18 @@ class App extends Component {
             await this.state.disaster_risk_insurance.methods.requestResultOfDisasterRisk().send({ from: this.state.accounts[0], gas: GAS, gasPrice: GAS_PRICE });
             //await disaster_risk_insurance.methods.requestResultOfDisasterRisk().send({ from: this.state.accounts[0], gas: GAS, gasPrice: GAS_PRICE });
             while (true) {
-                const responseEvents = await disaster_risk_insurance.getPastEvents('ChainlinkFulfilled', { fromBlock: lastBlock.number, toBlock: 'latest' });
+                const responseEvents = await this.state.disaster_risk_insurance.getPastEvents('ChainlinkFulfilled', { fromBlock: lastBlock.number, toBlock: 'latest' });
+                //const responseEvents = await disaster_risk_insurance.getPastEvents('ChainlinkFulfilled', { fromBlock: lastBlock.number, toBlock: 'latest' });
                 console.log('=== responseEvents ===', responseEvents)
                 if (responseEvents.length !== 0) {
                     break;
                 }
             }
 
-            let disaster_risk_insurance = await disaster_risk_insurance.resultReceived();
-            let result = await disaster_risk_insurance.result();
+            let disaster_risk_insurance = await this.state.disaster_risk_insurance.resultReceived();
+            //let disaster_risk_insurance = await disaster_risk_insurance.resultReceived();
+            let result = await this.state.disaster_risk_insurance.result();
+            //let result = await disaster_risk_insurance.result();
             console.log(`=== Final result: ${result.toString()} ===`);
 
             this.refreshState();
