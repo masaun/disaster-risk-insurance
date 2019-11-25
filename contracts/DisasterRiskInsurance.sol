@@ -11,7 +11,6 @@ contract DisasterRiskInsurance is ChainlinkClient, Ownable, DrStorage, DrConstan
     mapping(address => uint256) private fundTrue;
     mapping(address => uint256) private fundFalse;
     uint256 public totalFundTrue;
-    uint256 public totalFundFalse;
 
     uint256 private oraclePaymentAmount;
     bytes32 private jobId;
