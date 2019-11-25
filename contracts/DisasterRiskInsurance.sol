@@ -60,7 +60,8 @@ contract DisasterRiskInsurance is ChainlinkClient, Ownable, DrStorage, DrConstan
         Chainlink.Request memory req = buildChainlinkRequest(jobId, this, this.fulfill.selector);
         // Using Ipstack - IP geolocation API
         req.add("ip", "194.199.104.14");
-        req.add("copyPath", "connection.isp");
+        req.add("copyPath", "location.capital");
+        //req.add("copyPath", "connection.isp");
         requestId = sendChainlinkRequestTo(chainlinkOracleAddress(), req, oraclePaymentAmount);
     }
 
