@@ -61,7 +61,12 @@ class App extends Component {
                 deployedNetworkDisasterRiskInsurance && deployedNetworkDisasterRiskInsurance.address,
             );
 
-            this.setState({ web3, accounts, contract: contract, disaster_risk_insurance: disaster_risk_insurance });
+            this.setState({ 
+              web3, 
+              accounts, 
+              contract: contract, 
+              disaster_risk_insurance: disaster_risk_insurance 
+            });
 
             window.ethereum.on('accountsChanged', async (accounts) => {
                 const newAccounts = await web3.eth.getAccounts();
@@ -134,7 +139,7 @@ class App extends Component {
 
         try {
             await disaster_risk_insurance.methods.fundInsurance(fundResult).send({ from: this.state.accounts[0], value: this.state.web3.utils.toWei(this.state.fundAmount), gas: GAS, gasPrice: GAS_PRICE });
-            this.refreshDisasterState();
+            this.refreshState();
             this.setState({ message: 'Fund placed' });
         } catch (error) {
             console.error(error);
@@ -143,12 +148,13 @@ class App extends Component {
     }
 
     handleRequestResultsOfDisasterRisk = async () => {
-        const { disaster_risk_insurance } = this.state;
+        //const { disaster_risk_insurance } = this.state;
 
         const lastBlock = await this.state.web3.eth.getBlock("latest");
         this.setState({ message: "Requesting the result from the oracle..." });
         try {
-            await disaster_risk_insurance.methods.requestResultOfDisasterRisk().send({ from: this.state.accounts[0], gas: GAS, gasPrice: GAS_PRICE });
+            await this.state.disaster_risk_insurance.methods.requestResultOfDisasterRisk().send({ from: this.state.accounts[0], gas: GAS, gasPrice: GAS_PRICE });
+            //await disaster_risk_insurance.methods.requestResultOfDisasterRisk().send({ from: this.state.accounts[0], gas: GAS, gasPrice: GAS_PRICE });
             while (true) {
                 const responseEvents = await disaster_risk_insurance.getPastEvents('ChainlinkFulfilled', { fromBlock: lastBlock.number, toBlock: 'latest' });
                 console.log('=== responseEvents ===', responseEvents)
@@ -161,7 +167,7 @@ class App extends Component {
             let result = await disaster_risk_insurance.result();
             console.log(`=== Final result: ${result.toString()} ===`);
 
-            this.refreshDisasterState();
+            this.refreshState();
             this.setState({ message: "The result is delivered" });
         } catch (error) {
             console.error(error);
