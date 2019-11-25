@@ -7267,12 +7267,13 @@
         }
       },
       "links": {},
-      "address": "0x17348ec2c3323aa3271368138E8Dfc4348cD26c3",
-      "transactionHash": "0x74c53477834fb1931ad9dd712118917b198a098254f3d66a4b61888106604c71"
+      "address": "0xa42F6F28d819411D49A9D16639f64287B4a20EE2",
+      "transactionHash": "0x8e089b9d25877f3eea4ce3f41649c910f9dd9e8e9015a7e78cd96d248bc13ff8"
     }
   },
   "schemaVersion": "3.0.19",
-  "updatedAt": "2019-11-25T08:33:58.670Z",
+  "updatedAt": "2019-11-25T08:36:38.899Z",
+  "networkType": "ethereum",
   "devdoc": {
     "methods": {
       "renounceOwnership()": {

@@ -5762,15 +5762,52 @@
           "name": "ChainlinkCancelled",
           "type": "event",
           "signature": "0xe1fe3afa0f7f761ff0a8b89086790efd5140d2907ebd5b7ff6bfcb5e075fd4c5"
+        },
+        "0x07ff8526e13fdecd49a6ee0b0921c0f6677e33fa9ac65246f03f30ebeed6e815": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "name": "requestId",
+              "type": "bytes32"
+            }
+          ],
+          "name": "RequestResultOfDisasterRisk",
+          "type": "event",
+          "signature": "0x07ff8526e13fdecd49a6ee0b0921c0f6677e33fa9ac65246f03f30ebeed6e815"
+        },
+        "0x2298122415ecc14e440cdc23c509865b230e49c8de02993bab3e1a751007fdb8": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "name": "requestId",
+              "type": "bytes32"
+            },
+            {
+              "indexed": false,
+              "name": "exampleName",
+              "type": "string"
+            },
+            {
+              "indexed": false,
+              "name": "exampleAddr",
+              "type": "address"
+            }
+          ],
+          "name": "ExampleEvent",
+          "type": "event",
+          "signature": "0x2298122415ecc14e440cdc23c509865b230e49c8de02993bab3e1a751007fdb8"
         }
       },
       "links": {},
-      "address": "0xB1054A176b34624514396684b63fbaA694476b5A",
-      "transactionHash": "0x24fa0ff8e188367cd23aa43366e9bbcdf56bd21e120963ea281533db7944c84d"
+      "address": "0x13e5e06544a70B2235E3b80cc94925C71724ceaD",
+      "transactionHash": "0xa83dbff99a60207a2a7595860349cf572752dee90c0be0c13ef1663d87c4b1b6"
     }
   },
   "schemaVersion": "3.0.19",
-  "updatedAt": "2019-11-25T08:33:58.655Z",
+  "updatedAt": "2019-11-25T08:38:10.726Z",
+  "networkType": "ethereum",
   "devdoc": {
     "methods": {
       "renounceOwnership()": {

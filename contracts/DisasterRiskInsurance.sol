@@ -34,7 +34,7 @@ contract DisasterRiskInsurance is ChainlinkClient, Ownable, DrStorage, DrConstan
 
     function fundInsurance(bool fundOutcome) external payable
     {
-        require(!resultReceived, "You cannot fund after the result has been received.");
+        //require(!resultReceived, "You cannot fund after the result has been received.");
         if (fundOutcome) {
             fundTrue[msg.sender] += msg.value;
             totalFundTrue += msg.value;
@@ -44,8 +44,7 @@ contract DisasterRiskInsurance is ChainlinkClient, Ownable, DrStorage, DrConstan
 
     function withdrawFromFundPool() external
     {
-        require(resultReceived, "You cannot withdraw before the result has been received.");
-
+        //require(resultReceived, "You cannot withdraw before the result has been received.");
         if (result) {
             msg.sender.transfer(((totalFundTrue) * fundTrue[msg.sender]) / totalFundTrue);
             fundTrue[msg.sender] = 0;
@@ -57,7 +56,7 @@ contract DisasterRiskInsurance is ChainlinkClient, Ownable, DrStorage, DrConstan
     function requestResultOfDisasterRisk() external returns (bytes32 requestId)    // Without onlyOwner
     //function requestResult() external onlyOwner returns (bytes32 requestId)
     {
-        require(!resultReceived, "The result has already been received.");
+        //require(!resultReceived, "The result has already been received.");
         Chainlink.Request memory req = buildChainlinkRequest(jobId, this, this.fulfill.selector);
         // Using Ipstack - IP geolocation API
         req.add("ip", "194.199.104.14");
