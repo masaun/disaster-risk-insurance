@@ -140,7 +140,8 @@ class App extends Component {
         try {
             await this.state.disaster_risk_insurance.methods.fundInsurance(fundResult).send({ from: this.state.accounts[0], value: this.state.web3.utils.toWei(this.state.fundAmount), gas: GAS, gasPrice: GAS_PRICE });
             //await disaster_risk_insurance.methods.fundInsurance(fundResult).send({ from: this.state.accounts[0], value: this.state.web3.utils.toWei(this.state.fundAmount), gas: GAS, gasPrice: GAS_PRICE });
-            this.refreshState();
+            this.refreshDisasterState();
+            //this.refreshState();
             this.setState({ message: 'Fund placed' });
         } catch (error) {
             console.error(error);
@@ -171,7 +172,8 @@ class App extends Component {
             //let result = await disaster_risk_insurance.result();
             console.log(`=== Final result: ${result.toString()} ===`);
 
-            this.refreshState();
+            this.refreshDisasterState();
+            //this.refreshState();
             this.setState({ message: "The result is delivered" });
         } catch (error) {
             console.error(error);
@@ -180,12 +182,15 @@ class App extends Component {
     }
 
     handleWithdrawFromFundPool = async () => {
-        const { disaster_risk_insurance } = this.state;
+        //const { disaster_risk_insurance } = this.state;
         try {
             const balanceBefore = await this.state.web3.utils.fromWei(await this.state.web3.eth.getBalance(this.state.accounts[0]));
-            await disaster_risk_insurance.methods.withdrawFromFundPool().send({ from: this.state.accounts[0], gas: GAS, gasPrice: GAS_PRICE });
+            await this.state.disaster_risk_insurance.methods.withdrawFromFundPool().send({ from: this.state.accounts[0], gas: GAS, gasPrice: GAS_PRICE });
+            //await disaster_risk_insurance.methods.withdrawFromFundPool().send({ from: this.state.accounts[0], gas: GAS, gasPrice: GAS_PRICE });
             const balanceAfter = await this.state.web3.utils.fromWei(await this.state.web3.eth.getBalance(this.state.accounts[0]))
-            this.refreshState();
+
+            this.refreshDisasterState();
+            //this.refreshState();
             this.setState({ message: `You received ${balanceAfter - balanceBefore} ETH` });
         }
         catch (error) {
