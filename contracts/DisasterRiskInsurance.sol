@@ -16,8 +16,8 @@ contract DisasterRiskInsurance is ChainlinkClient, Ownable, DrStorage, DrConstan
     uint256 private oraclePaymentAmount;
     bytes32 private jobId;
 
-    bool public resultReceived;
-    bool public result;
+    //bool public resultReceived;  // default value is "false"
+    //bool public result;          // default value is "false"
 
     constructor(
         address _link,
@@ -44,9 +44,8 @@ contract DisasterRiskInsurance is ChainlinkClient, Ownable, DrStorage, DrConstan
 
     }
 
-    function withdrawFromFundPool() external
-    {
-        //require(resultReceived, "You cannot withdraw before the result has been received.");
+    function withdrawFromFundPool() external {
+        require(resultReceived, "You cannot withdraw before the result has been received.");
         if (result) 
         {
             msg.sender.transfer(((totalFundTrue) * fundTrue[msg.sender]) / totalFundTrue);
@@ -54,8 +53,10 @@ contract DisasterRiskInsurance is ChainlinkClient, Ownable, DrStorage, DrConstan
         }
         else
         {
-            msg.sender.transfer(((totalFundTrue + totalFundFalse) * fundFalse[msg.sender]) / totalFundFalse);
-            fundFalse[msg.sender] = 0;
+            msg.sender.transfer(((totalFundTrue) * fundTrue[msg.sender]) / totalFundTrue);
+            fundTrue[msg.sender] = 0;
+            //msg.sender.transfer(((totalFundTrue + totalFundFalse) * fundFalse[msg.sender]) / totalFundFalse);
+            //fundFalse[msg.sender] = 0;
         }
     }
 

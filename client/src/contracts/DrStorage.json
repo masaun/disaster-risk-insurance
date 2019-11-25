@@ -102,25 +102,25 @@
       "type": "event"
     }
   ],
-  "metadata": "{\"compiler\":{\"version\":\"0.4.24+commit.e67f0147\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"constant\":false,\"inputs\":[],\"name\":\"renounceOwnership\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"_newOwner\",\"type\":\"address\"}],\"name\":\"transferOwnership\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"name\":\"previousOwner\",\"type\":\"address\"}],\"name\":\"OwnershipRenounced\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"name\":\"previousOwner\",\"type\":\"address\"},{\"indexed\":true,\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"OwnershipTransferred\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"name\":\"requestId\",\"type\":\"bytes32\"}],\"name\":\"RequestResultOfDisasterRisk\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"name\":\"requestId\",\"type\":\"bytes32\"},{\"indexed\":false,\"name\":\"exampleName\",\"type\":\"string\"},{\"indexed\":false,\"name\":\"exampleAddr\",\"type\":\"address\"}],\"name\":\"ExampleEvent\",\"type\":\"event\"}],\"devdoc\":{\"methods\":{\"renounceOwnership()\":{\"details\":\"Allows the current owner to relinquish control of the contract.\"},\"transferOwnership(address)\":{\"details\":\"Allows the current owner to transfer control of the contract to a newOwner.\",\"params\":{\"_newOwner\":\"The address to transfer ownership to.\"}}}},\"userdoc\":{\"methods\":{\"renounceOwnership()\":{\"notice\":\"Renouncing to ownership will leave the contract without an owner. It will not be possible to call the functions with the `onlyOwner` modifier anymore.\"}}}},\"settings\":{\"compilationTarget\":{\"/Users/unomasanori/projects/DEMO_MVP/Honeycomb_Hackathon/disaster-risk-insurance/contracts/storage/DrStorage.sol\":\"DrStorage\"},\"evmVersion\":\"byzantium\",\"libraries\":{},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"/Users/unomasanori/projects/DEMO_MVP/Honeycomb_Hackathon/disaster-risk-insurance/contracts/storage/DrEvents.sol\":{\"keccak256\":\"0xae9375bc908383f190ec6a692ba29dc9b9fe7c4708629aae90ba53e74f17e887\",\"urls\":[\"bzzr://5cff7ec729b90401481b4e22adfb146c0cc1df9eeee22ab088cc94a8dfcd44fc\"]},\"/Users/unomasanori/projects/DEMO_MVP/Honeycomb_Hackathon/disaster-risk-insurance/contracts/storage/DrObjects.sol\":{\"keccak256\":\"0x8076672c7fad857e9a7dcf147964da8ba591767da2a4714fa71d9c41382d6951\",\"urls\":[\"bzzr://578277e784a4e4f0ba02d4ed89c2193a0defb7404c112958ce5fc6636368c9fb\"]},\"/Users/unomasanori/projects/DEMO_MVP/Honeycomb_Hackathon/disaster-risk-insurance/contracts/storage/DrStorage.sol\":{\"keccak256\":\"0xee8e2617b38a206579b326b13a5a8cb844c87de2d2cfbcf9c5622a55dc6865f5\",\"urls\":[\"bzzr://a93d3a81d3c6bf68c4b096026732c3821b098c9c620594d75191ca2f9508940c\"]},\"/Users/unomasanori/projects/DEMO_MVP/Honeycomb_Hackathon/disaster-risk-insurance/node_modules/openzeppelin-solidity/contracts/ownership/Ownable.sol\":{\"keccak256\":\"0x84c7090c27cf3657b73d9e26b6b316975fa0bd233b8169f254de0c3b3acfaefc\",\"urls\":[\"bzzr://b983355647976c1daa5de581a1b6a41be9c5adc17cce257b8679649db78f8a11\"]}},\"version\":1}",
-  "bytecode": "0x6080604052336000806101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff1602179055506103c1806100536000396000f300608060405260043610610057576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff168063715018a61461005c5780638da5cb5b14610073578063f2fde38b146100ca575b600080fd5b34801561006857600080fd5b5061007161010d565b005b34801561007f57600080fd5b5061008861020f565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b3480156100d657600080fd5b5061010b600480360381019080803573ffffffffffffffffffffffffffffffffffffffff169060200190929190505050610234565b005b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff1614151561016857600080fd5b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff167ff8df31144d9c2f0f6b59d69b8b98abd5459d07f2742c4df920b25aae33c6482060405160405180910390a260008060006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff160217905550565b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1681565b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff1614151561028f57600080fd5b6102988161029b565b50565b600073ffffffffffffffffffffffffffffffffffffffff168173ffffffffffffffffffffffffffffffffffffffff16141515156102d757600080fd5b8073ffffffffffffffffffffffffffffffffffffffff166000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff167f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e060405160405180910390a3806000806101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff160217905550505600a165627a7a72305820daccbba0e2434acffc700deeb603a996a6783c6887c04e4f1f4da2f4aad4a6a00029",
-  "deployedBytecode": "0x608060405260043610610057576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff168063715018a61461005c5780638da5cb5b14610073578063f2fde38b146100ca575b600080fd5b34801561006857600080fd5b5061007161010d565b005b34801561007f57600080fd5b5061008861020f565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b3480156100d657600080fd5b5061010b600480360381019080803573ffffffffffffffffffffffffffffffffffffffff169060200190929190505050610234565b005b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff1614151561016857600080fd5b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff167ff8df31144d9c2f0f6b59d69b8b98abd5459d07f2742c4df920b25aae33c6482060405160405180910390a260008060006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff160217905550565b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1681565b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff1614151561028f57600080fd5b6102988161029b565b50565b600073ffffffffffffffffffffffffffffffffffffffff168173ffffffffffffffffffffffffffffffffffffffff16141515156102d757600080fd5b8073ffffffffffffffffffffffffffffffffffffffff166000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff167f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e060405160405180910390a3806000806101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff160217905550505600a165627a7a72305820daccbba0e2434acffc700deeb603a996a6783c6887c04e4f1f4da2f4aad4a6a00029",
-  "sourceMap": "181:103:7:-;;;575:10:18;567:5;;:18;;;;;;;;;;;;;;;;;;181:103:7;;;;;;",
-  "deployedSourceMap": "181:103:7:-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;1001:111:18;;8:9:-1;5:2;;;30:1;27;20:12;5:2;1001:111:18;;;;;;238:20;;8:9:-1;5:2;;;30:1;27;20:12;5:2;238:20:18;;;;;;;;;;;;;;;;;;;;;;;;;;;1274:103;;8:9:-1;5:2;;;30:1;27;20:12;5:2;1274:103:18;;;;;;;;;;;;;;;;;;;;;;;;;;;;1001:111;719:5;;;;;;;;;;;705:19;;:10;:19;;;697:28;;;;;;;;1077:5;;;;;;;;;;;1058:25;;;;;;;;;;;;1105:1;1089:5;;:18;;;;;;;;;;;;;;;;;;1001:111::o;238:20::-;;;;;;;;;;;;;:::o;1274:103::-;719:5;;;;;;;;;;;705:19;;:10;:19;;;697:28;;;;;;;;1343:29;1362:9;1343:18;:29::i;:::-;1274:103;:::o;1512:171::-;1603:1;1582:23;;:9;:23;;;;1574:32;;;;;;;;1645:9;1617:38;;1638:5;;;;;;;;;;;1617:38;;;;;;;;;;;;1669:9;1661:5;;:17;;;;;;;;;;;;;;;;;;1512:171;:::o",
-  "source": "pragma solidity ^0.4.24;\n\nimport \"../../node_modules/openzeppelin-solidity/contracts/ownership/Ownable.sol\";\n\nimport \"./DrObjects.sol\";\nimport \"./DrEvents.sol\";\n\n\n// shared storage\ncontract DrStorage is DrObjects, DrEvents, Ownable {\n\n\n    mapping (uint => ExampleObject) examples;\n\n}\n\n",
+  "metadata": "{\"compiler\":{\"version\":\"0.4.24+commit.e67f0147\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"constant\":false,\"inputs\":[],\"name\":\"renounceOwnership\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"_newOwner\",\"type\":\"address\"}],\"name\":\"transferOwnership\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"name\":\"previousOwner\",\"type\":\"address\"}],\"name\":\"OwnershipRenounced\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"name\":\"previousOwner\",\"type\":\"address\"},{\"indexed\":true,\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"OwnershipTransferred\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"name\":\"requestId\",\"type\":\"bytes32\"}],\"name\":\"RequestResultOfDisasterRisk\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"name\":\"requestId\",\"type\":\"bytes32\"},{\"indexed\":false,\"name\":\"exampleName\",\"type\":\"string\"},{\"indexed\":false,\"name\":\"exampleAddr\",\"type\":\"address\"}],\"name\":\"ExampleEvent\",\"type\":\"event\"}],\"devdoc\":{\"methods\":{\"renounceOwnership()\":{\"details\":\"Allows the current owner to relinquish control of the contract.\"},\"transferOwnership(address)\":{\"details\":\"Allows the current owner to transfer control of the contract to a newOwner.\",\"params\":{\"_newOwner\":\"The address to transfer ownership to.\"}}}},\"userdoc\":{\"methods\":{\"renounceOwnership()\":{\"notice\":\"Renouncing to ownership will leave the contract without an owner. It will not be possible to call the functions with the `onlyOwner` modifier anymore.\"}}}},\"settings\":{\"compilationTarget\":{\"/Users/unomasanori/projects/DEMO_MVP/Honeycomb_Hackathon/disaster-risk-insurance/contracts/storage/DrStorage.sol\":\"DrStorage\"},\"evmVersion\":\"byzantium\",\"libraries\":{},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"/Users/unomasanori/projects/DEMO_MVP/Honeycomb_Hackathon/disaster-risk-insurance/contracts/storage/DrEvents.sol\":{\"keccak256\":\"0xae9375bc908383f190ec6a692ba29dc9b9fe7c4708629aae90ba53e74f17e887\",\"urls\":[\"bzzr://5cff7ec729b90401481b4e22adfb146c0cc1df9eeee22ab088cc94a8dfcd44fc\"]},\"/Users/unomasanori/projects/DEMO_MVP/Honeycomb_Hackathon/disaster-risk-insurance/contracts/storage/DrObjects.sol\":{\"keccak256\":\"0x8076672c7fad857e9a7dcf147964da8ba591767da2a4714fa71d9c41382d6951\",\"urls\":[\"bzzr://578277e784a4e4f0ba02d4ed89c2193a0defb7404c112958ce5fc6636368c9fb\"]},\"/Users/unomasanori/projects/DEMO_MVP/Honeycomb_Hackathon/disaster-risk-insurance/contracts/storage/DrStorage.sol\":{\"keccak256\":\"0x3c5e9162bea074287dc718526653105ac32112e0579a436210f6da87bd49f87f\",\"urls\":[\"bzzr://c8186a11dcdcb53626db8dc8ddd65143bab95da134c559849c1b02cbffe74131\"]},\"/Users/unomasanori/projects/DEMO_MVP/Honeycomb_Hackathon/disaster-risk-insurance/node_modules/openzeppelin-solidity/contracts/ownership/Ownable.sol\":{\"keccak256\":\"0x84c7090c27cf3657b73d9e26b6b316975fa0bd233b8169f254de0c3b3acfaefc\",\"urls\":[\"bzzr://b983355647976c1daa5de581a1b6a41be9c5adc17cce257b8679649db78f8a11\"]}},\"version\":1}",
+  "bytecode": "0x6080604052336000806101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff1602179055506103c1806100536000396000f300608060405260043610610057576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff168063715018a61461005c5780638da5cb5b14610073578063f2fde38b146100ca575b600080fd5b34801561006857600080fd5b5061007161010d565b005b34801561007f57600080fd5b5061008861020f565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b3480156100d657600080fd5b5061010b600480360381019080803573ffffffffffffffffffffffffffffffffffffffff169060200190929190505050610234565b005b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff1614151561016857600080fd5b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff167ff8df31144d9c2f0f6b59d69b8b98abd5459d07f2742c4df920b25aae33c6482060405160405180910390a260008060006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff160217905550565b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1681565b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff1614151561028f57600080fd5b6102988161029b565b50565b600073ffffffffffffffffffffffffffffffffffffffff168173ffffffffffffffffffffffffffffffffffffffff16141515156102d757600080fd5b8073ffffffffffffffffffffffffffffffffffffffff166000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff167f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e060405160405180910390a3806000806101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff160217905550505600a165627a7a723058204080e3f9ce6ddb33b041b3efb6241be3d8a815e87d1cd912ee24043374240f580029",
+  "deployedBytecode": "0x608060405260043610610057576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff168063715018a61461005c5780638da5cb5b14610073578063f2fde38b146100ca575b600080fd5b34801561006857600080fd5b5061007161010d565b005b34801561007f57600080fd5b5061008861020f565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b3480156100d657600080fd5b5061010b600480360381019080803573ffffffffffffffffffffffffffffffffffffffff169060200190929190505050610234565b005b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff1614151561016857600080fd5b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff167ff8df31144d9c2f0f6b59d69b8b98abd5459d07f2742c4df920b25aae33c6482060405160405180910390a260008060006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff160217905550565b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1681565b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff1614151561028f57600080fd5b6102988161029b565b50565b600073ffffffffffffffffffffffffffffffffffffffff168173ffffffffffffffffffffffffffffffffffffffff16141515156102d757600080fd5b8073ffffffffffffffffffffffffffffffffffffffff166000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff167f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e060405160405180910390a3806000806101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff160217905550505600a165627a7a723058204080e3f9ce6ddb33b041b3efb6241be3d8a815e87d1cd912ee24043374240f580029",
+  "sourceMap": "181:108:8:-;;;575:10:19;567:5;;:18;;;;;;;;;;;;;;;;;;181:108:8;;;;;;",
+  "deployedSourceMap": "181:108:8:-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;1001:111:19;;8:9:-1;5:2;;;30:1;27;20:12;5:2;1001:111:19;;;;;;238:20;;8:9:-1;5:2;;;30:1;27;20:12;5:2;238:20:19;;;;;;;;;;;;;;;;;;;;;;;;;;;1274:103;;8:9:-1;5:2;;;30:1;27;20:12;5:2;1274:103:19;;;;;;;;;;;;;;;;;;;;;;;;;;;;1001:111;719:5;;;;;;;;;;;705:19;;:10;:19;;;697:28;;;;;;;;1077:5;;;;;;;;;;;1058:25;;;;;;;;;;;;1105:1;1089:5;;:18;;;;;;;;;;;;;;;;;;1001:111::o;238:20::-;;;;;;;;;;;;;:::o;1274:103::-;719:5;;;;;;;;;;;705:19;;:10;:19;;;697:28;;;;;;;;1343:29;1362:9;1343:18;:29::i;:::-;1274:103;:::o;1512:171::-;1603:1;1582:23;;:9;:23;;;;1574:32;;;;;;;;1645:9;1617:38;;1638:5;;;;;;;;;;;1617:38;;;;;;;;;;;;1669:9;1661:5;;:17;;;;;;;;;;;;;;;;;;1512:171;:::o",
+  "source": "pragma solidity ^0.4.24;\n\nimport \"../../node_modules/openzeppelin-solidity/contracts/ownership/Ownable.sol\";\n\nimport \"./DrObjects.sol\";\nimport \"./DrEvents.sol\";\n\n\n// shared storage\ncontract DrStorage is DrObjects, DrEvents, Ownable {\n\n    \n\n    mapping (uint => ExampleObject) examples;\n\n}\n\n",
   "sourcePath": "/Users/unomasanori/projects/DEMO_MVP/Honeycomb_Hackathon/disaster-risk-insurance/contracts/storage/DrStorage.sol",
   "ast": {
     "absolutePath": "/Users/unomasanori/projects/DEMO_MVP/Honeycomb_Hackathon/disaster-risk-insurance/contracts/storage/DrStorage.sol",
     "exportedSymbols": {
       "DrStorage": [
-        887
+        672
       ]
     },
-    "id": 888,
+    "id": 673,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 873,
+        "id": 658,
         "literals": [
           "solidity",
           "^",
@@ -128,38 +128,38 @@
           ".24"
         ],
         "nodeType": "PragmaDirective",
-        "src": "0:24:7"
+        "src": "0:24:8"
       },
       {
         "absolutePath": "/Users/unomasanori/projects/DEMO_MVP/Honeycomb_Hackathon/disaster-risk-insurance/node_modules/openzeppelin-solidity/contracts/ownership/Ownable.sol",
         "file": "../../node_modules/openzeppelin-solidity/contracts/ownership/Ownable.sol",
-        "id": 874,
+        "id": 659,
         "nodeType": "ImportDirective",
-        "scope": 888,
-        "sourceUnit": 2754,
-        "src": "26:82:7",
+        "scope": 673,
+        "sourceUnit": 2539,
+        "src": "26:82:8",
         "symbolAliases": [],
         "unitAlias": ""
       },
       {
         "absolutePath": "/Users/unomasanori/projects/DEMO_MVP/Honeycomb_Hackathon/disaster-risk-insurance/contracts/storage/DrObjects.sol",
         "file": "./DrObjects.sol",
-        "id": 875,
+        "id": 660,
         "nodeType": "ImportDirective",
-        "scope": 888,
-        "sourceUnit": 872,
-        "src": "110:25:7",
+        "scope": 673,
+        "sourceUnit": 657,
+        "src": "110:25:8",
         "symbolAliases": [],
         "unitAlias": ""
       },
       {
         "absolutePath": "/Users/unomasanori/projects/DEMO_MVP/Honeycomb_Hackathon/disaster-risk-insurance/contracts/storage/DrEvents.sol",
         "file": "./DrEvents.sol",
-        "id": 876,
+        "id": 661,
         "nodeType": "ImportDirective",
-        "scope": 888,
-        "sourceUnit": 848,
-        "src": "136:24:7",
+        "scope": 673,
+        "sourceUnit": 633,
+        "src": "136:24:8",
         "symbolAliases": [],
         "unitAlias": ""
       },
@@ -169,115 +169,115 @@
             "arguments": null,
             "baseName": {
               "contractScope": null,
-              "id": 877,
+              "id": 662,
               "name": "DrObjects",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 871,
-              "src": "203:9:7",
+              "referencedDeclaration": 656,
+              "src": "203:9:8",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_DrObjects_$871",
+                "typeIdentifier": "t_contract$_DrObjects_$656",
                 "typeString": "contract DrObjects"
               }
             },
-            "id": 878,
+            "id": 663,
             "nodeType": "InheritanceSpecifier",
-            "src": "203:9:7"
+            "src": "203:9:8"
           },
           {
             "arguments": null,
             "baseName": {
               "contractScope": null,
-              "id": 879,
+              "id": 664,
               "name": "DrEvents",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 847,
-              "src": "214:8:7",
+              "referencedDeclaration": 632,
+              "src": "214:8:8",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_DrEvents_$847",
+                "typeIdentifier": "t_contract$_DrEvents_$632",
                 "typeString": "contract DrEvents"
               }
             },
-            "id": 880,
+            "id": 665,
             "nodeType": "InheritanceSpecifier",
-            "src": "214:8:7"
+            "src": "214:8:8"
           },
           {
             "arguments": null,
             "baseName": {
               "contractScope": null,
-              "id": 881,
+              "id": 666,
               "name": "Ownable",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 2753,
-              "src": "224:7:7",
+              "referencedDeclaration": 2538,
+              "src": "224:7:8",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_Ownable_$2753",
+                "typeIdentifier": "t_contract$_Ownable_$2538",
                 "typeString": "contract Ownable"
               }
             },
-            "id": 882,
+            "id": 667,
             "nodeType": "InheritanceSpecifier",
-            "src": "224:7:7"
+            "src": "224:7:8"
           }
         ],
         "contractDependencies": [
-          847,
-          871,
-          2753
+          632,
+          656,
+          2538
         ],
         "contractKind": "contract",
         "documentation": null,
         "fullyImplemented": true,
-        "id": 887,
+        "id": 672,
         "linearizedBaseContracts": [
-          887,
-          2753,
-          847,
-          871
+          672,
+          2538,
+          632,
+          656
         ],
         "name": "DrStorage",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "constant": false,
-            "id": 886,
+            "id": 671,
             "name": "examples",
             "nodeType": "VariableDeclaration",
-            "scope": 887,
-            "src": "240:40:7",
+            "scope": 672,
+            "src": "245:40:8",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
-              "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_ExampleObject_$870_storage_$",
+              "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_ExampleObject_$655_storage_$",
               "typeString": "mapping(uint256 => struct DrObjects.ExampleObject)"
             },
             "typeName": {
-              "id": 885,
+              "id": 670,
               "keyType": {
-                "id": 883,
+                "id": 668,
                 "name": "uint",
                 "nodeType": "ElementaryTypeName",
-                "src": "249:4:7",
+                "src": "254:4:8",
                 "typeDescriptions": {
                   "typeIdentifier": "t_uint256",
                   "typeString": "uint256"
                 }
               },
               "nodeType": "Mapping",
-              "src": "240:31:7",
+              "src": "245:31:8",
               "typeDescriptions": {
-                "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_ExampleObject_$870_storage_$",
+                "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_ExampleObject_$655_storage_$",
                 "typeString": "mapping(uint256 => struct DrObjects.ExampleObject)"
               },
               "valueType": {
                 "contractScope": null,
-                "id": 884,
+                "id": 669,
                 "name": "ExampleObject",
                 "nodeType": "UserDefinedTypeName",
-                "referencedDeclaration": 870,
-                "src": "257:13:7",
+                "referencedDeclaration": 655,
+                "src": "262:13:8",
                 "typeDescriptions": {
-                  "typeIdentifier": "t_struct$_ExampleObject_$870_storage_ptr",
+                  "typeIdentifier": "t_struct$_ExampleObject_$655_storage_ptr",
                   "typeString": "struct DrObjects.ExampleObject"
                 }
               }
@@ -286,24 +286,24 @@
             "visibility": "internal"
           }
         ],
-        "scope": 888,
-        "src": "181:103:7"
+        "scope": 673,
+        "src": "181:108:8"
       }
     ],
-    "src": "0:286:7"
+    "src": "0:291:8"
   },
   "legacyAST": {
     "absolutePath": "/Users/unomasanori/projects/DEMO_MVP/Honeycomb_Hackathon/disaster-risk-insurance/contracts/storage/DrStorage.sol",
     "exportedSymbols": {
       "DrStorage": [
-        887
+        672
       ]
     },
-    "id": 888,
+    "id": 673,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 873,
+        "id": 658,
         "literals": [
           "solidity",
           "^",
@@ -311,38 +311,38 @@
           ".24"
         ],
         "nodeType": "PragmaDirective",
-        "src": "0:24:7"
+        "src": "0:24:8"
       },
       {
         "absolutePath": "/Users/unomasanori/projects/DEMO_MVP/Honeycomb_Hackathon/disaster-risk-insurance/node_modules/openzeppelin-solidity/contracts/ownership/Ownable.sol",
         "file": "../../node_modules/openzeppelin-solidity/contracts/ownership/Ownable.sol",
-        "id": 874,
+        "id": 659,
         "nodeType": "ImportDirective",
-        "scope": 888,
-        "sourceUnit": 2754,
-        "src": "26:82:7",
+        "scope": 673,
+        "sourceUnit": 2539,
+        "src": "26:82:8",
         "symbolAliases": [],
         "unitAlias": ""
       },
       {
         "absolutePath": "/Users/unomasanori/projects/DEMO_MVP/Honeycomb_Hackathon/disaster-risk-insurance/contracts/storage/DrObjects.sol",
         "file": "./DrObjects.sol",
-        "id": 875,
+        "id": 660,
         "nodeType": "ImportDirective",
-        "scope": 888,
-        "sourceUnit": 872,
-        "src": "110:25:7",
+        "scope": 673,
+        "sourceUnit": 657,
+        "src": "110:25:8",
         "symbolAliases": [],
         "unitAlias": ""
       },
       {
         "absolutePath": "/Users/unomasanori/projects/DEMO_MVP/Honeycomb_Hackathon/disaster-risk-insurance/contracts/storage/DrEvents.sol",
         "file": "./DrEvents.sol",
-        "id": 876,
+        "id": 661,
         "nodeType": "ImportDirective",
-        "scope": 888,
-        "sourceUnit": 848,
-        "src": "136:24:7",
+        "scope": 673,
+        "sourceUnit": 633,
+        "src": "136:24:8",
         "symbolAliases": [],
         "unitAlias": ""
       },
@@ -352,115 +352,115 @@
             "arguments": null,
             "baseName": {
               "contractScope": null,
-              "id": 877,
+              "id": 662,
               "name": "DrObjects",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 871,
-              "src": "203:9:7",
+              "referencedDeclaration": 656,
+              "src": "203:9:8",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_DrObjects_$871",
+                "typeIdentifier": "t_contract$_DrObjects_$656",
                 "typeString": "contract DrObjects"
               }
             },
-            "id": 878,
+            "id": 663,
             "nodeType": "InheritanceSpecifier",
-            "src": "203:9:7"
+            "src": "203:9:8"
           },
           {
             "arguments": null,
             "baseName": {
               "contractScope": null,
-              "id": 879,
+              "id": 664,
               "name": "DrEvents",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 847,
-              "src": "214:8:7",
+              "referencedDeclaration": 632,
+              "src": "214:8:8",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_DrEvents_$847",
+                "typeIdentifier": "t_contract$_DrEvents_$632",
                 "typeString": "contract DrEvents"
               }
             },
-            "id": 880,
+            "id": 665,
             "nodeType": "InheritanceSpecifier",
-            "src": "214:8:7"
+            "src": "214:8:8"
           },
           {
             "arguments": null,
             "baseName": {
               "contractScope": null,
-              "id": 881,
+              "id": 666,
               "name": "Ownable",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 2753,
-              "src": "224:7:7",
+              "referencedDeclaration": 2538,
+              "src": "224:7:8",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_Ownable_$2753",
+                "typeIdentifier": "t_contract$_Ownable_$2538",
                 "typeString": "contract Ownable"
               }
             },
-            "id": 882,
+            "id": 667,
             "nodeType": "InheritanceSpecifier",
-            "src": "224:7:7"
+            "src": "224:7:8"
           }
         ],
         "contractDependencies": [
-          847,
-          871,
-          2753
+          632,
+          656,
+          2538
         ],
         "contractKind": "contract",
         "documentation": null,
         "fullyImplemented": true,
-        "id": 887,
+        "id": 672,
         "linearizedBaseContracts": [
-          887,
-          2753,
-          847,
-          871
+          672,
+          2538,
+          632,
+          656
         ],
         "name": "DrStorage",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "constant": false,
-            "id": 886,
+            "id": 671,
             "name": "examples",
             "nodeType": "VariableDeclaration",
-            "scope": 887,
-            "src": "240:40:7",
+            "scope": 672,
+            "src": "245:40:8",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
-              "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_ExampleObject_$870_storage_$",
+              "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_ExampleObject_$655_storage_$",
               "typeString": "mapping(uint256 => struct DrObjects.ExampleObject)"
             },
             "typeName": {
-              "id": 885,
+              "id": 670,
               "keyType": {
-                "id": 883,
+                "id": 668,
                 "name": "uint",
                 "nodeType": "ElementaryTypeName",
-                "src": "249:4:7",
+                "src": "254:4:8",
                 "typeDescriptions": {
                   "typeIdentifier": "t_uint256",
                   "typeString": "uint256"
                 }
               },
               "nodeType": "Mapping",
-              "src": "240:31:7",
+              "src": "245:31:8",
               "typeDescriptions": {
-                "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_ExampleObject_$870_storage_$",
+                "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_ExampleObject_$655_storage_$",
                 "typeString": "mapping(uint256 => struct DrObjects.ExampleObject)"
               },
               "valueType": {
                 "contractScope": null,
-                "id": 884,
+                "id": 669,
                 "name": "ExampleObject",
                 "nodeType": "UserDefinedTypeName",
-                "referencedDeclaration": 870,
-                "src": "257:13:7",
+                "referencedDeclaration": 655,
+                "src": "262:13:8",
                 "typeDescriptions": {
-                  "typeIdentifier": "t_struct$_ExampleObject_$870_storage_ptr",
+                  "typeIdentifier": "t_struct$_ExampleObject_$655_storage_ptr",
                   "typeString": "struct DrObjects.ExampleObject"
                 }
               }
@@ -469,11 +469,11 @@
             "visibility": "internal"
           }
         ],
-        "scope": 888,
-        "src": "181:103:7"
+        "scope": 673,
+        "src": "181:108:8"
       }
     ],
-    "src": "0:286:7"
+    "src": "0:291:8"
   },
   "compiler": {
     "name": "solc",
@@ -481,7 +481,7 @@
   },
   "networks": {},
   "schemaVersion": "3.0.19",
-  "updatedAt": "2019-11-25T08:33:58.679Z",
+  "updatedAt": "2019-11-25T10:40:44.351Z",
   "devdoc": {
     "methods": {
       "renounceOwnership()": {
