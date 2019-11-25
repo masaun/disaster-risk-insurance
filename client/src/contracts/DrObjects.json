@@ -1,0 +1,640 @@
+{
+  "contractName": "DrObjects",
+  "abi": [],
+  "metadata": "{\"compiler\":{\"version\":\"0.4.24+commit.e67f0147\"},\"language\":\"Solidity\",\"output\":{\"abi\":[],\"devdoc\":{\"methods\":{}},\"userdoc\":{\"methods\":{}}},\"settings\":{\"compilationTarget\":{\"/Users/unomasanori/projects/DEMO_MVP/Honeycomb_Hackathon/disaster-risk-insurance/contracts/storage/DrObjects.sol\":\"DrObjects\"},\"evmVersion\":\"byzantium\",\"libraries\":{},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"/Users/unomasanori/projects/DEMO_MVP/Honeycomb_Hackathon/disaster-risk-insurance/contracts/storage/DrObjects.sol\":{\"keccak256\":\"0x1d26dbcf9c2eee017b0f0c57ee03313d5dfa9d01d361021b5ed11e1af92d05a9\",\"urls\":[\"bzzr://9439436a07bf59cf5ce978f595e4d31e1e925be3f362eb3b272fac5976dc8487\"]}},\"version\":1}",
+  "bytecode": "0x6080604052348015600f57600080fd5b50603580601d6000396000f3006080604052600080fd00a165627a7a723058201f1df53601463dc48ffbace91ec53e4033e99aff10a7c62e804ca48e83fa8d800029",
+  "deployedBytecode": "0x6080604052600080fd00a165627a7a723058201f1df53601463dc48ffbace91ec53e4033e99aff10a7c62e804ca48e83fa8d800029",
+  "sourceMap": "27:649:7:-;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;27:649:7;;;;;;;",
+  "deployedSourceMap": "27:649:7:-;;;;;",
+  "source": "pragma solidity ^0.4.24;\n\n\ncontract DrObjects {\n\n\t// Beneficiaries of Insurance\n\tstruct Beneficiary {\n\t\taddress walletAddr;      // Wallet address for funding and withdrawing \n\t\tuint fundAmount;   // Total fund amount of insurance\n\t\tstring ipAddress;  // IP adress of beneficiary\n\t\tbool isDisaster;   // Whether beneficiary live around areas of disaster or not\n\t}\n\t\n\n    // Whether DisasterArea or not\n    struct DisasterArea {\n        string ipAddress;  // IP adress of area\n        bool isDisaster;   // Whether areas is happenn disaster or not\n    }\n    \n\n\n    struct ExampleObject {\n        uint exampleId;\n        string exampleName;\n        address exampleAddr;\n    }\n\n}\n",
+  "sourcePath": "/Users/unomasanori/projects/DEMO_MVP/Honeycomb_Hackathon/disaster-risk-insurance/contracts/storage/DrObjects.sol",
+  "ast": {
+    "absolutePath": "/Users/unomasanori/projects/DEMO_MVP/Honeycomb_Hackathon/disaster-risk-insurance/contracts/storage/DrObjects.sol",
+    "exportedSymbols": {
+      "DrObjects": [
+        667
+      ]
+    },
+    "id": 668,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 645,
+        "literals": [
+          "solidity",
+          "^",
+          "0.4",
+          ".24"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "0:24:7"
+      },
+      {
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "documentation": null,
+        "fullyImplemented": true,
+        "id": 667,
+        "linearizedBaseContracts": [
+          667
+        ],
+        "name": "DrObjects",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "canonicalName": "DrObjects.Beneficiary",
+            "id": 654,
+            "members": [
+              {
+                "constant": false,
+                "id": 647,
+                "name": "walletAddr",
+                "nodeType": "VariableDeclaration",
+                "scope": 654,
+                "src": "104:18:7",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_address",
+                  "typeString": "address"
+                },
+                "typeName": {
+                  "id": 646,
+                  "name": "address",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "104:7:7",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 649,
+                "name": "fundAmount",
+                "nodeType": "VariableDeclaration",
+                "scope": 654,
+                "src": "178:15:7",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint256",
+                  "typeString": "uint256"
+                },
+                "typeName": {
+                  "id": 648,
+                  "name": "uint",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "178:4:7",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 651,
+                "name": "ipAddress",
+                "nodeType": "VariableDeclaration",
+                "scope": 654,
+                "src": "233:16:7",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_string_storage_ptr",
+                  "typeString": "string"
+                },
+                "typeName": {
+                  "id": 650,
+                  "name": "string",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "233:6:7",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_storage_ptr",
+                    "typeString": "string"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 653,
+                "name": "isDisaster",
+                "nodeType": "VariableDeclaration",
+                "scope": 654,
+                "src": "282:15:7",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_bool",
+                  "typeString": "bool"
+                },
+                "typeName": {
+                  "id": 652,
+                  "name": "bool",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "282:4:7",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bool",
+                    "typeString": "bool"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              }
+            ],
+            "name": "Beneficiary",
+            "nodeType": "StructDefinition",
+            "scope": 667,
+            "src": "81:282:7",
+            "visibility": "public"
+          },
+          {
+            "canonicalName": "DrObjects.DisasterArea",
+            "id": 659,
+            "members": [
+              {
+                "constant": false,
+                "id": 656,
+                "name": "ipAddress",
+                "nodeType": "VariableDeclaration",
+                "scope": 659,
+                "src": "436:16:7",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_string_storage_ptr",
+                  "typeString": "string"
+                },
+                "typeName": {
+                  "id": 655,
+                  "name": "string",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "436:6:7",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_storage_ptr",
+                    "typeString": "string"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 658,
+                "name": "isDisaster",
+                "nodeType": "VariableDeclaration",
+                "scope": 659,
+                "src": "484:15:7",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_bool",
+                  "typeString": "bool"
+                },
+                "typeName": {
+                  "id": 657,
+                  "name": "bool",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "484:4:7",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bool",
+                    "typeString": "bool"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              }
+            ],
+            "name": "DisasterArea",
+            "nodeType": "StructDefinition",
+            "scope": 667,
+            "src": "406:146:7",
+            "visibility": "public"
+          },
+          {
+            "canonicalName": "DrObjects.ExampleObject",
+            "id": 666,
+            "members": [
+              {
+                "constant": false,
+                "id": 661,
+                "name": "exampleId",
+                "nodeType": "VariableDeclaration",
+                "scope": 666,
+                "src": "595:14:7",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint256",
+                  "typeString": "uint256"
+                },
+                "typeName": {
+                  "id": 660,
+                  "name": "uint",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "595:4:7",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 663,
+                "name": "exampleName",
+                "nodeType": "VariableDeclaration",
+                "scope": 666,
+                "src": "619:18:7",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_string_storage_ptr",
+                  "typeString": "string"
+                },
+                "typeName": {
+                  "id": 662,
+                  "name": "string",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "619:6:7",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_storage_ptr",
+                    "typeString": "string"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 665,
+                "name": "exampleAddr",
+                "nodeType": "VariableDeclaration",
+                "scope": 666,
+                "src": "647:19:7",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_address",
+                  "typeString": "address"
+                },
+                "typeName": {
+                  "id": 664,
+                  "name": "address",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "647:7:7",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              }
+            ],
+            "name": "ExampleObject",
+            "nodeType": "StructDefinition",
+            "scope": 667,
+            "src": "564:109:7",
+            "visibility": "public"
+          }
+        ],
+        "scope": 668,
+        "src": "27:649:7"
+      }
+    ],
+    "src": "0:677:7"
+  },
+  "legacyAST": {
+    "absolutePath": "/Users/unomasanori/projects/DEMO_MVP/Honeycomb_Hackathon/disaster-risk-insurance/contracts/storage/DrObjects.sol",
+    "exportedSymbols": {
+      "DrObjects": [
+        667
+      ]
+    },
+    "id": 668,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 645,
+        "literals": [
+          "solidity",
+          "^",
+          "0.4",
+          ".24"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "0:24:7"
+      },
+      {
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "documentation": null,
+        "fullyImplemented": true,
+        "id": 667,
+        "linearizedBaseContracts": [
+          667
+        ],
+        "name": "DrObjects",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "canonicalName": "DrObjects.Beneficiary",
+            "id": 654,
+            "members": [
+              {
+                "constant": false,
+                "id": 647,
+                "name": "walletAddr",
+                "nodeType": "VariableDeclaration",
+                "scope": 654,
+                "src": "104:18:7",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_address",
+                  "typeString": "address"
+                },
+                "typeName": {
+                  "id": 646,
+                  "name": "address",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "104:7:7",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 649,
+                "name": "fundAmount",
+                "nodeType": "VariableDeclaration",
+                "scope": 654,
+                "src": "178:15:7",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint256",
+                  "typeString": "uint256"
+                },
+                "typeName": {
+                  "id": 648,
+                  "name": "uint",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "178:4:7",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 651,
+                "name": "ipAddress",
+                "nodeType": "VariableDeclaration",
+                "scope": 654,
+                "src": "233:16:7",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_string_storage_ptr",
+                  "typeString": "string"
+                },
+                "typeName": {
+                  "id": 650,
+                  "name": "string",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "233:6:7",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_storage_ptr",
+                    "typeString": "string"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 653,
+                "name": "isDisaster",
+                "nodeType": "VariableDeclaration",
+                "scope": 654,
+                "src": "282:15:7",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_bool",
+                  "typeString": "bool"
+                },
+                "typeName": {
+                  "id": 652,
+                  "name": "bool",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "282:4:7",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bool",
+                    "typeString": "bool"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              }
+            ],
+            "name": "Beneficiary",
+            "nodeType": "StructDefinition",
+            "scope": 667,
+            "src": "81:282:7",
+            "visibility": "public"
+          },
+          {
+            "canonicalName": "DrObjects.DisasterArea",
+            "id": 659,
+            "members": [
+              {
+                "constant": false,
+                "id": 656,
+                "name": "ipAddress",
+                "nodeType": "VariableDeclaration",
+                "scope": 659,
+                "src": "436:16:7",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_string_storage_ptr",
+                  "typeString": "string"
+                },
+                "typeName": {
+                  "id": 655,
+                  "name": "string",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "436:6:7",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_storage_ptr",
+                    "typeString": "string"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 658,
+                "name": "isDisaster",
+                "nodeType": "VariableDeclaration",
+                "scope": 659,
+                "src": "484:15:7",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_bool",
+                  "typeString": "bool"
+                },
+                "typeName": {
+                  "id": 657,
+                  "name": "bool",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "484:4:7",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bool",
+                    "typeString": "bool"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              }
+            ],
+            "name": "DisasterArea",
+            "nodeType": "StructDefinition",
+            "scope": 667,
+            "src": "406:146:7",
+            "visibility": "public"
+          },
+          {
+            "canonicalName": "DrObjects.ExampleObject",
+            "id": 666,
+            "members": [
+              {
+                "constant": false,
+                "id": 661,
+                "name": "exampleId",
+                "nodeType": "VariableDeclaration",
+                "scope": 666,
+                "src": "595:14:7",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint256",
+                  "typeString": "uint256"
+                },
+                "typeName": {
+                  "id": 660,
+                  "name": "uint",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "595:4:7",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 663,
+                "name": "exampleName",
+                "nodeType": "VariableDeclaration",
+                "scope": 666,
+                "src": "619:18:7",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_string_storage_ptr",
+                  "typeString": "string"
+                },
+                "typeName": {
+                  "id": 662,
+                  "name": "string",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "619:6:7",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_storage_ptr",
+                    "typeString": "string"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 665,
+                "name": "exampleAddr",
+                "nodeType": "VariableDeclaration",
+                "scope": 666,
+                "src": "647:19:7",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_address",
+                  "typeString": "address"
+                },
+                "typeName": {
+                  "id": 664,
+                  "name": "address",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "647:7:7",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              }
+            ],
+            "name": "ExampleObject",
+            "nodeType": "StructDefinition",
+            "scope": 667,
+            "src": "564:109:7",
+            "visibility": "public"
+          }
+        ],
+        "scope": 668,
+        "src": "27:649:7"
+      }
+    ],
+    "src": "0:677:7"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.4.24+commit.e67f0147.Emscripten.clang"
+  },
+  "networks": {},
+  "schemaVersion": "3.0.19",
+  "updatedAt": "2019-11-25T10:50:15.057Z",
+  "devdoc": {
+    "methods": {}
+  },
+  "userdoc": {
+    "methods": {}
+  }
+}

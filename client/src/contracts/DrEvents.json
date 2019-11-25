@@ -1,0 +1,417 @@
+{
+  "contractName": "DrEvents",
+  "abi": [
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "name": "requestId",
+          "type": "bytes32"
+        }
+      ],
+      "name": "RequestResultOfDisasterRisk",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "name": "requestId",
+          "type": "bytes32"
+        },
+        {
+          "indexed": false,
+          "name": "exampleName",
+          "type": "string"
+        },
+        {
+          "indexed": false,
+          "name": "exampleAddr",
+          "type": "address"
+        }
+      ],
+      "name": "ExampleEvent",
+      "type": "event"
+    }
+  ],
+  "metadata": "{\"compiler\":{\"version\":\"0.4.24+commit.e67f0147\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"name\":\"requestId\",\"type\":\"bytes32\"}],\"name\":\"RequestResultOfDisasterRisk\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"name\":\"requestId\",\"type\":\"bytes32\"},{\"indexed\":false,\"name\":\"exampleName\",\"type\":\"string\"},{\"indexed\":false,\"name\":\"exampleAddr\",\"type\":\"address\"}],\"name\":\"ExampleEvent\",\"type\":\"event\"}],\"devdoc\":{\"methods\":{}},\"userdoc\":{\"methods\":{}}},\"settings\":{\"compilationTarget\":{\"/Users/unomasanori/projects/DEMO_MVP/Honeycomb_Hackathon/disaster-risk-insurance/contracts/storage/DrEvents.sol\":\"DrEvents\"},\"evmVersion\":\"byzantium\",\"libraries\":{},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"/Users/unomasanori/projects/DEMO_MVP/Honeycomb_Hackathon/disaster-risk-insurance/contracts/storage/DrEvents.sol\":{\"keccak256\":\"0xae9375bc908383f190ec6a692ba29dc9b9fe7c4708629aae90ba53e74f17e887\",\"urls\":[\"bzzr://5cff7ec729b90401481b4e22adfb146c0cc1df9eeee22ab088cc94a8dfcd44fc\"]}},\"version\":1}",
+  "bytecode": "0x6080604052348015600f57600080fd5b50603580601d6000396000f3006080604052600080fd00a165627a7a72305820e2ed4f52e917a26eaebe7e00120bcc618a54be7f1af0227cfab33aba48c3b4730029",
+  "deployedBytecode": "0x6080604052600080fd00a165627a7a72305820e2ed4f52e917a26eaebe7e00120bcc618a54be7f1af0227cfab33aba48c3b4730029",
+  "sourceMap": "27:282:5:-;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;27:282:5;;;;;;;",
+  "deployedSourceMap": "27:282:5:-;;;;;",
+  "source": "pragma solidity ^0.4.24;\n\n\ncontract DrEvents {\n\n    /*********\n     * DisasterRiskInsurance.sol\n     *********/\n    event RequestResultOfDisasterRisk (\n        bytes32 requestId\n    );\n    \n\n\n    event ExampleEvent (\n        bytes32 requestId,\n        string exampleName,\n        address exampleAddr\n    );\n\n}\n",
+  "sourcePath": "/Users/unomasanori/projects/DEMO_MVP/Honeycomb_Hackathon/disaster-risk-insurance/contracts/storage/DrEvents.sol",
+  "ast": {
+    "absolutePath": "/Users/unomasanori/projects/DEMO_MVP/Honeycomb_Hackathon/disaster-risk-insurance/contracts/storage/DrEvents.sol",
+    "exportedSymbols": {
+      "DrEvents": [
+        847
+      ]
+    },
+    "id": 848,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 834,
+        "literals": [
+          "solidity",
+          "^",
+          "0.4",
+          ".24"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "0:24:5"
+      },
+      {
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "documentation": null,
+        "fullyImplemented": true,
+        "id": 847,
+        "linearizedBaseContracts": [
+          847
+        ],
+        "name": "DrEvents",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "anonymous": false,
+            "documentation": "*******\nDisasterRiskInsurance.sol********",
+            "id": 838,
+            "name": "RequestResultOfDisasterRisk",
+            "nodeType": "EventDefinition",
+            "parameters": {
+              "id": 837,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 836,
+                  "indexed": false,
+                  "name": "requestId",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 838,
+                  "src": "160:17:5",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  },
+                  "typeName": {
+                    "id": 835,
+                    "name": "bytes32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "160:7:5",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "150:33:5"
+            },
+            "src": "116:68:5"
+          },
+          {
+            "anonymous": false,
+            "documentation": null,
+            "id": 846,
+            "name": "ExampleEvent",
+            "nodeType": "EventDefinition",
+            "parameters": {
+              "id": 845,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 840,
+                  "indexed": false,
+                  "name": "requestId",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 846,
+                  "src": "225:17:5",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  },
+                  "typeName": {
+                    "id": 839,
+                    "name": "bytes32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "225:7:5",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 842,
+                  "indexed": false,
+                  "name": "exampleName",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 846,
+                  "src": "252:18:5",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_memory_ptr",
+                    "typeString": "string"
+                  },
+                  "typeName": {
+                    "id": 841,
+                    "name": "string",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "252:6:5",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_string_storage_ptr",
+                      "typeString": "string"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 844,
+                  "indexed": false,
+                  "name": "exampleAddr",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 846,
+                  "src": "280:19:5",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 843,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "280:7:5",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "215:90:5"
+            },
+            "src": "196:110:5"
+          }
+        ],
+        "scope": 848,
+        "src": "27:282:5"
+      }
+    ],
+    "src": "0:310:5"
+  },
+  "legacyAST": {
+    "absolutePath": "/Users/unomasanori/projects/DEMO_MVP/Honeycomb_Hackathon/disaster-risk-insurance/contracts/storage/DrEvents.sol",
+    "exportedSymbols": {
+      "DrEvents": [
+        847
+      ]
+    },
+    "id": 848,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 834,
+        "literals": [
+          "solidity",
+          "^",
+          "0.4",
+          ".24"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "0:24:5"
+      },
+      {
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "documentation": null,
+        "fullyImplemented": true,
+        "id": 847,
+        "linearizedBaseContracts": [
+          847
+        ],
+        "name": "DrEvents",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "anonymous": false,
+            "documentation": "*******\nDisasterRiskInsurance.sol********",
+            "id": 838,
+            "name": "RequestResultOfDisasterRisk",
+            "nodeType": "EventDefinition",
+            "parameters": {
+              "id": 837,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 836,
+                  "indexed": false,
+                  "name": "requestId",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 838,
+                  "src": "160:17:5",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  },
+                  "typeName": {
+                    "id": 835,
+                    "name": "bytes32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "160:7:5",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "150:33:5"
+            },
+            "src": "116:68:5"
+          },
+          {
+            "anonymous": false,
+            "documentation": null,
+            "id": 846,
+            "name": "ExampleEvent",
+            "nodeType": "EventDefinition",
+            "parameters": {
+              "id": 845,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 840,
+                  "indexed": false,
+                  "name": "requestId",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 846,
+                  "src": "225:17:5",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  },
+                  "typeName": {
+                    "id": 839,
+                    "name": "bytes32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "225:7:5",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 842,
+                  "indexed": false,
+                  "name": "exampleName",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 846,
+                  "src": "252:18:5",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_memory_ptr",
+                    "typeString": "string"
+                  },
+                  "typeName": {
+                    "id": 841,
+                    "name": "string",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "252:6:5",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_string_storage_ptr",
+                      "typeString": "string"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 844,
+                  "indexed": false,
+                  "name": "exampleAddr",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 846,
+                  "src": "280:19:5",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 843,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "280:7:5",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "215:90:5"
+            },
+            "src": "196:110:5"
+          }
+        ],
+        "scope": 848,
+        "src": "27:282:5"
+      }
+    ],
+    "src": "0:310:5"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.4.24+commit.e67f0147.Emscripten.clang"
+  },
+  "networks": {},
+  "schemaVersion": "3.0.19",
+  "updatedAt": "2019-11-25T08:33:58.678Z",
+  "devdoc": {
+    "methods": {}
+  },
+  "userdoc": {
+    "methods": {}
+  }
+}

@@ -24,9 +24,6 @@ class App extends Component {
         web3: null, 
         accounts: null,
 
-        //// Flight Delay Insurance
-        flight_delay_insurance: null,
-
         //// Disaster Risk Insurance   
         disaster_risk_insurance: null,
         totalFundTrue: 0,
@@ -58,19 +55,18 @@ class App extends Component {
                 deployedNetwork && deployedNetwork.address,
             );
 
-            const deployedNetworkFlightDelayInsurance = FlightDelayInsurance.networks[networkId];
-            const flight_delay_insurance = new web3.eth.Contract(
-                FlightDelayInsurance.abi,
-                deployedNetworkFlightDelayInsurance && deployedNetworkFlightDelayInsurance.address,
-            );
-
             const deployedNetworkDisasterRiskInsurance = DisasterRiskInsurance.networks[networkId];
             const disaster_risk_insurance = new web3.eth.Contract(
                 DisasterRiskInsurance.abi,
                 deployedNetworkDisasterRiskInsurance && deployedNetworkDisasterRiskInsurance.address,
             );
 
-            this.setState({ web3, accounts, contract: contract, flight_delay_insurance: flight_delay_insurance, disaster_risk_insurance: disaster_risk_insurance });
+            this.setState({ 
+              web3, 
+              accounts, 
+              contract: contract, 
+              disaster_risk_insurance: disaster_risk_insurance 
+            });
 
             window.ethereum.on('accountsChanged', async (accounts) => {
                 const newAccounts = await web3.eth.getAccounts();
@@ -129,7 +125,7 @@ class App extends Component {
     }
 
     handleFund = async (fundResultString) => {
-        const { disaster_risk_insurance } = this.state;
+        //const { disaster_risk_insurance } = this.state;
 
         this.setState({ message: 'Placing fund...' });
 
@@ -142,8 +138,10 @@ class App extends Component {
         }
 
         try {
-            await disaster_risk_insurance.methods.fundInsurance(fundResult).send({ from: this.state.accounts[0], value: this.state.web3.utils.toWei(this.state.fundAmount), gas: GAS, gasPrice: GAS_PRICE });
+            await this.state.disaster_risk_insurance.methods.fundInsurance(fundResult).send({ from: this.state.accounts[0], value: this.state.web3.utils.toWei(this.state.fundAmount), gas: GAS, gasPrice: GAS_PRICE });
+            //await disaster_risk_insurance.methods.fundInsurance(fundResult).send({ from: this.state.accounts[0], value: this.state.web3.utils.toWei(this.state.fundAmount), gas: GAS, gasPrice: GAS_PRICE });
             this.refreshDisasterState();
+            //this.refreshState();
             this.setState({ message: 'Fund placed' });
         } catch (error) {
             console.error(error);
@@ -152,20 +150,30 @@ class App extends Component {
     }
 
     handleRequestResultsOfDisasterRisk = async () => {
-        const { disaster_risk_insurance } = this.state;
+        //const { disaster_risk_insurance } = this.state;
 
         const lastBlock = await this.state.web3.eth.getBlock("latest");
         this.setState({ message: "Requesting the result from the oracle..." });
         try {
-            await disaster_risk_insurance.methods.requestResultOfDisasterRisk().send({ from: this.state.accounts[0], gas: GAS, gasPrice: GAS_PRICE });
+            await this.state.disaster_risk_insurance.methods.requestResultOfDisasterRisk().send({ from: this.state.accounts[0], gas: GAS, gasPrice: GAS_PRICE });
+            //await disaster_risk_insurance.methods.requestResultOfDisasterRisk().send({ from: this.state.accounts[0], gas: GAS, gasPrice: GAS_PRICE });
             while (true) {
-                const responseEvents = await disaster_risk_insurance.getPastEvents('ChainlinkFulfilled', { fromBlock: lastBlock.number, toBlock: 'latest' });
+                const responseEvents = await this.state.disaster_risk_insurance.getPastEvents('ChainlinkFulfilled', { fromBlock: lastBlock.number, toBlock: 'latest' });
+                //const responseEvents = await disaster_risk_insurance.getPastEvents('ChainlinkFulfilled', { fromBlock: lastBlock.number, toBlock: 'latest' });
                 console.log('=== responseEvents ===', responseEvents)
                 if (responseEvents.length !== 0) {
                     break;
                 }
             }
+
+            let disaster_risk_insurance = await this.state.disaster_risk_insurance.resultReceived();
+            //let disaster_risk_insurance = await disaster_risk_insurance.resultReceived();
+            let result = await this.state.disaster_risk_insurance.result();
+            //let result = await disaster_risk_insurance.result();
+            console.log(`=== Final result: ${result.toString()} ===`);
+
             this.refreshDisasterState();
+            //this.refreshState();
             this.setState({ message: "The result is delivered" });
         } catch (error) {
             console.error(error);
@@ -174,12 +182,15 @@ class App extends Component {
     }
 
     handleWithdrawFromFundPool = async () => {
-        const { disaster_risk_insurance } = this.state;
+        //const { disaster_risk_insurance } = this.state;
         try {
             const balanceBefore = await this.state.web3.utils.fromWei(await this.state.web3.eth.getBalance(this.state.accounts[0]));
-            await disaster_risk_insurance.methods.withdrawFromFundPool().send({ from: this.state.accounts[0], gas: GAS, gasPrice: GAS_PRICE });
+            await this.state.disaster_risk_insurance.methods.withdrawFromFundPool().send({ from: this.state.accounts[0], gas: GAS, gasPrice: GAS_PRICE });
+            //await disaster_risk_insurance.methods.withdrawFromFundPool().send({ from: this.state.accounts[0], gas: GAS, gasPrice: GAS_PRICE });
             const balanceAfter = await this.state.web3.utils.fromWei(await this.state.web3.eth.getBalance(this.state.accounts[0]))
-            this.refreshState();
+
+            this.refreshDisasterState();
+            //this.refreshState();
             this.setState({ message: `You received ${balanceAfter - balanceBefore} ETH` });
         }
         catch (error) {

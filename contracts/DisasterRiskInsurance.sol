@@ -3,8 +3,11 @@ pragma solidity 0.4.24;
 import "../node_modules/chainlink/contracts/ChainlinkClient.sol";
 import "../node_modules/openzeppelin-solidity/contracts/ownership/Ownable.sol";
 
+import "./storage/DrStorage.sol";
+import "./storage/DrConstants.sol";
 
-contract DisasterRiskInsurance is ChainlinkClient, Ownable {
+
+contract DisasterRiskInsurance is ChainlinkClient, Ownable, DrStorage, DrConstants {
     mapping(address => uint256) private fundTrue;
     mapping(address => uint256) private fundFalse;
     uint256 public totalFundTrue;
@@ -13,8 +16,8 @@ contract DisasterRiskInsurance is ChainlinkClient, Ownable {
     uint256 private oraclePaymentAmount;
     bytes32 private jobId;
 
-    bool public resultReceived;
-    bool public result;
+    bool public resultReceived;  // default value is "false"
+    bool public result;          // default value is "false"
 
     constructor(
         address _link,
@@ -33,32 +36,27 @@ contract DisasterRiskInsurance is ChainlinkClient, Ownable {
 
     function fundInsurance(bool fundOutcome) external payable
     {
-        require(!resultReceived, "You cannot fund after the result has been received.");
-        if (fundOutcome)
-        {
+        //require(!resultReceived, "You cannot fund after the result has been received.");
+        if (fundOutcome) {
             fundTrue[msg.sender] += msg.value;
             totalFundTrue += msg.value;
         }
-        else
-        {
-            fundFalse[msg.sender] += msg.value;
-            totalFundFalse += msg.value;
-        }
+
     }
 
-    function withdrawFromFundPool() external
-    {
+    function withdrawFromFundPool() external {
         require(resultReceived, "You cannot withdraw before the result has been received.");
-
-        if (result)
+        if (result) 
         {
-            msg.sender.transfer(((totalFundTrue + totalFundFalse) * fundTrue[msg.sender]) / totalFundTrue);
+            msg.sender.transfer(((totalFundTrue) * fundTrue[msg.sender]) / totalFundTrue);
             fundTrue[msg.sender] = 0;
         }
         else
         {
-            msg.sender.transfer(((totalFundTrue + totalFundFalse) * fundFalse[msg.sender]) / totalFundFalse);
-            fundFalse[msg.sender] = 0;
+            msg.sender.transfer(((totalFundTrue) * fundTrue[msg.sender]) / totalFundTrue);
+            fundTrue[msg.sender] = 0;
+            //msg.sender.transfer(((totalFundTrue + totalFundFalse) * fundFalse[msg.sender]) / totalFundFalse);
+            //fundFalse[msg.sender] = 0;
         }
     }
 
@@ -67,24 +65,21 @@ contract DisasterRiskInsurance is ChainlinkClient, Ownable {
     function requestResultOfDisasterRisk() external returns (bytes32 requestId)    // Without onlyOwner
     //function requestResult() external onlyOwner returns (bytes32 requestId)
     {
-        require(!resultReceived, "The result has already been received.");
+        //require(!resultReceived, "The result has already been received.");
         Chainlink.Request memory req = buildChainlinkRequest(jobId, this, this.fulfill.selector);
         // Using Ipstack - IP geolocation API
         req.add("ip", "194.199.104.14");
-        req.add("copyPath", "connection.isp");
+        req.add("copyPath", "location.capital");
+        //req.add("copyPath", "connection.isp");
         requestId = sendChainlinkRequestTo(chainlinkOracleAddress(), req, oraclePaymentAmount);
     }
 
-    function getFundAmount(bool outcome) external view returns (uint256 fundAmount)
+    function getFundAmount(bool outcome) external view returns (uint256 fundAmount) 
     {
-        if (outcome)
-        {
+        if (outcome) {
             fundAmount = fundTrue[msg.sender];
         }
-        else
-        {
-            fundAmount = fundFalse[msg.sender];
-        }
+        
     }
 
     function fulfill(bytes32 _requestId, int256 data)

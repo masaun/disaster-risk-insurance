@@ -22,26 +22,26 @@
   "sourceMap": "",
   "deployedSourceMap": "",
   "source": "pragma solidity 0.4.24;\n\ninterface PointerInterface {\n  function getAddress() external view returns (address);\n}\n",
-  "sourcePath": "/Users/unomasanori/projects/DEMO_MVP/Honeycomb_Hackathon/honeycomb-example-project/node_modules/chainlink/contracts/interfaces/PointerInterface.sol",
+  "sourcePath": "/Users/unomasanori/projects/DEMO_MVP/Honeycomb_Hackathon/disaster-risk-insurance/node_modules/chainlink/contracts/interfaces/PointerInterface.sol",
   "ast": {
-    "absolutePath": "/Users/unomasanori/projects/DEMO_MVP/Honeycomb_Hackathon/honeycomb-example-project/node_modules/chainlink/contracts/interfaces/PointerInterface.sol",
+    "absolutePath": "/Users/unomasanori/projects/DEMO_MVP/Honeycomb_Hackathon/disaster-risk-insurance/node_modules/chainlink/contracts/interfaces/PointerInterface.sol",
     "exportedSymbols": {
       "PointerInterface": [
-        1235
+        1789
       ]
     },
-    "id": 1236,
+    "id": 1790,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 1229,
+        "id": 1783,
         "literals": [
           "solidity",
           "0.4",
           ".24"
         ],
         "nodeType": "PragmaDirective",
-        "src": "0:23:7"
+        "src": "0:23:13"
       },
       {
         "baseContracts": [],
@@ -49,9 +49,9 @@
         "contractKind": "interface",
         "documentation": null,
         "fullyImplemented": false,
-        "id": 1235,
+        "id": 1789,
         "linearizedBaseContracts": [
-          1235
+          1789
         ],
         "name": "PointerInterface",
         "nodeType": "ContractDefinition",
@@ -59,7 +59,7 @@
           {
             "body": null,
             "documentation": null,
-            "id": 1234,
+            "id": 1788,
             "implemented": false,
             "isConstructor": false,
             "isDeclaredConst": true,
@@ -67,23 +67,23 @@
             "name": "getAddress",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 1230,
+              "id": 1784,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "75:2:7"
+              "src": "75:2:13"
             },
             "payable": false,
             "returnParameters": {
-              "id": 1233,
+              "id": 1787,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 1232,
+                  "id": 1786,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 1234,
-                  "src": "101:7:7",
+                  "scope": 1788,
+                  "src": "101:7:13",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -91,10 +91,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 1231,
+                    "id": 1785,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "101:7:7",
+                    "src": "101:7:13",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
                       "typeString": "address"
@@ -104,40 +104,40 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "100:9:7"
+              "src": "100:9:13"
             },
-            "scope": 1235,
-            "src": "56:54:7",
+            "scope": 1789,
+            "src": "56:54:13",
             "stateMutability": "view",
             "superFunction": null,
             "visibility": "external"
           }
         ],
-        "scope": 1236,
-        "src": "25:87:7"
+        "scope": 1790,
+        "src": "25:87:13"
       }
     ],
-    "src": "0:113:7"
+    "src": "0:113:13"
   },
   "legacyAST": {
-    "absolutePath": "/Users/unomasanori/projects/DEMO_MVP/Honeycomb_Hackathon/honeycomb-example-project/node_modules/chainlink/contracts/interfaces/PointerInterface.sol",
+    "absolutePath": "/Users/unomasanori/projects/DEMO_MVP/Honeycomb_Hackathon/disaster-risk-insurance/node_modules/chainlink/contracts/interfaces/PointerInterface.sol",
     "exportedSymbols": {
       "PointerInterface": [
-        1235
+        1789
       ]
     },
-    "id": 1236,
+    "id": 1790,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 1229,
+        "id": 1783,
         "literals": [
           "solidity",
           "0.4",
           ".24"
         ],
         "nodeType": "PragmaDirective",
-        "src": "0:23:7"
+        "src": "0:23:13"
       },
       {
         "baseContracts": [],
@@ -145,9 +145,9 @@
         "contractKind": "interface",
         "documentation": null,
         "fullyImplemented": false,
-        "id": 1235,
+        "id": 1789,
         "linearizedBaseContracts": [
-          1235
+          1789
         ],
         "name": "PointerInterface",
         "nodeType": "ContractDefinition",
@@ -155,7 +155,7 @@
           {
             "body": null,
             "documentation": null,
-            "id": 1234,
+            "id": 1788,
             "implemented": false,
             "isConstructor": false,
             "isDeclaredConst": true,
@@ -163,23 +163,23 @@
             "name": "getAddress",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 1230,
+              "id": 1784,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "75:2:7"
+              "src": "75:2:13"
             },
             "payable": false,
             "returnParameters": {
-              "id": 1233,
+              "id": 1787,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 1232,
+                  "id": 1786,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 1234,
-                  "src": "101:7:7",
+                  "scope": 1788,
+                  "src": "101:7:13",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -187,10 +187,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 1231,
+                    "id": 1785,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "101:7:7",
+                    "src": "101:7:13",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
                       "typeString": "address"
@@ -200,20 +200,20 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "100:9:7"
+              "src": "100:9:13"
             },
-            "scope": 1235,
-            "src": "56:54:7",
+            "scope": 1789,
+            "src": "56:54:13",
             "stateMutability": "view",
             "superFunction": null,
             "visibility": "external"
           }
         ],
-        "scope": 1236,
-        "src": "25:87:7"
+        "scope": 1790,
+        "src": "25:87:13"
       }
     ],
-    "src": "0:113:7"
+    "src": "0:113:13"
   },
   "compiler": {
     "name": "solc",
@@ -221,7 +221,7 @@
   },
   "networks": {},
   "schemaVersion": "3.0.19",
-  "updatedAt": "2019-11-21T07:45:07.111Z",
+  "updatedAt": "2019-11-25T08:33:58.707Z",
   "devdoc": {
     "methods": {}
   },
