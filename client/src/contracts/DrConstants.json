@@ -1,0 +1,285 @@
+{
+  "contractName": "DrConstants",
+  "abi": [],
+  "metadata": "{\"compiler\":{\"version\":\"0.4.24+commit.e67f0147\"},\"language\":\"Solidity\",\"output\":{\"abi\":[],\"devdoc\":{\"methods\":{},\"title\":\"Shared constants\"},\"userdoc\":{\"methods\":{}}},\"settings\":{\"compilationTarget\":{\"/Users/unomasanori/projects/DEMO_MVP/Honeycomb_Hackathon/disaster-risk-insurance/contracts/storage/DrConstants.sol\":\"DrConstants\"},\"evmVersion\":\"byzantium\",\"libraries\":{},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"/Users/unomasanori/projects/DEMO_MVP/Honeycomb_Hackathon/disaster-risk-insurance/contracts/storage/DrConstants.sol\":{\"keccak256\":\"0x278556cae1411e8798e810bef42e2422871d9cbbdbd59476c0698c99509c1d15\",\"urls\":[\"bzzr://768aa2e63c4436b9fe3e9d56eac18fdb5b9b2dd684ff277598bd790a1c3a778c\"]}},\"version\":1}",
+  "bytecode": "0x6080604052348015600f57600080fd5b50603580601d6000396000f3006080604052600080fd00a165627a7a72305820d6afc421e84a3cf2ade0b78ace35be1d8eb8ccfdfc8dddbce18883ec37634bc90029",
+  "deployedBytecode": "0x6080604052600080fd00a165627a7a72305820d6afc421e84a3cf2ade0b78ace35be1d8eb8ccfdfc8dddbce18883ec37634bc90029",
+  "sourceMap": "63:101:4:-;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;63:101:4;;;;;;;",
+  "deployedSourceMap": "63:101:4:-;;;;;",
+  "source": "pragma solidity >=0.4.24 <0.6.0;\n\n\n/// @title Shared constants\ncontract DrConstants {\n\n    bool constant CONFIRMED = true;\n\n    uint8 constant EXAMPLE_VALUE = 0;\n\n}\n",
+  "sourcePath": "/Users/unomasanori/projects/DEMO_MVP/Honeycomb_Hackathon/disaster-risk-insurance/contracts/storage/DrConstants.sol",
+  "ast": {
+    "absolutePath": "/Users/unomasanori/projects/DEMO_MVP/Honeycomb_Hackathon/disaster-risk-insurance/contracts/storage/DrConstants.sol",
+    "exportedSymbols": {
+      "DrConstants": [
+        832
+      ]
+    },
+    "id": 833,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 825,
+        "literals": [
+          "solidity",
+          ">=",
+          "0.4",
+          ".24",
+          "<",
+          "0.6",
+          ".0"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "0:32:4"
+      },
+      {
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "documentation": "@title Shared constants",
+        "fullyImplemented": true,
+        "id": 832,
+        "linearizedBaseContracts": [
+          832
+        ],
+        "name": "DrConstants",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "constant": true,
+            "id": 828,
+            "name": "CONFIRMED",
+            "nodeType": "VariableDeclaration",
+            "scope": 832,
+            "src": "91:30:4",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_bool",
+              "typeString": "bool"
+            },
+            "typeName": {
+              "id": 826,
+              "name": "bool",
+              "nodeType": "ElementaryTypeName",
+              "src": "91:4:4",
+              "typeDescriptions": {
+                "typeIdentifier": "t_bool",
+                "typeString": "bool"
+              }
+            },
+            "value": {
+              "argumentTypes": null,
+              "hexValue": "74727565",
+              "id": 827,
+              "isConstant": false,
+              "isLValue": false,
+              "isPure": true,
+              "kind": "bool",
+              "lValueRequested": false,
+              "nodeType": "Literal",
+              "src": "117:4:4",
+              "subdenomination": null,
+              "typeDescriptions": {
+                "typeIdentifier": "t_bool",
+                "typeString": "bool"
+              },
+              "value": "true"
+            },
+            "visibility": "internal"
+          },
+          {
+            "constant": true,
+            "id": 831,
+            "name": "EXAMPLE_VALUE",
+            "nodeType": "VariableDeclaration",
+            "scope": 832,
+            "src": "128:32:4",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_uint8",
+              "typeString": "uint8"
+            },
+            "typeName": {
+              "id": 829,
+              "name": "uint8",
+              "nodeType": "ElementaryTypeName",
+              "src": "128:5:4",
+              "typeDescriptions": {
+                "typeIdentifier": "t_uint8",
+                "typeString": "uint8"
+              }
+            },
+            "value": {
+              "argumentTypes": null,
+              "hexValue": "30",
+              "id": 830,
+              "isConstant": false,
+              "isLValue": false,
+              "isPure": true,
+              "kind": "number",
+              "lValueRequested": false,
+              "nodeType": "Literal",
+              "src": "159:1:4",
+              "subdenomination": null,
+              "typeDescriptions": {
+                "typeIdentifier": "t_rational_0_by_1",
+                "typeString": "int_const 0"
+              },
+              "value": "0"
+            },
+            "visibility": "internal"
+          }
+        ],
+        "scope": 833,
+        "src": "63:101:4"
+      }
+    ],
+    "src": "0:165:4"
+  },
+  "legacyAST": {
+    "absolutePath": "/Users/unomasanori/projects/DEMO_MVP/Honeycomb_Hackathon/disaster-risk-insurance/contracts/storage/DrConstants.sol",
+    "exportedSymbols": {
+      "DrConstants": [
+        832
+      ]
+    },
+    "id": 833,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 825,
+        "literals": [
+          "solidity",
+          ">=",
+          "0.4",
+          ".24",
+          "<",
+          "0.6",
+          ".0"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "0:32:4"
+      },
+      {
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "documentation": "@title Shared constants",
+        "fullyImplemented": true,
+        "id": 832,
+        "linearizedBaseContracts": [
+          832
+        ],
+        "name": "DrConstants",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "constant": true,
+            "id": 828,
+            "name": "CONFIRMED",
+            "nodeType": "VariableDeclaration",
+            "scope": 832,
+            "src": "91:30:4",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_bool",
+              "typeString": "bool"
+            },
+            "typeName": {
+              "id": 826,
+              "name": "bool",
+              "nodeType": "ElementaryTypeName",
+              "src": "91:4:4",
+              "typeDescriptions": {
+                "typeIdentifier": "t_bool",
+                "typeString": "bool"
+              }
+            },
+            "value": {
+              "argumentTypes": null,
+              "hexValue": "74727565",
+              "id": 827,
+              "isConstant": false,
+              "isLValue": false,
+              "isPure": true,
+              "kind": "bool",
+              "lValueRequested": false,
+              "nodeType": "Literal",
+              "src": "117:4:4",
+              "subdenomination": null,
+              "typeDescriptions": {
+                "typeIdentifier": "t_bool",
+                "typeString": "bool"
+              },
+              "value": "true"
+            },
+            "visibility": "internal"
+          },
+          {
+            "constant": true,
+            "id": 831,
+            "name": "EXAMPLE_VALUE",
+            "nodeType": "VariableDeclaration",
+            "scope": 832,
+            "src": "128:32:4",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_uint8",
+              "typeString": "uint8"
+            },
+            "typeName": {
+              "id": 829,
+              "name": "uint8",
+              "nodeType": "ElementaryTypeName",
+              "src": "128:5:4",
+              "typeDescriptions": {
+                "typeIdentifier": "t_uint8",
+                "typeString": "uint8"
+              }
+            },
+            "value": {
+              "argumentTypes": null,
+              "hexValue": "30",
+              "id": 830,
+              "isConstant": false,
+              "isLValue": false,
+              "isPure": true,
+              "kind": "number",
+              "lValueRequested": false,
+              "nodeType": "Literal",
+              "src": "159:1:4",
+              "subdenomination": null,
+              "typeDescriptions": {
+                "typeIdentifier": "t_rational_0_by_1",
+                "typeString": "int_const 0"
+              },
+              "value": "0"
+            },
+            "visibility": "internal"
+          }
+        ],
+        "scope": 833,
+        "src": "63:101:4"
+      }
+    ],
+    "src": "0:165:4"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.4.24+commit.e67f0147.Emscripten.clang"
+  },
+  "networks": {},
+  "schemaVersion": "3.0.19",
+  "updatedAt": "2019-11-25T08:33:58.677Z",
+  "devdoc": {
+    "methods": {},
+    "title": "Shared constants"
+  },
+  "userdoc": {
+    "methods": {}
+  }
+}
