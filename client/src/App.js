@@ -95,14 +95,16 @@ class App extends Component {
      * Disaster Risk Insurance Project
      ***********************************************************************/
     refreshDisasterState = async () => {
-        const { disaster_risk_insurance } = this.state;
+        //const { disaster_risk_insurance } = this.state;
 
-        const totalFundTrue = await this.state.web3.utils.fromWei(await disaster_risk_insurance.methods.totalFundTrue().call());
+        const totalFundTrue = await this.state.web3.utils.fromWei(await this.state.disaster_risk_insurance.methods.totalFundTrue().call());
 
-        const myFundTrue = await this.state.web3.utils.fromWei(await disaster_risk_insurance.methods.getFundAmount(true).call({ from: this.state.accounts[0] }));
+        const myFundTrue = await this.state.web3.utils.fromWei(await this.state.disaster_risk_insurance.methods.getFundAmount(true).call({ from: this.state.accounts[0] }));
 
-        const resultReceived = await disaster_risk_insurance.methods.resultReceived().call();
-        const result = await disaster_risk_insurance.methods.result().call();
+        const resultReceived = await this.state.disaster_risk_insurance.methods.resultReceived().call();
+        const result = await this.state.disaster_risk_insurance.methods.result().call();
+        console.log('=== resultReceived ===', resultReceived);
+        console.log('=== result ===', this.state.web3.utils.toAscii(result));
 
         var resultMessage;
         if (resultReceived) {
@@ -150,9 +152,8 @@ class App extends Component {
     }
 
     handleRequestResultsOfDisasterRisk = async () => {
-        //const { disaster_risk_insurance } = this.state;
+        /***** Define IP-address of user and list of area of disaster *****/ 
         let ipAddress = "194.199.104.14"
-
         let ListOfAreaOfDisaster = ["194.199.104.14", "181.199.101.12", "173.124.111.16"]
 
         /***** Judge area whehter area of disaster or not *****/
@@ -170,22 +171,14 @@ class App extends Component {
           const lastBlock = await this.state.web3.eth.getBlock("latest");
           this.setState({ message: "Requesting the result from the oracle..." });
           try {
-              await this.state.disaster_risk_insurance.methods.requestResultOfDisasterRisk().send({ from: this.state.accounts[0], gas: GAS, gasPrice: GAS_PRICE });
-              //await disaster_risk_insurance.methods.requestResultOfDisasterRisk().send({ from: this.state.accounts[0], gas: GAS, gasPrice: GAS_PRICE });
+              await this.state.disaster_risk_insurance.methods.requestResultOfDisasterRisk(ipAddress).send({ from: this.state.accounts[0], gas: GAS, gasPrice: GAS_PRICE });
               while (true) {
                   const responseEvents = await this.state.disaster_risk_insurance.getPastEvents('ChainlinkFulfilled', { fromBlock: lastBlock.number, toBlock: 'latest' });
-                  //const responseEvents = await disaster_risk_insurance.getPastEvents('ChainlinkFulfilled', { fromBlock: lastBlock.number, toBlock: 'latest' });
                   console.log('=== responseEvents ===', responseEvents)
                   if (responseEvents.length !== 0) {
                       break;
                   }
               }
-
-              let disaster_risk_insurance = await this.state.disaster_risk_insurance.resultReceived();
-              //let disaster_risk_insurance = await disaster_risk_insurance.resultReceived();
-              let result = await this.state.disaster_risk_insurance.result();
-              //let result = await disaster_risk_insurance.result();
-              console.log(`=== Final result: ${result.toString()} ===`);
 
               this.refreshDisasterState();
               //this.refreshState();

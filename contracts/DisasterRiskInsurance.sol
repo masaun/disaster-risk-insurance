@@ -11,13 +11,12 @@ contract DisasterRiskInsurance is ChainlinkClient, Ownable, DrStorage, DrConstan
     mapping(address => uint256) private fundTrue;
     mapping(address => uint256) private fundFalse;
     uint256 public totalFundTrue;
-    uint256 public totalFundFalse;
 
     uint256 private oraclePaymentAmount;
     bytes32 private jobId;
 
     bool public resultReceived;  // default value is "false"
-    bool public result;          // default value is "false"
+    bytes32 public result;        // This is result value of request
 
     constructor(
         address _link,
@@ -46,29 +45,31 @@ contract DisasterRiskInsurance is ChainlinkClient, Ownable, DrStorage, DrConstan
 
     function withdrawFromFundPool() external {
         require(resultReceived, "You cannot withdraw before the result has been received.");
-        if (result) 
-        {
-            msg.sender.transfer(((totalFundTrue) * fundTrue[msg.sender]) / totalFundTrue);
+        msg.sender.transfer(((totalFundTrue) * fundTrue[msg.sender]) / totalFundTrue);
             fundTrue[msg.sender] = 0;
-        }
-        else
-        {
-            msg.sender.transfer(((totalFundTrue) * fundTrue[msg.sender]) / totalFundTrue);
-            fundTrue[msg.sender] = 0;
-            //msg.sender.transfer(((totalFundTrue + totalFundFalse) * fundFalse[msg.sender]) / totalFundFalse);
-            //fundFalse[msg.sender] = 0;
-        }
+
+        // if (result) 
+        // {
+        //     msg.sender.transfer(((totalFundTrue) * fundTrue[msg.sender]) / totalFundTrue);
+        //     fundTrue[msg.sender] = 0;
+        // }
+        // else
+        // {
+        //     msg.sender.transfer(((totalFundTrue + totalFundFalse) * fundFalse[msg.sender]) / totalFundFalse);
+        //     fundFalse[msg.sender] = 0;
+        // }
     }
 
     // You probably do not want onlyOwner here
     // But then, you need some mechanism to prevent people from spamming this
-    function requestResultOfDisasterRisk() external returns (bytes32 requestId)    // Without onlyOwner
+    function requestResultOfDisasterRisk(string ipAddress) external returns (bytes32 requestId)    // Without onlyOwner
     //function requestResult() external onlyOwner returns (bytes32 requestId)
     {
         //require(!resultReceived, "The result has already been received.");
         Chainlink.Request memory req = buildChainlinkRequest(jobId, this, this.fulfill.selector);
         // Using Ipstack - IP geolocation API
-        req.add("ip", "194.199.104.14");
+        req.add("ip", ipAddress);
+        //req.add("ip", "194.199.104.14");
         req.add("copyPath", "location.capital");
         //req.add("copyPath", "connection.isp");
         requestId = sendChainlinkRequestTo(chainlinkOracleAddress(), req, oraclePaymentAmount);
@@ -82,18 +83,21 @@ contract DisasterRiskInsurance is ChainlinkClient, Ownable, DrStorage, DrConstan
         
     }
 
-    function fulfill(bytes32 _requestId, int256 data)
+    function fulfill(bytes32 _requestId, bytes32 data)
+    //function fulfill(bytes32 _requestId, int256 data)
     public
     recordChainlinkFulfillment(_requestId)
     {
         resultReceived = true;
-        if (data > 0)
-        {
-            result = true;
-        }
-        else
-        {
-            result = false;
-        }
+        result = data;
+
+        // if (data > 0)
+        // {
+        //     result = true;
+        // }
+        // else
+        // {
+        //     result = false;
+        // }
     }
 }
