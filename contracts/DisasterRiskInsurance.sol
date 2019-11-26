@@ -49,7 +49,7 @@ contract DisasterRiskInsurance is ChainlinkClient, Ownable, DrStorage, DrConstan
 
     // You probably do not want onlyOwner here
     // But then, you need some mechanism to prevent people from spamming this
-    function requestResultOfDisasterRisk(string ipAddress) external returns (bytes32 requestId)    // Without onlyOwner
+    function requestResultOfClaim(string ipAddress) external returns (bytes32 requestId)    // Without onlyOwner
     {
         //require(!resultReceived, "The result has already been received.");
         Chainlink.Request memory req = buildChainlinkRequest(jobId, this, this.fulfill.selector);

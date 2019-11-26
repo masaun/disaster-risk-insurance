@@ -171,7 +171,7 @@ class App extends Component {
           const lastBlock = await this.state.web3.eth.getBlock("latest");
           this.setState({ message: "Requesting the result from the oracle..." });
           try {
-              await this.state.disaster_risk_insurance.methods.requestResultOfDisasterRisk(ipAddress).send({ from: this.state.accounts[0], gas: GAS, gasPrice: GAS_PRICE });
+              await this.state.disaster_risk_insurance.methods.requestResultOfClaim(ipAddress).send({ from: this.state.accounts[0], gas: GAS, gasPrice: GAS_PRICE });
               while (true) {
                   const responseEvents = await this.state.disaster_risk_insurance.getPastEvents('ChainlinkFulfilled', { fromBlock: lastBlock.number, toBlock: 'latest' });
                   console.log('=== responseEvents ===', responseEvents)
@@ -397,7 +397,7 @@ class App extends Component {
                         </Grid>
                         <Grid item xs={3}>
                             <Button variant="contained" color="primary" onClick={() => this.handleRequestResultsOfDisasterRisk()}>
-                                Request result
+                                Request Claim
                             </Button>
                         </Grid>
                         <Grid item xs={3}>
