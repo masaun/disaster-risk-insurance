@@ -18,7 +18,7 @@ contract Beneficiary is Ownable, DrStorage, DrConstants {
     ) public {
         Beneficiary memory beneficiary = Beneficiary({
             walletAddr: _walletAddr,
-            fundAmount: _fundAmount,
+            totalFundAmount: _totalFundAmount,
             ipAddress: _ipAddress,
             isDisaster: _isDisaster
         });
