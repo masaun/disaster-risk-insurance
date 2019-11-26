@@ -16,7 +16,7 @@ contract DisasterRiskInsurance is ChainlinkClient, Ownable, DrStorage, DrConstan
     bytes32 private jobId;
 
     bool public resultReceived;  // default value is "false"
-    bool public result;          // default value is "false"
+    bytes32 public result;        // This is result value of request
 
     constructor(
         address _link,
@@ -45,18 +45,19 @@ contract DisasterRiskInsurance is ChainlinkClient, Ownable, DrStorage, DrConstan
 
     function withdrawFromFundPool() external {
         require(resultReceived, "You cannot withdraw before the result has been received.");
-        if (result) 
-        {
-            msg.sender.transfer(((totalFundTrue) * fundTrue[msg.sender]) / totalFundTrue);
+        msg.sender.transfer(((totalFundTrue) * fundTrue[msg.sender]) / totalFundTrue);
             fundTrue[msg.sender] = 0;
-        }
-        else
-        {
-            msg.sender.transfer(((totalFundTrue) * fundTrue[msg.sender]) / totalFundTrue);
-            fundTrue[msg.sender] = 0;
-            //msg.sender.transfer(((totalFundTrue + totalFundFalse) * fundFalse[msg.sender]) / totalFundFalse);
-            //fundFalse[msg.sender] = 0;
-        }
+
+        // if (result) 
+        // {
+        //     msg.sender.transfer(((totalFundTrue) * fundTrue[msg.sender]) / totalFundTrue);
+        //     fundTrue[msg.sender] = 0;
+        // }
+        // else
+        // {
+        //     msg.sender.transfer(((totalFundTrue + totalFundFalse) * fundFalse[msg.sender]) / totalFundFalse);
+        //     fundFalse[msg.sender] = 0;
+        // }
     }
 
     // You probably do not want onlyOwner here
@@ -82,18 +83,21 @@ contract DisasterRiskInsurance is ChainlinkClient, Ownable, DrStorage, DrConstan
         
     }
 
-    function fulfill(bytes32 _requestId, int256 data)
+    function fulfill(bytes32 _requestId, bytes32 data)
+    //function fulfill(bytes32 _requestId, int256 data)
     public
     recordChainlinkFulfillment(_requestId)
     {
         resultReceived = true;
-        if (data > 0)
-        {
-            result = true;
-        }
-        else
-        {
-            result = false;
-        }
+        result = data;
+
+        // if (data > 0)
+        // {
+        //     result = true;
+        // }
+        // else
+        // {
+        //     result = false;
+        // }
     }
 }

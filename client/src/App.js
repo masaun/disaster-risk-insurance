@@ -104,7 +104,7 @@ class App extends Component {
         const resultReceived = await this.state.disaster_risk_insurance.methods.resultReceived().call();
         const result = await this.state.disaster_risk_insurance.methods.result().call();
         console.log('=== resultReceived ===', resultReceived);
-        console.log('=== result ===', result);
+        console.log('=== result ===', this.state.web3.utils.toAscii(result));
 
         var resultMessage;
         if (resultReceived) {
