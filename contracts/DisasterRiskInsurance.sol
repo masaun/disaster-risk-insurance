@@ -23,10 +23,8 @@ contract DisasterRiskInsurance is ChainlinkClient, Ownable, DrStorage, DrConstan
         address _oracle,
         bytes32 _jobId,
         uint256 _oraclePaymentAmount
-        )
-    Ownable()
-    public
-    {
+    ) public {
+    //) Ownable() public {
         setChainlinkToken(_link);
         setChainlinkOracle(_oracle);
         jobId = _jobId;
@@ -47,23 +45,11 @@ contract DisasterRiskInsurance is ChainlinkClient, Ownable, DrStorage, DrConstan
         require(resultReceived, "You cannot withdraw before the result has been received.");
         msg.sender.transfer(((totalFundTrue) * fundTrue[msg.sender]) / totalFundTrue);
             fundTrue[msg.sender] = 0;
-
-        // if (result) 
-        // {
-        //     msg.sender.transfer(((totalFundTrue) * fundTrue[msg.sender]) / totalFundTrue);
-        //     fundTrue[msg.sender] = 0;
-        // }
-        // else
-        // {
-        //     msg.sender.transfer(((totalFundTrue + totalFundFalse) * fundFalse[msg.sender]) / totalFundFalse);
-        //     fundFalse[msg.sender] = 0;
-        // }
     }
 
     // You probably do not want onlyOwner here
     // But then, you need some mechanism to prevent people from spamming this
     function requestResultOfDisasterRisk(string ipAddress) external returns (bytes32 requestId)    // Without onlyOwner
-    //function requestResult() external onlyOwner returns (bytes32 requestId)
     {
         //require(!resultReceived, "The result has already been received.");
         Chainlink.Request memory req = buildChainlinkRequest(jobId, this, this.fulfill.selector);
@@ -84,20 +70,10 @@ contract DisasterRiskInsurance is ChainlinkClient, Ownable, DrStorage, DrConstan
     }
 
     function fulfill(bytes32 _requestId, bytes32 data)
-    //function fulfill(bytes32 _requestId, int256 data)
     public
     recordChainlinkFulfillment(_requestId)
     {
         resultReceived = true;
         result = data;
-
-        // if (data > 0)
-        // {
-        //     result = true;
-        // }
-        // else
-        // {
-        //     result = false;
-        // }
     }
 }

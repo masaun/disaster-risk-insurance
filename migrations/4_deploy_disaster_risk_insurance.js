@@ -7,7 +7,13 @@ const jobId = web3.utils.toHex("d1d029a5f50c44789f19da3ec4e51e7b");    // Ipstac
 const paymentAmount = web3.utils.toWei("0.1");
 
 module.exports = async function (deployer) {
-    await deployer.deploy(DisasterRiskInsurance, linkTokenAddress, oracle, jobId, paymentAmount);
+    await deployer.deploy(
+      DisasterRiskInsurance, 
+      linkTokenAddress, 
+      oracle, 
+      jobId, 
+      paymentAmount
+    );
     const disasterRiskInsurance = await DisasterRiskInsurance.deployed();
 
     const linkToken = await LinkTokenInterface.at(linkTokenAddress);
