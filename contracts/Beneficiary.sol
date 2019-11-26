@@ -11,16 +11,17 @@ contract Beneficiary is Ownable, DrStorage, DrConstants {
     constructor() public {}
 
     function beneficiaryRegistry(
-        address _walletAddr,      // Wallet address for funding and withdrawing 
-        uint _fundAmount,   // Total fund amount of insurance
-        string _ipAddress,  // IP adress of beneficiary
-        bool _isDisaster   // Whether beneficiary live around areas of disaster or not
+        address walletAddr,   // Wallet address for funding and withdrawing
+        string ipAddress      // IP adress of beneficiary
     ) public {
+        uint initialAmount = 0;    // Total fund amount of insurance
+        bool isDisaster = false;   // Whether beneficiary live around areas of disaster or not
+
         Beneficiary memory beneficiary = Beneficiary({
-            walletAddr: _walletAddr,
-            fundAmount: _fundAmount,
-            ipAddress: _ipAddress,
-            isDisaster: _isDisaster
+            walletAddr: walletAddr,
+            totalFundAmount: initialAmount,
+            ipAddress: ipAddress,
+            isDisaster: isDisaster
         });
         beneficiaries.push(beneficiary);
 
