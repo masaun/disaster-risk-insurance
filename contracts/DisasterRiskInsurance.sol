@@ -23,8 +23,8 @@ contract DisasterRiskInsurance is ChainlinkClient, Ownable, DrStorage, DrConstan
         address _oracle,
         bytes32 _jobId,
         uint256 _oraclePaymentAmount
-    ) public {
-    //) Ownable() public {
+    ) Ownable() public 
+    {
         setChainlinkToken(_link);
         setChainlinkOracle(_oracle);
         jobId = _jobId;

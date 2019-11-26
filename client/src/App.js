@@ -318,123 +318,6 @@ class App extends Component {
         return (
             <ThemeProvider theme={theme}>
                 <div className="App">
-                    <Header />
-                    <Typography variant="h5" style={{ marginTop: 32 }}>
-                        Oracle is going to return a number between 1 and 6
-                    </Typography>
-                    <Typography variant="h5" style={{ marginTop: 32 }}>
-                        {this.state.resultMessage}
-                    </Typography>
-
-                    <Grid container style={{ marginTop: 32 }}>
-                        <Grid item xs={3}>
-                        <Typography variant="h5">
-                                Betting on
-                            </Typography>
-                        </Grid>
-                        <Grid item xs={3}>
-                            <Typography variant="h5">
-                                6
-                            </Typography>
-                        </Grid>
-                        <Grid item xs={3}>
-                            <Typography variant="h5">
-                                Not 6
-                            </Typography>
-                        </Grid>
-                    </Grid>
-
-                    <Grid container style={{ marginTop: 32 }}>
-                        <Grid item xs={3}>
-                            <Typography variant="h5">
-                                {"Total bets"}
-                            </Typography>
-                        </Grid>
-                        <Grid item xs={3}>
-                            <Typography variant="h5">
-                                {`${this.state.totalBetTrue}`}
-                            </Typography>
-                        </Grid>
-                        <Grid item xs={3}>
-                            <Typography variant="h5">
-                                {`${this.state.totalBetFalse}`}
-                            </Typography>
-                        </Grid>
-                    </Grid>
-
-                    <Grid container>
-                        <Grid item xs={3}>
-                            <Typography variant="h5">
-                                {"Your bets"}
-                            </Typography>
-                        </Grid>
-                        <Grid item xs={3}>
-                            <Typography variant="h5">
-                                {`${this.state.myBetTrue}`}
-                            </Typography>
-                        </Grid>
-                        <Grid item xs={3}>
-                            <Typography variant="h5">
-                                {`${this.state.myBetFalse}`}
-                            </Typography>
-                        </Grid>
-                    </Grid>
-
-                    <Grid container style={{ marginTop: 32 }}>
-                        <Grid item xs={3}>
-                            <Typography variant="h5">
-                                {"Bet amount"}
-                            </Typography>
-                        </Grid>
-                        <Grid item xs={6}>
-                            <TextField
-                                id="bet-amount"
-                                className="input"
-                                value={this.state.betAmount}
-                                onChange={e => this.handleUpdateForm('betAmount', e.target.value)}
-                            />
-                        </Grid>
-                    </Grid>
-
-                    <Grid container style={{ marginTop: 32 }}>
-                        <Grid item xs={3}>
-                        </Grid>
-                        <Grid item xs={3}>
-                            <Button variant="contained" color="primary" onClick={() => this.handleBet("true")}>
-                                Bet on 6
-                            </Button>
-                        </Grid>
-                        <Grid item xs={3}>
-                            <Button variant="contained" color="primary" onClick={() => this.handleBet("false")}>
-                                Bet on not 6
-                            </Button>
-                        </Grid>
-                    </Grid>
-
-                    <Grid container style={{ marginTop: 32 }}>
-                        <Grid item xs={3}>
-                        </Grid>
-                        <Grid item xs={3}>
-                            <Button variant="contained" color="primary" onClick={() => this.handleRequestResults()}>
-                                Request result
-                            </Button>
-                        </Grid>
-                        <Grid item xs={3}>
-                            <Button variant="contained" color="primary" onClick={() => this.handleWithdraw()}>
-                                Withdraw winnings
-                            </Button>
-                        </Grid>
-                    </Grid>
-
-                    <Typography variant="h5" style={{ marginTop: 32 }}>
-                        {this.state.message}
-                    </Typography>
-                </div>
-
-                <hr />
-
-
-                <div className="App">
                     <HeaderDisasterRisk />
                     <Typography variant="h5" style={{ marginTop: 32 }}>
                         Disaster Risk Insurance
@@ -452,7 +335,7 @@ class App extends Component {
                         </Grid>
                         <Grid item xs={3}>
                             <Typography variant="h5">
-                                1〜5 LINK per month
+                                1〜5 ETH per month
                             </Typography>
                         </Grid>
                     </Grid>
