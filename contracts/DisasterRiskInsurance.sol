@@ -19,7 +19,7 @@ contract DisasterRiskInsurance is ChainlinkClient, Ownable, DrStorage, DrConstan
     bool public resultReceived;   // default value is "false"
     bytes32 public resultCapital;       // This is result value of request
     int256 public resultLatitude;       // This is result value of request
-    int256 public resultLongitudel;     // This is result value of request
+    int256 public resultLongitude;     // This is result value of request
 
     constructor(
         address _link,
@@ -128,7 +128,7 @@ contract DisasterRiskInsurance is ChainlinkClient, Ownable, DrStorage, DrConstan
     recordChainlinkFulfillment(_requestId)
     {
         resultReceived = true;
-        resultLongitudel = data;
+        resultLongitude = data;
         //result = data;
     }
 }
