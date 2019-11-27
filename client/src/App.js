@@ -102,24 +102,39 @@ class App extends Component {
         const myFundTrue = await this.state.web3.utils.fromWei(await this.state.disaster_risk_insurance.methods.getFundAmount(true).call({ from: this.state.accounts[0] }));
 
         const resultReceived = await this.state.disaster_risk_insurance.methods.resultReceived().call();
-        const result = await this.state.disaster_risk_insurance.methods.result().call();
+        //const result = await this.state.disaster_risk_insurance.methods.result().call();
+        const resultCapital = await this.state.disaster_risk_insurance.methods.resultCapital().call();
+        const resultLatitude = await this.state.disaster_risk_insurance.methods.resultLatitude().call();
+        const resultLongitudel = await this.state.disaster_risk_insurance.methods.resultLongitudel().call();
         console.log('=== resultReceived ===', resultReceived);
-        console.log('=== result ===', this.state.web3.utils.toAscii(result));
+        //console.log('=== result ===', this.state.web3.utils.toAscii(result));
+        console.log('=== resultCapital ===', this.state.web3.utils.toAscii(resultCapital));
+        console.log('=== resultLatitude ===', resultLatitude);
+        console.log('=== resultLongitudel ===', resultLongitudel);
 
         var resultMessage;
         if (resultReceived) {
-            if (result) {
-                resultMessage = "Result is complete fund";
-            }
-            else {
-                resultMessage = "Result is not complete fund";
-            }
+            // if (result) {
+            //     resultMessage = "Result is complete fund";
+            // }
+            // else {
+            //     resultMessage = "Result is not complete fund";
+            // }
         }
         else {
             resultMessage = "Result has not been received yet";
         }
 
-        this.setState({ totalFundTrue, myFundTrue, resultReceived, result, resultMessage });
+        this.setState({ 
+          totalFundTrue, 
+          myFundTrue, 
+          resultReceived, 
+          //result,
+          resultCapital,
+          resultLatitude,
+          resultLongitudel,
+          resultMessage
+        });
     }
 
     handleUpdateFundForm = (name, value) => {
@@ -171,7 +186,10 @@ class App extends Component {
           const lastBlock = await this.state.web3.eth.getBlock("latest");
           this.setState({ message: "Requesting the result from the oracle..." });
           try {
-              await this.state.disaster_risk_insurance.methods.requestResultOfClaim(ipAddress).send({ from: this.state.accounts[0], gas: GAS, gasPrice: GAS_PRICE });
+              await this.state.disaster_risk_insurance.methods.requestResultOfCapital(ipAddress).send({ from: this.state.accounts[0], gas: GAS, gasPrice: GAS_PRICE });
+              await this.state.disaster_risk_insurance.methods.requestResultOfLatitude(ipAddress).send({ from: this.state.accounts[0], gas: GAS, gasPrice: GAS_PRICE });
+              await this.state.disaster_risk_insurance.methods.requestResultOfLongitudel(ipAddress).send({ from: this.state.accounts[0], gas: GAS, gasPrice: GAS_PRICE });
+
               while (true) {
                   const responseEvents = await this.state.disaster_risk_insurance.getPastEvents('ChainlinkFulfilled', { fromBlock: lastBlock.number, toBlock: 'latest' });
                   console.log('=== responseEvents ===', responseEvents)

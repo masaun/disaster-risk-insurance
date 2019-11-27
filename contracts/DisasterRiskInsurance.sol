@@ -13,21 +13,26 @@ contract DisasterRiskInsurance is ChainlinkClient, Ownable, DrStorage, DrConstan
     uint256 public totalFundTrue;
 
     uint256 private oraclePaymentAmount;
-    bytes32 private jobId;
+    bytes32 private jobId_1;  // This jobId's data-type is bytes32
+    bytes32 private jobId_2;  // This jobId's data-type is int256
 
-    bool public resultReceived;  // default value is "false"
-    bytes32 public result;        // This is result value of request
+    bool public resultReceived;   // default value is "false"
+    bytes32 public resultCapital;       // This is result value of request
+    int256 public resultLatitude;       // This is result value of request
+    int256 public resultLongitudel;     // This is result value of request
 
     constructor(
         address _link,
         address _oracle,
-        bytes32 _jobId,
+        bytes32 _jobId_1,  // This jobId's data-type is bytes32
+        bytes32 _jobId_2,  // This jobId's data-type is int256
         uint256 _oraclePaymentAmount
     ) Ownable() public 
     {
         setChainlinkToken(_link);
         setChainlinkOracle(_oracle);
-        jobId = _jobId;
+        jobId_1 = _jobId_1;  // This jobId's data-type is bytes32
+        jobId_2 = _jobId_2;  // This jobId's data-type is int256
         oraclePaymentAmount = _oraclePaymentAmount;
     }
 
@@ -49,15 +54,36 @@ contract DisasterRiskInsurance is ChainlinkClient, Ownable, DrStorage, DrConstan
 
     // You probably do not want onlyOwner here
     // But then, you need some mechanism to prevent people from spamming this
-    function requestResultOfClaim(string ipAddress) external returns (bytes32 requestId)    // Without onlyOwner
+    function requestResultOfCapital(string ipAddress) external returns (bytes32 requestId)    // Without onlyOwner
     {
         //require(!resultReceived, "The result has already been received.");
-        Chainlink.Request memory req = buildChainlinkRequest(jobId, this, this.fulfill.selector);
+        Chainlink.Request memory req = buildChainlinkRequest(jobId_1, this, this.fulfill_capital.selector);
         // Using Ipstack - IP geolocation API
         req.add("ip", ipAddress);
         //req.add("ip", "194.199.104.14");
         req.add("copyPath", "location.capital");
+        //req.add("copyPath", "latitude");
+        //req.add("copyPath", "longitudel");
         //req.add("copyPath", "connection.isp");
+
+        requestId = sendChainlinkRequestTo(chainlinkOracleAddress(), req, oraclePaymentAmount);
+    }
+
+    function requestResultOfLatitude(string ipAddress) external returns (bytes32 requestId)    // Without onlyOwner
+    {
+        Chainlink.Request memory req = buildChainlinkRequest(jobId_2, this, this.fulfill_latitude.selector);
+        // Using Ipstack - IP geolocation API
+        req.add("ip", ipAddress);
+        req.add("copyPath", "latitude");
+        requestId = sendChainlinkRequestTo(chainlinkOracleAddress(), req, oraclePaymentAmount);
+    }
+
+    function requestResultOfLongitudel(string ipAddress) external returns (bytes32 requestId)    // Without onlyOwner
+    {
+        Chainlink.Request memory req = buildChainlinkRequest(jobId_2, this, this.fulfill_longitudel.selector);
+        // Using Ipstack - IP geolocation API
+        req.add("ip", ipAddress);
+        req.add("copyPath", "longitudel");
         requestId = sendChainlinkRequestTo(chainlinkOracleAddress(), req, oraclePaymentAmount);
     }
 
@@ -69,11 +95,30 @@ contract DisasterRiskInsurance is ChainlinkClient, Ownable, DrStorage, DrConstan
         
     }
 
-    function fulfill(bytes32 _requestId, bytes32 data)
+    function fulfill_capital(bytes32 _requestId, bytes32 data)
     public
     recordChainlinkFulfillment(_requestId)
     {
         resultReceived = true;
-        result = data;
+        resultCapital = data;
+        //result = data;
+    }
+
+    function fulfill_latitude(bytes32 _requestId, int256 data)
+    public
+    recordChainlinkFulfillment(_requestId)
+    {
+        resultReceived = true;
+        resultLatitude = data;
+        //result = data;
+    }
+
+    function fulfill_longitudel(bytes32 _requestId, int256 data)
+    public
+    recordChainlinkFulfillment(_requestId)
+    {
+        resultReceived = true;
+        resultLongitudel = data;
+        //result = data;
     }
 }
