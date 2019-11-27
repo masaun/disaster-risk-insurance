@@ -187,20 +187,20 @@ class App extends Component {
           this.setState({ message: "Requesting the result from the oracle..." });
           try {
               await this.state.disaster_risk_insurance.methods.requestResultOfCapital(ipAddress).send({ from: this.state.accounts[0], gas: GAS, gasPrice: GAS_PRICE });
-              await this.state.disaster_risk_insurance.methods.requestResultOfLatitude(ipAddress).send({ from: this.state.accounts[0], gas: GAS, gasPrice: GAS_PRICE });
-              await this.state.disaster_risk_insurance.methods.requestResultOfLongitudel(ipAddress).send({ from: this.state.accounts[0], gas: GAS, gasPrice: GAS_PRICE });
+              //await this.state.disaster_risk_insurance.methods.requestResultOfLatitude(ipAddress).send({ from: this.state.accounts[0], gas: GAS, gasPrice: GAS_PRICE });
+              //await this.state.disaster_risk_insurance.methods.requestResultOfLongitudel(ipAddress).send({ from: this.state.accounts[0], gas: GAS, gasPrice: GAS_PRICE });
 
-              while (true) {
-                  const responseEvents = await this.state.disaster_risk_insurance.getPastEvents('ChainlinkFulfilled', { fromBlock: lastBlock.number, toBlock: 'latest' });
-                  console.log('=== responseEvents ===', responseEvents)
-                  if (responseEvents.length !== 0) {
-                      break;
-                  }
-              }
+              // while (true) {
+              //     const responseEvents = await this.state.disaster_risk_insurance.getPastEvents('ChainlinkFulfilled', { fromBlock: lastBlock.number, toBlock: 'latest' });
+              //     console.log('=== responseEvents ===', responseEvents)
+              //     if (responseEvents.length !== 0) {
+              //         break;
+              //     }
+              // }
 
-              this.refreshDisasterState();
+              await this.refreshDisasterState();
               //this.refreshState();
-              this.setState({ message: "The result is delivered" });
+              await this.setState({ message: "The result is delivered" });
           } catch (error) {
               console.error(error);
               this.setState({ message: "Failed getting the result" });

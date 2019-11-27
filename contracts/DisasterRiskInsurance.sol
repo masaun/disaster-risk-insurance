@@ -57,13 +57,13 @@ contract DisasterRiskInsurance is ChainlinkClient, Ownable, DrStorage, DrConstan
     function requestResultOfCapital(string ipAddress) external returns (bytes32 requestId)    // Without onlyOwner
     {
         //require(!resultReceived, "The result has already been received.");
+
+        //Chainlink.Request memory req = buildChainlinkRequest(jobId_1, this, this.fulfill.selector);
         Chainlink.Request memory req = buildChainlinkRequest(jobId_1, this, this.fulfill_capital.selector);
         // Using Ipstack - IP geolocation API
         req.add("ip", ipAddress);
         //req.add("ip", "194.199.104.14");
         req.add("copyPath", "location.capital");
-        //req.add("copyPath", "latitude");
-        //req.add("copyPath", "longitudel");
         //req.add("copyPath", "connection.isp");
 
         requestId = sendChainlinkRequestTo(chainlinkOracleAddress(), req, oraclePaymentAmount);
@@ -93,6 +93,16 @@ contract DisasterRiskInsurance is ChainlinkClient, Ownable, DrStorage, DrConstan
             fundAmount = fundTrue[msg.sender];
         }
         
+    }
+
+
+    function fulfill(bytes32 _requestId, bytes32 data)
+    public
+    recordChainlinkFulfillment(_requestId)
+    {
+        resultReceived = true;
+        resultCapital = data;
+        //result = data;
     }
 
     function fulfill_capital(bytes32 _requestId, bytes32 data)
