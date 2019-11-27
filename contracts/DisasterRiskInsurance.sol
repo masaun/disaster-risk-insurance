@@ -15,17 +15,19 @@ contract DisasterRiskInsurance is ChainlinkClient, Ownable, DrStorage, DrConstan
     uint256 private oraclePaymentAmount;
     bytes32 private jobId_1;  // This jobId's data-type is bytes32
     bytes32 private jobId_2;  // This jobId's data-type is int256
+    bytes32 private jobId_3;  // This jobId's data-type is uint256
 
     bool public resultReceived;   // default value is "false"
     bytes32 public resultCapital;       // This is result value of request
-    int256 public resultLatitude;       // This is result value of request
-    int256 public resultLongitude;     // This is result value of request
+    uint256 public resultLatitude;       // This is result value of request
+    uint256 public resultLongitude;     // This is result value of request
 
     constructor(
         address _link,
         address _oracle,
         bytes32 _jobId_1,  // This jobId's data-type is bytes32
         bytes32 _jobId_2,  // This jobId's data-type is int256
+        bytes32 _jobId_3,  // This jobId's data-type is uint256
         uint256 _oraclePaymentAmount
     ) Ownable() public 
     {
@@ -33,6 +35,7 @@ contract DisasterRiskInsurance is ChainlinkClient, Ownable, DrStorage, DrConstan
         setChainlinkOracle(_oracle);
         jobId_1 = _jobId_1;  // This jobId's data-type is bytes32
         jobId_2 = _jobId_2;  // This jobId's data-type is int256
+        jobId_3 = _jobId_3;  // This jobId's data-type is uint256
         oraclePaymentAmount = _oraclePaymentAmount;
     }
 
@@ -71,7 +74,7 @@ contract DisasterRiskInsurance is ChainlinkClient, Ownable, DrStorage, DrConstan
 
     function requestResultOfLatitude(string ipAddress) external returns (bytes32 requestId)    // Without onlyOwner
     {
-        Chainlink.Request memory req = buildChainlinkRequest(jobId_2, this, this.fulfill_latitude.selector);
+        Chainlink.Request memory req = buildChainlinkRequest(jobId_3, this, this.fulfill_latitude.selector);
         // Using Ipstack - IP geolocation API
         req.add("ip", ipAddress);
         req.add("copyPath", "latitude");
@@ -80,7 +83,7 @@ contract DisasterRiskInsurance is ChainlinkClient, Ownable, DrStorage, DrConstan
 
     function requestResultOfLongitude(string ipAddress) external returns (bytes32 requestId)    // Without onlyOwner
     {
-        Chainlink.Request memory req = buildChainlinkRequest(jobId_2, this, this.fulfill_longitude.selector);
+        Chainlink.Request memory req = buildChainlinkRequest(jobId_3, this, this.fulfill_longitude.selector);
         // Using Ipstack - IP geolocation API
         req.add("ip", ipAddress);
         req.add("copyPath", "longitude");
@@ -114,7 +117,7 @@ contract DisasterRiskInsurance is ChainlinkClient, Ownable, DrStorage, DrConstan
         //result = data;
     }
 
-    function fulfill_latitude(bytes32 _requestId, int256 data)
+    function fulfill_latitude(bytes32 _requestId, uint256 data)
     public
     recordChainlinkFulfillment(_requestId)
     {
@@ -123,7 +126,7 @@ contract DisasterRiskInsurance is ChainlinkClient, Ownable, DrStorage, DrConstan
         //result = data;
     }
 
-    function fulfill_longitude(bytes32 _requestId, int256 data)
+    function fulfill_longitude(bytes32 _requestId, uint256 data)
     public
     recordChainlinkFulfillment(_requestId)
     {
