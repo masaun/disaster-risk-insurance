@@ -105,12 +105,12 @@ class App extends Component {
         //const result = await this.state.disaster_risk_insurance.methods.result().call();
         const resultCapital = await this.state.disaster_risk_insurance.methods.resultCapital().call();
         const resultLatitude = await this.state.disaster_risk_insurance.methods.resultLatitude().call();
-        const resultLongitudel = await this.state.disaster_risk_insurance.methods.resultLongitudel().call();
+        const resultLongitude = await this.state.disaster_risk_insurance.methods.resultLongitude().call();
         console.log('=== resultReceived ===', resultReceived);
         //console.log('=== result ===', this.state.web3.utils.toAscii(result));
         console.log('=== resultCapital ===', this.state.web3.utils.toAscii(resultCapital));
-        console.log('=== resultLatitude ===', resultLatitude);
-        console.log('=== resultLongitudel ===', resultLongitudel);
+        console.log('=== resultLatitude ===', `${resultLatitude.toString()}`);
+        console.log('=== resultLongitude ===', `${resultLongitude.toString()}`);
 
         var resultMessage;
         if (resultReceived) {
@@ -132,7 +132,7 @@ class App extends Component {
           //result,
           resultCapital,
           resultLatitude,
-          resultLongitudel,
+          resultLongitude,
           resultMessage
         });
     }
@@ -187,16 +187,16 @@ class App extends Component {
           this.setState({ message: "Requesting the result from the oracle..." });
           try {
               await this.state.disaster_risk_insurance.methods.requestResultOfCapital(ipAddress).send({ from: this.state.accounts[0], gas: GAS, gasPrice: GAS_PRICE });
-              //await this.state.disaster_risk_insurance.methods.requestResultOfLatitude(ipAddress).send({ from: this.state.accounts[0], gas: GAS, gasPrice: GAS_PRICE });
-              //await this.state.disaster_risk_insurance.methods.requestResultOfLongitudel(ipAddress).send({ from: this.state.accounts[0], gas: GAS, gasPrice: GAS_PRICE });
+              await this.state.disaster_risk_insurance.methods.requestResultOfLatitude(ipAddress).send({ from: this.state.accounts[0], gas: GAS, gasPrice: GAS_PRICE });
+              await this.state.disaster_risk_insurance.methods.requestResultOfLongitudel(ipAddress).send({ from: this.state.accounts[0], gas: GAS, gasPrice: GAS_PRICE });
 
-              // while (true) {
-              //     const responseEvents = await this.state.disaster_risk_insurance.getPastEvents('ChainlinkFulfilled', { fromBlock: lastBlock.number, toBlock: 'latest' });
-              //     console.log('=== responseEvents ===', responseEvents)
-              //     if (responseEvents.length !== 0) {
-              //         break;
-              //     }
-              // }
+              while (true) {
+                  const responseEvents = await this.state.disaster_risk_insurance.getPastEvents('ChainlinkFulfilled', { fromBlock: lastBlock.number, toBlock: 'latest' });
+                  console.log('=== responseEvents ===', responseEvents)
+                  if (responseEvents.length !== 0) {
+                      break;
+                  }
+              }
 
               await this.refreshDisasterState();
               //this.refreshState();

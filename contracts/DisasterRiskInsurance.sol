@@ -78,12 +78,12 @@ contract DisasterRiskInsurance is ChainlinkClient, Ownable, DrStorage, DrConstan
         requestId = sendChainlinkRequestTo(chainlinkOracleAddress(), req, oraclePaymentAmount);
     }
 
-    function requestResultOfLongitudel(string ipAddress) external returns (bytes32 requestId)    // Without onlyOwner
+    function requestResultOfLongitude(string ipAddress) external returns (bytes32 requestId)    // Without onlyOwner
     {
-        Chainlink.Request memory req = buildChainlinkRequest(jobId_2, this, this.fulfill_longitudel.selector);
+        Chainlink.Request memory req = buildChainlinkRequest(jobId_2, this, this.fulfill_longitude.selector);
         // Using Ipstack - IP geolocation API
         req.add("ip", ipAddress);
-        req.add("copyPath", "longitudel");
+        req.add("copyPath", "longitude");
         requestId = sendChainlinkRequestTo(chainlinkOracleAddress(), req, oraclePaymentAmount);
     }
 
@@ -123,7 +123,7 @@ contract DisasterRiskInsurance is ChainlinkClient, Ownable, DrStorage, DrConstan
         //result = data;
     }
 
-    function fulfill_longitudel(bytes32 _requestId, int256 data)
+    function fulfill_longitude(bytes32 _requestId, int256 data)
     public
     recordChainlinkFulfillment(_requestId)
     {
