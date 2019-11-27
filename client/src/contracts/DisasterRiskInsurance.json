@@ -9283,12 +9283,13 @@
         }
       },
       "links": {},
-      "address": "0x70bF9C1D2fd2dE330fEF226c922Fb60859A8160F",
-      "transactionHash": "0x8b3f3a576de4380686a129d18adef19d2de8fb17ef5108a971a877431b963bb7"
+      "address": "0x822Cf4ce44512D7Fa3D4A22d5FE5FF2B53252157",
+      "transactionHash": "0xf2110a29bd06336591ba72db23a0782a4a3d462468a3bc2a94ffbc70cd1806b4"
     }
   },
   "schemaVersion": "3.0.19",
-  "updatedAt": "2019-11-27T13:32:03.537Z",
+  "updatedAt": "2019-11-27T13:34:16.427Z",
+  "networkType": "ethereum",
   "devdoc": {
     "methods": {
       "renounceOwnership()": {

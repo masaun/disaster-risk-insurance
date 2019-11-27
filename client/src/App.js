@@ -25,11 +25,7 @@ class App extends Component {
         disaster_risk_insurance: null,
         totalFundTrue: 0,
         myFundTrue: 0,
-        fundAmount: 0,
-
-        //// Honeycomb Example Project
-        contract: null, 
-        betAmount: 0 
+        fundAmount: 0
     };
 
     componentDidMount = async () => {
@@ -46,12 +42,6 @@ class App extends Component {
                 throw new Error("Select the Ropsten network from your MetaMask plugin");
             }
 
-            const deployedNetwork = HoneycombBetPool.networks[networkId];
-            const contract = new web3.eth.Contract(
-                HoneycombBetPool.abi,
-                deployedNetwork && deployedNetwork.address,
-            );
-
             const deployedNetworkDisasterRiskInsurance = DisasterRiskInsurance.networks[networkId];
             const disaster_risk_insurance = new web3.eth.Contract(
                 DisasterRiskInsurance.abi,
@@ -61,7 +51,6 @@ class App extends Component {
             this.setState({ 
               web3, 
               accounts, 
-              contract: contract, 
               disaster_risk_insurance: disaster_risk_insurance 
             });
 
@@ -73,7 +62,7 @@ class App extends Component {
             // Refresh on-chain data every 1 second
             const component = this;
             async function loopRefresh() {
-                await component.refreshState();
+                await component.refreshDisasterState();
                 setTimeout(loopRefresh, 1000);
             }
             loopRefresh();
@@ -106,8 +95,8 @@ class App extends Component {
         console.log('=== resultReceived ===', resultReceived);
         //console.log('=== result ===', this.state.web3.utils.toAscii(result));
         console.log('=== resultCapital ===', this.state.web3.utils.toAscii(resultCapital));
-        console.log('=== resultLatitude ===', this.state.web3.utils.toAscii(resultLatitude));
-        console.log('=== resultLongitude ===', this.state.web3.utils.toAscii(resultLongitude));
+        console.log('=== resultLatitude ===', resultLatitude.toString());
+        console.log('=== resultLongitude ===',resultLongitude.toString());
         // console.log('=== resultLatitude ===', `${resultLatitude.toString()}`);
         // console.log('=== resultLongitude ===', `${resultLongitude.toString()}`);
 
