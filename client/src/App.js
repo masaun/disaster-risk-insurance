@@ -174,7 +174,7 @@ class App extends Component {
           const lastBlock = await this.state.web3.eth.getBlock("latest");
           this.setState({ message: "Requesting the result from the oracle..." });
           try {
-              await this.state.disaster_risk_insurance.methods.requestResultOfCapital(ipAddress).send({ from: this.state.accounts[0], gas: GAS, gasPrice: GAS_PRICE });
+              //await this.state.disaster_risk_insurance.methods.requestResultOfCapital(ipAddress).send({ from: this.state.accounts[0], gas: GAS, gasPrice: GAS_PRICE });
               await this.state.disaster_risk_insurance.methods.requestResultOfLatitude(ipAddress).send({ from: this.state.accounts[0], gas: GAS, gasPrice: GAS_PRICE });
               await this.state.disaster_risk_insurance.methods.requestResultOfLongitude(ipAddress).send({ from: this.state.accounts[0], gas: GAS, gasPrice: GAS_PRICE });
 

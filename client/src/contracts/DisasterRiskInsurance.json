@@ -9027,12 +9027,13 @@
         }
       },
       "links": {},
-      "address": "0xdB66c3fAa241f2134f1efC99e962C0B9797997De",
-      "transactionHash": "0x40122db1b49801c23bef3d7009f219e813651c3b49ae545c45b3fabbf3cf869a"
+      "address": "0x2Fd4A989dbd8b8b6224c46AC31C02Ae88f964654",
+      "transactionHash": "0xa8b0d7aab9bf9ccc11d7b3353f4adc28f509fa6e5b9aa5e6768058387ec7055d"
     }
   },
   "schemaVersion": "3.0.19",
-  "updatedAt": "2019-11-28T16:15:00.950Z",
+  "updatedAt": "2019-11-28T16:18:17.485Z",
+  "networkType": "ethereum",
   "devdoc": {
     "methods": {
       "renounceOwnership()": {
