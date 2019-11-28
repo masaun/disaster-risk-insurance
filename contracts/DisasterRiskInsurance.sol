@@ -19,8 +19,8 @@ contract DisasterRiskInsurance is ChainlinkClient, Ownable, DrStorage, DrConstan
 
     bool public resultReceived;   // default value is "false"
     bytes32 public resultCapital;       // This is result value of request
-    bytes32 public resultLatitude;       // This is result value of request
-    bytes32 public resultLongitude;     // This is result value of request
+    int256 public resultLatitude;       // This is result value of request
+    int256 public resultLongitude;     // This is result value of request
 
     constructor(
         address _link,
@@ -75,7 +75,7 @@ contract DisasterRiskInsurance is ChainlinkClient, Ownable, DrStorage, DrConstan
 
     function requestResultOfLatitude(string ipAddress) external returns (bytes32 requestId)    // Without onlyOwner
     {
-        Chainlink.Request memory req = buildChainlinkRequest(jobId_1, this, this.fulfill_latitude.selector);
+        Chainlink.Request memory req = buildChainlinkRequest(jobId_2, this, this.fulfill_latitude.selector);
         // Using Ipstack - IP geolocation API
         req.add("ip", ipAddress);
         req.add("copyPath", "latitude");
@@ -84,7 +84,7 @@ contract DisasterRiskInsurance is ChainlinkClient, Ownable, DrStorage, DrConstan
 
     function requestResultOfLongitude(string ipAddress) external returns (bytes32 requestId)    // Without onlyOwner
     {
-        Chainlink.Request memory req = buildChainlinkRequest(jobId_1, this, this.fulfill_longitude.selector);
+        Chainlink.Request memory req = buildChainlinkRequest(jobId_2, this, this.fulfill_longitude.selector);
         // Using Ipstack - IP geolocation API
         req.add("ip", ipAddress);
         req.add("copyPath", "longitude");
@@ -109,7 +109,7 @@ contract DisasterRiskInsurance is ChainlinkClient, Ownable, DrStorage, DrConstan
         //result = data;
     }
 
-    function fulfill_latitude(bytes32 _requestId, bytes32 data)
+    function fulfill_latitude(bytes32 _requestId, int256 data)
     public
     recordChainlinkFulfillment(_requestId)
     {
@@ -118,7 +118,7 @@ contract DisasterRiskInsurance is ChainlinkClient, Ownable, DrStorage, DrConstan
         //result = data;
     }
 
-    function fulfill_longitude(bytes32 _requestId, bytes32 data)
+    function fulfill_longitude(bytes32 _requestId, int256 data)
     public
     recordChainlinkFulfillment(_requestId)
     {

@@ -95,10 +95,8 @@ class App extends Component {
         console.log('=== resultReceived ===', resultReceived);
         //console.log('=== result ===', this.state.web3.utils.toAscii(result));
         console.log('=== resultCapital ===', this.state.web3.utils.toAscii(resultCapital));
-        console.log('=== resultLatitude ===', this.state.web3.utils.toAscii(resultLatitude));
-        console.log('=== resultLongitude ===', this.state.web3.utils.toAscii(resultLongitude));
-        // console.log('=== resultLatitude ===', resultLatitude);
-        // console.log('=== resultLongitude ===', resultLongitude);
+        console.log('=== resultLatitude ===', resultLatitude);
+        console.log('=== resultLongitude ===', resultLongitude);
         // console.log('=== resultLatitude ===', `${resultLatitude.toString()}`);
         // console.log('=== resultLongitude ===', `${resultLongitude.toString()}`);
 
