@@ -9001,12 +9001,12 @@
         }
       },
       "links": {},
-      "address": "0xBb894cd436abC1b514074271CF09C8362B9966f1",
-      "transactionHash": "0xabc9fc9cc1f5e073d1c8163d355b83b8d2d31edc79555ce5f5ee821e40342f38"
+      "address": "0xCd6ABd10f1f0bAb1842D2484940D57CC258F4Ec4",
+      "transactionHash": "0xe57c06aa8522a85d6a660088b4bbc22f0405e908da2198713c28a54878b51138"
     }
   },
   "schemaVersion": "3.0.19",
-  "updatedAt": "2019-11-28T16:53:14.683Z",
+  "updatedAt": "2019-11-28T19:34:32.535Z",
   "networkType": "ethereum",
   "devdoc": {
     "methods": {
