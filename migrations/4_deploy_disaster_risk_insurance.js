@@ -8,7 +8,8 @@ const jobId_1 = web3.utils.toHex("d1d029a5f50c44789f19da3ec4e51e7b");    // This
 const jobId_2 = web3.utils.toHex("c62efeba282f48dcb5a1d5b7b7cade9d");    // This jobId's data-type is int256
 const jobId_3 = web3.utils.toHex("11a18a9089bd4c668f13f5e5df5547b8");    // This jobId's data-type is uint256
 
-const paymentAmount = web3.utils.toWei("0.1");
+const paymentAmount = web3.utils.toWei("0.1");  // payment amount of LINK per 1 request (call) of API
+const depositedLink = web3.utils.toWei("0.5");    // LINK which is deposited in the contract
 
 module.exports = async function (deployer) {
     await deployer.deploy(
@@ -23,5 +24,6 @@ module.exports = async function (deployer) {
     const disasterRiskInsurance = await DisasterRiskInsurance.deployed();
 
     const linkToken = await LinkTokenInterface.at(linkTokenAddress);
-    await linkToken.transfer(disasterRiskInsurance.address, paymentAmount);
+    await linkToken.transfer(disasterRiskInsurance.address, depositedLink);
+    //await linkToken.transfer(disasterRiskInsurance.address, paymentAmount);
 };

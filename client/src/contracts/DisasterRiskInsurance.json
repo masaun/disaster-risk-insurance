@@ -9001,12 +9001,13 @@
         }
       },
       "links": {},
-      "address": "0x2Fd4A989dbd8b8b6224c46AC31C02Ae88f964654",
-      "transactionHash": "0xa8b0d7aab9bf9ccc11d7b3353f4adc28f509fa6e5b9aa5e6768058387ec7055d"
+      "address": "0xBb894cd436abC1b514074271CF09C8362B9966f1",
+      "transactionHash": "0xabc9fc9cc1f5e073d1c8163d355b83b8d2d31edc79555ce5f5ee821e40342f38"
     }
   },
   "schemaVersion": "3.0.19",
-  "updatedAt": "2019-11-28T16:49:49.253Z",
+  "updatedAt": "2019-11-28T16:53:14.683Z",
+  "networkType": "ethereum",
   "devdoc": {
     "methods": {
       "renounceOwnership()": {
