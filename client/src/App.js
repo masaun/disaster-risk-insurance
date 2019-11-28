@@ -87,13 +87,17 @@ class App extends Component {
 
         const myFundTrue = await this.state.web3.utils.fromWei(await this.state.disaster_risk_insurance.methods.getFundAmount(true).call({ from: this.state.accounts[0] }));
 
-        const resultReceived = await this.state.disaster_risk_insurance.methods.resultReceived().call();
+        const resultCapitalReceived = await this.state.disaster_risk_insurance.methods.resultCapitalReceived().call();
+        const resultLatitudeReceived = await this.state.disaster_risk_insurance.methods.resultLatitudeReceived().call();
+        const resultLongitudeReceived = await this.state.disaster_risk_insurance.methods.resultLongitudeReceived().call();
+        console.log('=== resultCapitalReceived ===', resultCapitalReceived);
+        console.log('=== resultLatitudeReceived ===', resultLatitudeReceived);
+        console.log('=== resultLongitudeReceived ===', resultLongitudeReceived);
+
         //const result = await this.state.disaster_risk_insurance.methods.result().call();
         const resultCapital = await this.state.disaster_risk_insurance.methods.resultCapital().call();
         const resultLatitude = await this.state.disaster_risk_insurance.methods.resultLatitude().call();
         const resultLongitude = await this.state.disaster_risk_insurance.methods.resultLongitude().call();
-        console.log('=== resultReceived ===', resultReceived);
-        //console.log('=== result ===', this.state.web3.utils.toAscii(result));
         console.log('=== resultCapital ===', this.state.web3.utils.toAscii(resultCapital));
         console.log('=== resultLatitude ===', resultLatitude);
         console.log('=== resultLongitude ===', resultLongitude);
@@ -101,22 +105,24 @@ class App extends Component {
         // console.log('=== resultLongitude ===', `${resultLongitude.toString()}`);
 
         var resultMessage;
-        if (resultReceived) {
-            // if (result) {
-            //     resultMessage = "Result is complete fund";
-            // }
-            // else {
-            //     resultMessage = "Result is not complete fund";
-            // }
-        }
-        else {
-            resultMessage = "Result has not been received yet";
-        }
+        // if (resultReceived) {
+        //     if (result) {
+        //         resultMessage = "Result is complete fund";
+        //     }
+        //     else {
+        //         resultMessage = "Result is not complete fund";
+        //     }
+        // }
+        // else {
+        //     resultMessage = "Result has not been received yet";
+        // }
 
         this.setState({ 
           totalFundTrue, 
           myFundTrue, 
-          resultReceived, 
+          resultCapitalReceived,
+          resultLatitudeReceived,
+          resultLongitudeReceived,
           //result,
           resultCapital,
           resultLatitude,
@@ -174,7 +180,7 @@ class App extends Component {
           const lastBlock = await this.state.web3.eth.getBlock("latest");
           this.setState({ message: "Requesting the result from the oracle..." });
           try {
-              //await this.state.disaster_risk_insurance.methods.requestResultOfCapital(ipAddress).send({ from: this.state.accounts[0], gas: GAS, gasPrice: GAS_PRICE });
+              await this.state.disaster_risk_insurance.methods.requestResultOfCapital(ipAddress).send({ from: this.state.accounts[0], gas: GAS, gasPrice: GAS_PRICE });
               await this.state.disaster_risk_insurance.methods.requestResultOfLatitude(ipAddress).send({ from: this.state.accounts[0], gas: GAS, gasPrice: GAS_PRICE });
               await this.state.disaster_risk_insurance.methods.requestResultOfLongitude(ipAddress).send({ from: this.state.accounts[0], gas: GAS, gasPrice: GAS_PRICE });
 
@@ -193,6 +199,9 @@ class App extends Component {
               console.error(error);
               this.setState({ message: "Failed getting the result" });
           }
+
+
+
 
         } else {
           this.setState({ message: "Area of your IP address is not area of disaster" })

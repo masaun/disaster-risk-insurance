@@ -17,7 +17,11 @@ contract DisasterRiskInsurance is ChainlinkClient, Ownable, DrStorage, DrConstan
     bytes32 private jobId_2;  // This jobId's data-type is int256
     bytes32 private jobId_3;  // This jobId's data-type is uint256
 
-    bool public resultReceived;   // default value is "false"
+    bool public resultCapitalReceived;     // default value is "false"
+    bool public resultLatitudeReceived;    // default value is "false"
+    bool public resultLongitudeReceived;   // default value is "false"
+    //bool public resultReceived;          // default value is "false"
+
     bytes32 public resultCapital;       // This is result value of request
     int256 public resultLatitude;       // This is result value of request
     int256 public resultLongitude;     // This is result value of request
@@ -50,7 +54,7 @@ contract DisasterRiskInsurance is ChainlinkClient, Ownable, DrStorage, DrConstan
     }
 
     function withdrawFromFundPool() external {
-        require(resultReceived, "You cannot withdraw before the result has been received.");
+        //require(resultReceived, "You cannot withdraw before the result has been received.");
         msg.sender.transfer(((totalFundTrue) * fundTrue[msg.sender]) / totalFundTrue);
             fundTrue[msg.sender] = 0;
     }
@@ -104,7 +108,9 @@ contract DisasterRiskInsurance is ChainlinkClient, Ownable, DrStorage, DrConstan
     public
     recordChainlinkFulfillment(_requestId)
     {
-        resultReceived = true;
+        resultCapitalReceived = true;
+        //resultReceived = true;
+
         resultCapital = data;
         //result = data;
     }
@@ -113,7 +119,9 @@ contract DisasterRiskInsurance is ChainlinkClient, Ownable, DrStorage, DrConstan
     public
     recordChainlinkFulfillment(_requestId)
     {
-        resultReceived = true;
+        resultLatitudeReceived = true;
+        //resultReceived = true;
+
         resultLatitude = data;
         //result = data;
     }
@@ -122,7 +130,9 @@ contract DisasterRiskInsurance is ChainlinkClient, Ownable, DrStorage, DrConstan
     public
     recordChainlinkFulfillment(_requestId)
     {
-        resultReceived = true;
+        resultLongitudeReceived = true;
+        //resultReceived = true;
+
         resultLongitude = data;
         //result = data;
     }
