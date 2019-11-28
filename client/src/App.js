@@ -3,15 +3,12 @@ import { Button, Typography, Grid, TextField } from '@material-ui/core';
 import { ThemeProvider } from '@material-ui/styles';
 
 // Import json file for artifact
-import HoneycombBetPool from "./contracts/HoneycombBetPool.json";
-import FlightDelayInsurance from "./contracts/FlightDelayInsurance.json";
 import DisasterRiskInsurance from "./contracts/DisasterRiskInsurance.json";
 
 import getWeb3 from "./utils/getWeb3";
 
 import { theme } from './utils/theme';
 import Header from './components/Header';
-import HeaderFlightDelay from './components/HeaderFlightDelay.js';
 import HeaderDisasterRisk from './components/HeaderDisasterRisk.js';
 
 import "./App.css";
@@ -28,11 +25,7 @@ class App extends Component {
         disaster_risk_insurance: null,
         totalFundTrue: 0,
         myFundTrue: 0,
-        fundAmount: 0,
-
-        //// Honeycomb Example Project
-        contract: null, 
-        betAmount: 0 
+        fundAmount: 0
     };
 
     componentDidMount = async () => {
@@ -49,12 +42,6 @@ class App extends Component {
                 throw new Error("Select the Ropsten network from your MetaMask plugin");
             }
 
-            const deployedNetwork = HoneycombBetPool.networks[networkId];
-            const contract = new web3.eth.Contract(
-                HoneycombBetPool.abi,
-                deployedNetwork && deployedNetwork.address,
-            );
-
             const deployedNetworkDisasterRiskInsurance = DisasterRiskInsurance.networks[networkId];
             const disaster_risk_insurance = new web3.eth.Contract(
                 DisasterRiskInsurance.abi,
@@ -64,7 +51,6 @@ class App extends Component {
             this.setState({ 
               web3, 
               accounts, 
-              contract: contract, 
               disaster_risk_insurance: disaster_risk_insurance 
             });
 
@@ -76,7 +62,7 @@ class App extends Component {
             // Refresh on-chain data every 1 second
             const component = this;
             async function loopRefresh() {
-                await component.refreshState();
+                await component.refreshDisasterState();
                 setTimeout(loopRefresh, 1000);
             }
             loopRefresh();
@@ -101,25 +87,48 @@ class App extends Component {
 
         const myFundTrue = await this.state.web3.utils.fromWei(await this.state.disaster_risk_insurance.methods.getFundAmount(true).call({ from: this.state.accounts[0] }));
 
-        const resultReceived = await this.state.disaster_risk_insurance.methods.resultReceived().call();
-        const result = await this.state.disaster_risk_insurance.methods.result().call();
-        console.log('=== resultReceived ===', resultReceived);
-        console.log('=== result ===', this.state.web3.utils.toAscii(result));
+        const resultCapitalReceived = await this.state.disaster_risk_insurance.methods.resultCapitalReceived().call();
+        const resultLatitudeReceived = await this.state.disaster_risk_insurance.methods.resultLatitudeReceived().call();
+        const resultLongitudeReceived = await this.state.disaster_risk_insurance.methods.resultLongitudeReceived().call();
+        console.log('=== resultCapitalReceived ===', resultCapitalReceived);
+        console.log('=== resultLatitudeReceived ===', resultLatitudeReceived);
+        console.log('=== resultLongitudeReceived ===', resultLongitudeReceived);
+
+        //const result = await this.state.disaster_risk_insurance.methods.result().call();
+        const resultCapital = await this.state.disaster_risk_insurance.methods.resultCapital().call();
+        const resultLatitude = await this.state.disaster_risk_insurance.methods.resultLatitude().call();
+        const resultLongitude = await this.state.disaster_risk_insurance.methods.resultLongitude().call();
+        console.log('=== resultCapital ===', this.state.web3.utils.toAscii(resultCapital));
+        console.log('=== resultLatitude ===', resultLatitude);
+        console.log('=== resultLongitude ===', resultLongitude);
+        // console.log('=== resultLatitude ===', `${resultLatitude.toString()}`);
+        // console.log('=== resultLongitude ===', `${resultLongitude.toString()}`);
 
         var resultMessage;
-        if (resultReceived) {
-            if (result) {
-                resultMessage = "Result is complete fund";
-            }
-            else {
-                resultMessage = "Result is not complete fund";
-            }
-        }
-        else {
-            resultMessage = "Result has not been received yet";
-        }
+        // if (resultReceived) {
+        //     if (result) {
+        //         resultMessage = "Result is complete fund";
+        //     }
+        //     else {
+        //         resultMessage = "Result is not complete fund";
+        //     }
+        // }
+        // else {
+        //     resultMessage = "Result has not been received yet";
+        // }
 
-        this.setState({ totalFundTrue, myFundTrue, resultReceived, result, resultMessage });
+        this.setState({ 
+          totalFundTrue, 
+          myFundTrue, 
+          resultCapitalReceived,
+          resultLatitudeReceived,
+          resultLongitudeReceived,
+          //result,
+          resultCapital,
+          resultLatitude,
+          resultLongitude,
+          resultMessage
+        });
     }
 
     handleUpdateFundForm = (name, value) => {
@@ -171,22 +180,28 @@ class App extends Component {
           const lastBlock = await this.state.web3.eth.getBlock("latest");
           this.setState({ message: "Requesting the result from the oracle..." });
           try {
-              await this.state.disaster_risk_insurance.methods.requestResultOfClaim(ipAddress).send({ from: this.state.accounts[0], gas: GAS, gasPrice: GAS_PRICE });
-              while (true) {
-                  const responseEvents = await this.state.disaster_risk_insurance.getPastEvents('ChainlinkFulfilled', { fromBlock: lastBlock.number, toBlock: 'latest' });
-                  console.log('=== responseEvents ===', responseEvents)
-                  if (responseEvents.length !== 0) {
-                      break;
-                  }
-              }
+              await this.state.disaster_risk_insurance.methods.requestResultOfCapital(ipAddress).send({ from: this.state.accounts[0], gas: GAS, gasPrice: GAS_PRICE });
+              await this.state.disaster_risk_insurance.methods.requestResultOfLatitude(ipAddress).send({ from: this.state.accounts[0], gas: GAS, gasPrice: GAS_PRICE });
+              await this.state.disaster_risk_insurance.methods.requestResultOfLongitude(ipAddress).send({ from: this.state.accounts[0], gas: GAS, gasPrice: GAS_PRICE });
 
-              this.refreshDisasterState();
+              // while (true) {
+              //     const responseEvents = await this.state.disaster_risk_insurance.getPastEvents('ChainlinkFulfilled', { fromBlock: lastBlock.number, toBlock: 'latest' });
+              //     console.log('=== responseEvents ===', responseEvents)
+              //     if (responseEvents.length !== 0) {
+              //         break;
+              //     }
+              // }
+
+              await this.refreshDisasterState();
               //this.refreshState();
-              this.setState({ message: "The result is delivered" });
+              await this.setState({ message: "The result is delivered" });
           } catch (error) {
               console.error(error);
               this.setState({ message: "Failed getting the result" });
           }
+
+
+
 
         } else {
           this.setState({ message: "Area of your IP address is not area of disaster" })
@@ -198,80 +213,8 @@ class App extends Component {
         try {
             const balanceBefore = await this.state.web3.utils.fromWei(await this.state.web3.eth.getBalance(this.state.accounts[0]));
             await this.state.disaster_risk_insurance.methods.withdrawFromFundPool().send({ from: this.state.accounts[0], gas: GAS, gasPrice: GAS_PRICE });
-            //await disaster_risk_insurance.methods.withdrawFromFundPool().send({ from: this.state.accounts[0], gas: GAS, gasPrice: GAS_PRICE });
             const balanceAfter = await this.state.web3.utils.fromWei(await this.state.web3.eth.getBalance(this.state.accounts[0]))
 
-            this.refreshDisasterState();
-            //this.refreshState();
-            this.setState({ message: `You received ${balanceAfter - balanceBefore} ETH` });
-        }
-        catch (error) {
-            console.error(error);
-            this.setState({ message: "Failed withdrawing" });
-        }
-    }
-
-
-
-
-    /***********************************************************************
-     * Honeycomb Example Project
-     ***********************************************************************/
-    refreshState = async () => {
-        const totalBetTrue = await this.state.web3.utils.fromWei(await this.state.contract.methods.totalBetTrue().call());
-        const totalBetFalse = await this.state.web3.utils.fromWei(await this.state.contract.methods.totalBetFalse().call());
-
-        const myBetTrue = await this.state.web3.utils.fromWei(await this.state.contract.methods.getBetAmount(true).call({ from: this.state.accounts[0] }));
-        const myBetFalse = await this.state.web3.utils.fromWei(await this.state.contract.methods.getBetAmount(false).call({ from: this.state.accounts[0] }));
-
-        const resultReceived = await this.state.contract.methods.resultReceived().call();
-        const result = await this.state.contract.methods.result().call();
-
-        var resultMessage;
-        if (resultReceived) {
-            if (result) {
-                resultMessage = "Result is 6";
-            }
-            else {
-                resultMessage = "Result is not 6";
-            }
-        }
-        else {
-            resultMessage = "Result has not been received yet";
-        }
-
-        this.setState({ totalBetTrue, totalBetFalse, myBetTrue, myBetFalse, resultReceived, result, resultMessage });
-    }
-
-    handleUpdateForm = (name, value) => {
-        this.setState({ [name]: value });
-    }
-
-    handleRequestResults = async () => {
-        const lastBlock = await this.state.web3.eth.getBlock("latest");
-        this.setState({ message: "Requesting the result from the oracle..." });
-        try {
-            await this.state.contract.methods.requestResult().send({ from: this.state.accounts[0], gas: GAS, gasPrice: GAS_PRICE });
-            while (true) {
-                const responseEvents = await this.state.contract.getPastEvents('ChainlinkFulfilled', { fromBlock: lastBlock.number, toBlock: 'latest' });
-                console.log("=== responseEvents ===", responseEvents);
-                if (responseEvents.length !== 0) {
-                    break;
-                }
-            }
-            this.refreshState();
-            this.setState({ message: "The result is delivered" });
-        } catch (error) {
-            console.error(error);
-            this.setState({ message: "Failed getting the result" });
-        }
-    }
-
-    handleWithdraw = async () => {
-        try {
-            const balanceBefore = await this.state.web3.utils.fromWei(await this.state.web3.eth.getBalance(this.state.accounts[0]));
-            await this.state.contract.methods.withdraw().send({ from: this.state.accounts[0], gas: GAS, gasPrice: GAS_PRICE });
-            const balanceAfter = await this.state.web3.utils.fromWei(await this.state.web3.eth.getBalance(this.state.accounts[0]))
             this.refreshDisasterState();
             this.setState({ message: `You received ${balanceAfter - balanceBefore} ETH` });
         }
@@ -281,26 +224,6 @@ class App extends Component {
         }
     }
 
-    handleBet = async (betResultString) => {
-        this.setState({ message: 'Placing bet...' });
-
-        var betResult;
-        if (betResultString === "true") {
-            betResult = true;
-        }
-        else if (betResultString === "false") {
-            betResult = false;
-        }
-
-        try {
-            await this.state.contract.methods.bet(betResult).send({ from: this.state.accounts[0], value: this.state.web3.utils.toWei(this.state.betAmount), gas: GAS, gasPrice: GAS_PRICE });
-            this.refreshDisasterState();
-            this.setState({ message: 'Bet placed' });
-        } catch (error) {
-            console.error(error);
-            this.setState({ message: 'Failed placing the bet' });
-        }
-    }
 
     render() {
         if (!this.state.web3) {
