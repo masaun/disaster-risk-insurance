@@ -95,8 +95,10 @@ class App extends Component {
         console.log('=== resultReceived ===', resultReceived);
         //console.log('=== result ===', this.state.web3.utils.toAscii(result));
         console.log('=== resultCapital ===', this.state.web3.utils.toAscii(resultCapital));
-        console.log('=== resultLatitude ===', resultLatitude.toString());
-        console.log('=== resultLongitude ===',resultLongitude.toString());
+        console.log('=== resultLatitude ===', this.state.web3.utils.toAscii(resultLatitude));
+        console.log('=== resultLongitude ===', this.state.web3.utils.toAscii(resultLongitude));
+        // console.log('=== resultLatitude ===', resultLatitude);
+        // console.log('=== resultLongitude ===', resultLongitude);
         // console.log('=== resultLatitude ===', `${resultLatitude.toString()}`);
         // console.log('=== resultLongitude ===', `${resultLongitude.toString()}`);
 
@@ -204,11 +206,9 @@ class App extends Component {
         try {
             const balanceBefore = await this.state.web3.utils.fromWei(await this.state.web3.eth.getBalance(this.state.accounts[0]));
             await this.state.disaster_risk_insurance.methods.withdrawFromFundPool().send({ from: this.state.accounts[0], gas: GAS, gasPrice: GAS_PRICE });
-            //await disaster_risk_insurance.methods.withdrawFromFundPool().send({ from: this.state.accounts[0], gas: GAS, gasPrice: GAS_PRICE });
             const balanceAfter = await this.state.web3.utils.fromWei(await this.state.web3.eth.getBalance(this.state.accounts[0]))
 
             this.refreshDisasterState();
-            //this.refreshState();
             this.setState({ message: `You received ${balanceAfter - balanceBefore} ETH` });
         }
         catch (error) {
