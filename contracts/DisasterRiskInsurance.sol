@@ -82,7 +82,7 @@ contract DisasterRiskInsurance is ChainlinkClient, Ownable, DrStorage, DrConstan
         Chainlink.Request memory req = buildChainlinkRequest(jobId_2, this, this.fulfill_latitude.selector);
         // Using Ipstack - IP geolocation API
         req.add("ip", ipAddress);
-        req.addInt("times", 10000000000000);
+        req.addInt("times", 10000000000000);  // To get number which include decimals
         req.add("copyPath", "latitude");
         requestId = sendChainlinkRequestTo(chainlinkOracleAddress(), req, oraclePaymentAmount);
     }
@@ -92,7 +92,7 @@ contract DisasterRiskInsurance is ChainlinkClient, Ownable, DrStorage, DrConstan
         Chainlink.Request memory req = buildChainlinkRequest(jobId_2, this, this.fulfill_longitude.selector);
         // Using Ipstack - IP geolocation API
         req.add("ip", ipAddress);
-        req.addInt("times", 1000000000000000);
+        req.addInt("times", 1000000000000000);  // To get number which include decimals
         req.add("copyPath", "longitude");
         requestId = sendChainlinkRequestTo(chainlinkOracleAddress(), req, oraclePaymentAmount);
     }
