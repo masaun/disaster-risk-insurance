@@ -18,17 +18,21 @@ const GAS = 500000;
 const GAS_PRICE = "20000000000";
 
 class App extends Component {
-    state = { 
-        web3: null, 
-        accounts: null,
+    constructor(props) {    
+        super(props);
 
-        //// Disaster Risk Insurance   
-        disaster_risk_insurance: null,
-        beneficiary_registry: null,
-        totalFundTrue: 0,
-        myFundTrue: 0,
-        fundAmount: 0
-    };
+        this.state = { 
+            web3: null, 
+            accounts: null,
+
+            //// Disaster Risk Insurance   
+            disaster_risk_insurance: null,
+            beneficiary_registry: null,
+            totalFundTrue: 0,
+            myFundTrue: 0,
+            fundAmount: 0
+        };
+    }
 
     componentDidMount = async () => {
         try {
@@ -234,10 +238,11 @@ class App extends Component {
     }
 
     handleBeneficiaryRegistry = async () => {
+        const { accounts, beneficiary_registry } = this.state;
         try {
-            let walletAddr = this.state.accounts[0];
+            let walletAddr = accounts[0];
             let ipAddress = "185.199.104.14";
-            const response = await this.state.beneficiary_registry.methods.createBeneficiary(walletAddr, ipAddress).send({ from: this.state.accounts[0] });
+            const response = await beneficiary_registry.methods.createBeneficiary(walletAddr, ipAddress).send({ from: accounts[0] });
             console.log("=== createBeneficiary ===", response)
     
             this.setState({ message: "Success to create beneficiary" });
