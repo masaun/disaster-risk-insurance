@@ -9413,15 +9413,44 @@
           "name": "ExampleEvent",
           "type": "event",
           "signature": "0x2298122415ecc14e440cdc23c509865b230e49c8de02993bab3e1a751007fdb8"
+        },
+        "0x25a0679cc7888846cad827192574ba8f26d72dd71afbea00a85b52d5fb73ed8f": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "name": "walletAddr",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "name": "initialAmount",
+              "type": "uint256"
+            },
+            {
+              "indexed": false,
+              "name": "ipAddress",
+              "type": "string"
+            },
+            {
+              "indexed": false,
+              "name": "isDisaster",
+              "type": "bool"
+            }
+          ],
+          "name": "CreateBeneficiary",
+          "type": "event",
+          "signature": "0x25a0679cc7888846cad827192574ba8f26d72dd71afbea00a85b52d5fb73ed8f"
         }
       },
       "links": {},
-      "address": "0x17d964bdd2f19774CeecAC4191ca693D595d7A38",
-      "transactionHash": "0xfecb9af6579aabfc09afc2a31528ae46cb761d77aa9d9dd7aa60529a888b1065"
+      "address": "0x1ad43d2E9Ae1E3A8433DAC7D6ba96f5e5A9e7Bee",
+      "transactionHash": "0xc316fef2df1e504d695151cf9e6def1374215e3395170a93a8394de6e2d6b479"
     }
   },
   "schemaVersion": "3.0.19",
-  "updatedAt": "2019-11-29T15:48:06.013Z",
+  "updatedAt": "2019-11-29T15:50:21.842Z",
+  "networkType": "ethereum",
   "devdoc": {
     "methods": {
       "renounceOwnership()": {
