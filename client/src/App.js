@@ -4,6 +4,7 @@ import { ThemeProvider } from '@material-ui/styles';
 
 // Import json file for artifact
 import DisasterRiskInsurance from "./contracts/DisasterRiskInsurance.json";
+import BeneficiaryRegistry from "./contracts/BeneficiaryRegistry.json";
 
 import getWeb3 from "./utils/getWeb3";
 
@@ -16,17 +17,23 @@ import "./App.css";
 const GAS = 500000;
 const GAS_PRICE = "20000000000";
 
-class App extends Component {
-    state = { 
-        web3: null, 
-        accounts: null,
 
-        //// Disaster Risk Insurance   
-        disaster_risk_insurance: null,
-        totalFundTrue: 0,
-        myFundTrue: 0,
-        fundAmount: 0
-    };
+class App extends Component {
+    constructor(props) {    
+        super(props);
+
+        this.state = { 
+            web3: null, 
+            accounts: null,
+
+            //// Disaster Risk Insurance   
+            disaster_risk_insurance: null,
+            beneficiary_registry: null,
+            totalFundTrue: 0,
+            myFundTrue: 0,
+            fundAmount: 0
+        };
+    }
 
     componentDidMount = async () => {
         try {
@@ -48,10 +55,17 @@ class App extends Component {
                 deployedNetworkDisasterRiskInsurance && deployedNetworkDisasterRiskInsurance.address,
             );
 
+            const deployedNetworkBeneficiaryRegistry = BeneficiaryRegistry.networks[networkId];
+            const beneficiary_registry = new web3.eth.Contract(
+                BeneficiaryRegistry.abi,
+                deployedNetworkBeneficiaryRegistry && deployedNetworkBeneficiaryRegistry.address,
+            );
+
             this.setState({ 
               web3, 
               accounts, 
-              disaster_risk_insurance: disaster_risk_insurance 
+              disaster_risk_insurance: disaster_risk_insurance,
+              beneficiary_registry: beneficiary_registry
             });
 
             window.ethereum.on('accountsChanged', async (accounts) => {
@@ -224,6 +238,22 @@ class App extends Component {
         }
     }
 
+    handleBeneficiaryRegistry = async () => {
+        const { accounts, beneficiary_registry } = this.state;
+        try {
+            let walletAddr = accounts[0];
+            let ipAddress = "185.199.104.14";
+            const response = await beneficiary_registry.methods.createBeneficiary(walletAddr, ipAddress).send({ from: accounts[0] });
+            console.log("=== createBeneficiary ===", response)
+    
+            this.setState({ message: "Success to create beneficiary" });
+        }
+        catch (error) {
+            console.error(error);
+            this.setState({ message: "Failed withdrawing" });
+        }   
+    }
+
 
     render() {
         if (!this.state.web3) {
@@ -334,6 +364,16 @@ class App extends Component {
                         {this.state.message}
                     </Typography>
 
+                    <hr />
+
+
+                    <Grid container style={{ marginTop: 32 }}>
+                        <Grid item xs={3}>
+                            <Button variant="contained" color="primary" onClick={() => this.handleBeneficiaryRegistry()}>
+                                Create Beneficiary
+                            </Button>
+                        </Grid>
+                    </Grid>
                 </div>
             </ThemeProvider>
         );

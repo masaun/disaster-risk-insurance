@@ -6,11 +6,11 @@ import "./storage/DrStorage.sol";
 import "./storage/DrConstants.sol";
 
 
-contract Beneficiary is Ownable, DrStorage, DrConstants {
+contract BeneficiaryRegistry is Ownable, DrStorage, DrConstants {
 
     constructor() public {}
 
-    function beneficiaryRegistry(
+    function createBeneficiary(
         address walletAddr,   // Wallet address for funding and withdrawing
         string ipAddress      // IP adress of beneficiary
     ) public {
@@ -25,5 +25,11 @@ contract Beneficiary is Ownable, DrStorage, DrConstants {
         });
         beneficiaries.push(beneficiary);
 
+        emit CreateBeneficiary (
+            beneficiary.walletAddr, 
+            beneficiary.totalFundAmount, 
+            beneficiary.ipAddress, 
+            beneficiary.isDisaster
+        );
     }
 }
