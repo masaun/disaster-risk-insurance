@@ -25,5 +25,11 @@ contract BeneficiaryRegistry is Ownable, DrStorage, DrConstants {
         });
         beneficiaries.push(beneficiary);
 
+        emit CreateBeneficiary (
+            beneficiary.walletAddr, 
+            beneficiary.totalFundAmount, 
+            beneficiary.ipAddress, 
+            beneficiary.isDisaster
+        );
     }
 }

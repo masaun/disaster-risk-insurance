@@ -17,6 +17,7 @@ import "./App.css";
 const GAS = 500000;
 const GAS_PRICE = "20000000000";
 
+
 class App extends Component {
     constructor(props) {    
         super(props);

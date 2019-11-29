@@ -11,6 +11,16 @@ contract DrEvents {
     );
     
 
+    /*********
+     * BeneficiaryRegistry.sol
+     *********/
+    event CreateBeneficiary (
+        address walletAddr,
+        uint initialAmount,
+        string ipAddress,
+        bool isDisaster
+    );
+
 
     event ExampleEvent (
         bytes32 requestId,
