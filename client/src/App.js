@@ -184,13 +184,13 @@ class App extends Component {
               await this.state.disaster_risk_insurance.methods.requestResultOfLatitude(ipAddress).send({ from: this.state.accounts[0], gas: GAS, gasPrice: GAS_PRICE });
               await this.state.disaster_risk_insurance.methods.requestResultOfLongitude(ipAddress).send({ from: this.state.accounts[0], gas: GAS, gasPrice: GAS_PRICE });
 
-              // while (true) {
-              //     const responseEvents = await this.state.disaster_risk_insurance.getPastEvents('ChainlinkFulfilled', { fromBlock: lastBlock.number, toBlock: 'latest' });
-              //     console.log('=== responseEvents ===', responseEvents)
-              //     if (responseEvents.length !== 0) {
-              //         break;
-              //     }
-              // }
+              while (true) {
+                  const responseEvents = await this.state.disaster_risk_insurance.getPastEvents('ChainlinkFulfilled', { fromBlock: lastBlock.number, toBlock: 'latest' });
+                  console.log('=== responseEvents ===', responseEvents)
+                  if (responseEvents.length !== 0) {
+                      break;
+                  }
+              }
 
               await this.refreshDisasterState();
               //this.refreshState();
