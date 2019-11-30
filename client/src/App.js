@@ -288,12 +288,12 @@ class App extends Component {
                     <Grid container style={{ marginTop: 32 }}>
                         <Grid item xs={3}>
                         <Typography variant="h5">
-                                Fund for insurance
+                                Fund rule for this insurance
                             </Typography>
                         </Grid>
                         <Grid item xs={3}>
                             <Typography variant="h5">
-                                1〜5 ETH per month
+                                0.1 ETH per month
                             </Typography>
                         </Grid>
                     </Grid>
@@ -301,7 +301,7 @@ class App extends Component {
                     <Grid container style={{ marginTop: 32 }}>
                         <Grid item xs={3}>
                             <Typography variant="h5">
-                                {"Total fund"}
+                                {"Total Fund Pool"}
                             </Typography>
                         </Grid>
                         <Grid item xs={3}>
@@ -314,7 +314,7 @@ class App extends Component {
                     <Grid container>
                         <Grid item xs={3}>
                             <Typography variant="h5">
-                                {"This month fund"}
+                                {"Total Fund Individual"}
                             </Typography>
                         </Grid>
                         <Grid item xs={3}>

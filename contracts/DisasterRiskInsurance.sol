@@ -2,14 +2,18 @@ pragma solidity 0.4.24;
 
 import "../node_modules/chainlink/contracts/ChainlinkClient.sol";
 import "../node_modules/openzeppelin-solidity/contracts/ownership/Ownable.sol";
+import "../node_modules/openzeppelin-solidity/contracts/math/SafeMath.sol";
 
 import "./storage/DrStorage.sol";
 import "./storage/DrConstants.sol";
 
 
 contract DisasterRiskInsurance is ChainlinkClient, Ownable, DrStorage, DrConstants {
+    using SafeMath for uint256;
+
     mapping(address => uint256) private totalFundIndividual;
     uint256 public totalFundPool;
+    uint256 RECEIVABLE_RATE;
 
     uint256 private oraclePaymentAmount;
     bytes32 private jobId_1;  // This jobId's data-type is bytes32
@@ -40,6 +44,8 @@ contract DisasterRiskInsurance is ChainlinkClient, Ownable, DrStorage, DrConstan
         jobId_2 = _jobId_2;  // This jobId's data-type is int256
         jobId_3 = _jobId_3;  // This jobId's data-type is uint256
         oraclePaymentAmount = _oraclePaymentAmount;
+
+        RECEIVABLE_RATE = 2;   // @notice Use for calculate receivale amount
     }
 
     function fundInsurance(bool fundOutcome) external payable
@@ -54,7 +60,13 @@ contract DisasterRiskInsurance is ChainlinkClient, Ownable, DrStorage, DrConstan
 
     function withdrawFromFundPool() external {
         //require(resultReceived, "You cannot withdraw before the result has been received.");
-        msg.sender.transfer(((totalFundPool) * totalFundIndividual[msg.sender]) / totalFundPool);
+        require (totalFundPool >= totalFundIndividual[msg.sender], "Not enough fund pool to send insurance money");
+        
+        /*** 
+         * @notice Each beneficially can receive 2 times amount which total amount of funding
+         ***/
+        msg.sender.transfer((totalFundIndividual[msg.sender] * RECEIVABLE_RATE));                        // New Logic
+        //msg.sender.transfer(((totalFundPool) * totalFundIndividual[msg.sender]) / totalFundPool);    // Original Logic
         totalFundIndividual[msg.sender] = 0;
     }
 
