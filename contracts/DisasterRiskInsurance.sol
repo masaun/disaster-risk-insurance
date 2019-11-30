@@ -55,7 +55,7 @@ contract DisasterRiskInsurance is ChainlinkClient, Ownable, DrStorage, DrConstan
     function withdrawFromFundPool() external {
         //require(resultReceived, "You cannot withdraw before the result has been received.");
         msg.sender.transfer(((totalFundPool) * totalFundIndividual[msg.sender]) / totalFundPool);
-            totalIndividualFund[msg.sender] = 0;
+        totalFundIndividual[msg.sender] = 0;
     }
 
     // You probably do not want onlyOwner here
@@ -99,7 +99,7 @@ contract DisasterRiskInsurance is ChainlinkClient, Ownable, DrStorage, DrConstan
     function getFundAmount(bool outcome) external view returns (uint256 fundAmount) 
     {
         if (outcome) {
-            fundAmount = totalIndividualFund[msg.sender];
+            fundAmount = totalFundIndividual[msg.sender];
         }
         
     }
