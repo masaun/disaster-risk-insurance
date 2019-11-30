@@ -29,8 +29,8 @@ class App extends Component {
             //// Disaster Risk Insurance   
             disaster_risk_insurance: null,
             beneficiary_registry: null,
-            totalFundTrue: 0,
-            myFundTrue: 0,
+            totalFundPool: 0,
+            totalFundIndividual: 0,
             fundAmount: 0
         };
     }
@@ -95,23 +95,23 @@ class App extends Component {
      * Disaster Risk Insurance Project
      ***********************************************************************/
     refreshDisasterState = async () => {
-        //const { disaster_risk_insurance } = this.state;
+        const { accounts, disaster_risk_insurance } = this.state;
 
-        const totalFundTrue = await this.state.web3.utils.fromWei(await this.state.disaster_risk_insurance.methods.totalFundTrue().call());
+        const totalFundPool = await this.state.web3.utils.fromWei(await disaster_risk_insurance.methods.totalFundPool().call());
 
-        const myFundTrue = await this.state.web3.utils.fromWei(await this.state.disaster_risk_insurance.methods.getFundAmount(true).call({ from: this.state.accounts[0] }));
+        const totalFundIndividual = await this.state.web3.utils.fromWei(await disaster_risk_insurance.methods.getFundAmount(true).call({ from: this.state.accounts[0] }));
 
-        const resultCapitalReceived = await this.state.disaster_risk_insurance.methods.resultCapitalReceived().call();
-        const resultLatitudeReceived = await this.state.disaster_risk_insurance.methods.resultLatitudeReceived().call();
-        const resultLongitudeReceived = await this.state.disaster_risk_insurance.methods.resultLongitudeReceived().call();
+        const resultCapitalReceived = await disaster_risk_insurance.methods.resultCapitalReceived().call();
+        const resultLatitudeReceived = await disaster_risk_insurance.methods.resultLatitudeReceived().call();
+        const resultLongitudeReceived = await disaster_risk_insurance.methods.resultLongitudeReceived().call();
         console.log('=== resultCapitalReceived ===', resultCapitalReceived);
         console.log('=== resultLatitudeReceived ===', resultLatitudeReceived);
         console.log('=== resultLongitudeReceived ===', resultLongitudeReceived);
 
         //const result = await this.state.disaster_risk_insurance.methods.result().call();
-        const resultCapital = await this.state.disaster_risk_insurance.methods.resultCapital().call();
-        const resultLatitude = await this.state.disaster_risk_insurance.methods.resultLatitude().call();
-        const resultLongitude = await this.state.disaster_risk_insurance.methods.resultLongitude().call();
+        const resultCapital = await disaster_risk_insurance.methods.resultCapital().call();
+        const resultLatitude = await disaster_risk_insurance.methods.resultLatitude().call();
+        const resultLongitude = await disaster_risk_insurance.methods.resultLongitude().call();
         console.log('=== resultCapital ===', this.state.web3.utils.toAscii(resultCapital));
         console.log('=== resultLatitude ===', resultLatitude);
         console.log('=== resultLongitude ===', resultLongitude);
@@ -132,8 +132,8 @@ class App extends Component {
         // }
 
         this.setState({ 
-          totalFundTrue, 
-          myFundTrue, 
+          totalFundPool, 
+          totalFundIndividual, 
           resultCapitalReceived,
           resultLatitudeReceived,
           resultLongitudeReceived,
@@ -150,7 +150,7 @@ class App extends Component {
     }
 
     handleFund = async (fundResultString) => {
-        //const { disaster_risk_insurance } = this.state;
+        const { accounts, disaster_risk_insurance } = this.state;
 
         this.setState({ message: 'Placing fund...' });
 
@@ -163,8 +163,10 @@ class App extends Component {
         }
 
         try {
-            await this.state.disaster_risk_insurance.methods.fundInsurance(fundResult).send({ from: this.state.accounts[0], value: this.state.web3.utils.toWei(this.state.fundAmount), gas: GAS, gasPrice: GAS_PRICE });
-            //await disaster_risk_insurance.methods.fundInsurance(fundResult).send({ from: this.state.accounts[0], value: this.state.web3.utils.toWei(this.state.fundAmount), gas: GAS, gasPrice: GAS_PRICE });
+            await disaster_risk_insurance.methods.fundInsurance(fundResult).send({ from: accounts[0], 
+                                                                                   value: this.state.web3.utils.toWei(this.state.fundAmount), 
+                                                                                   gas: GAS, 
+                                                                                   gasPrice: GAS_PRICE });
             this.refreshDisasterState();
             //this.refreshState();
             this.setState({ message: 'Fund placed' });
@@ -175,6 +177,8 @@ class App extends Component {
     }
 
     handleRequestResultsOfDisasterRisk = async () => {
+        const { accounts, disaster_risk_insurance } = this.state;
+
         /***** Define IP-address of user and list of area of disaster *****/ 
         let ipAddress = "194.199.104.14"
         let ListOfAreaOfDisaster = ["194.199.104.14", "181.199.101.12", "173.124.111.16"]
@@ -194,12 +198,12 @@ class App extends Component {
           const lastBlock = await this.state.web3.eth.getBlock("latest");
           this.setState({ message: "Requesting the result from the oracle..." });
           try {
-              await this.state.disaster_risk_insurance.methods.requestResultOfCapital(ipAddress).send({ from: this.state.accounts[0], gas: GAS, gasPrice: GAS_PRICE });
-              await this.state.disaster_risk_insurance.methods.requestResultOfLatitude(ipAddress).send({ from: this.state.accounts[0], gas: GAS, gasPrice: GAS_PRICE });
-              await this.state.disaster_risk_insurance.methods.requestResultOfLongitude(ipAddress).send({ from: this.state.accounts[0], gas: GAS, gasPrice: GAS_PRICE });
+              await disaster_risk_insurance.methods.requestResultOfCapital(ipAddress).send({ from: accounts[0], gas: GAS, gasPrice: GAS_PRICE });
+              await disaster_risk_insurance.methods.requestResultOfLatitude(ipAddress).send({ from: accounts[0], gas: GAS, gasPrice: GAS_PRICE });
+              await disaster_risk_insurance.methods.requestResultOfLongitude(ipAddress).send({ from: accounts[0], gas: GAS, gasPrice: GAS_PRICE });
 
               while (true) {
-                  const responseEvents = await this.state.disaster_risk_insurance.getPastEvents('ChainlinkFulfilled', { fromBlock: lastBlock.number, toBlock: 'latest' });
+                  const responseEvents = await disaster_risk_insurance.getPastEvents('ChainlinkFulfilled', { fromBlock: lastBlock.number, toBlock: 'latest' });
                   console.log('=== responseEvents ===', responseEvents)
                   if (responseEvents.length !== 0) {
                       break;
@@ -223,11 +227,12 @@ class App extends Component {
     }
 
     handleWithdrawFromFundPool = async () => {
-        //const { disaster_risk_insurance } = this.state;
+        const { accounts, disaster_risk_insurance } = this.state;
+
         try {
             const balanceBefore = await this.state.web3.utils.fromWei(await this.state.web3.eth.getBalance(this.state.accounts[0]));
-            await this.state.disaster_risk_insurance.methods.withdrawFromFundPool().send({ from: this.state.accounts[0], gas: GAS, gasPrice: GAS_PRICE });
-            const balanceAfter = await this.state.web3.utils.fromWei(await this.state.web3.eth.getBalance(this.state.accounts[0]))
+            await disaster_risk_insurance.methods.withdrawFromFundPool().send({ from: accounts[0], gas: GAS, gasPrice: GAS_PRICE });
+            const balanceAfter = await this.state.web3.utils.fromWei(await this.state.web3.eth.getBalance(accounts[0]))
 
             this.refreshDisasterState();
             this.setState({ message: `You received ${balanceAfter - balanceBefore} ETH` });
@@ -301,7 +306,7 @@ class App extends Component {
                         </Grid>
                         <Grid item xs={3}>
                             <Typography variant="h5">
-                                {`${this.state.totalFundTrue}`}
+                                {`${this.state.totalFundPool}`}
                             </Typography>
                         </Grid>
                     </Grid>
@@ -314,7 +319,7 @@ class App extends Component {
                         </Grid>
                         <Grid item xs={3}>
                             <Typography variant="h5">
-                                {`${this.state.myFundTrue}`}
+                                {`${this.state.totalFundIndividual}`}
                             </Typography>
                         </Grid>
                     </Grid>
