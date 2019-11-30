@@ -9554,12 +9554,13 @@
         }
       },
       "links": {},
-      "address": "0x86636D2e200786D0e2cb9A6B2E43424283CC37A9",
-      "transactionHash": "0x62c95b6916470515ab56c17d99942cef0c6f63a75c03d51ef700b5728c406402"
+      "address": "0xbb78798b5a6d05b1b687A59aad8A64FBdAA03e0c",
+      "transactionHash": "0x1bd1738b2d1732923edf36a7b6cdfed6a8752550708cf7a3b596d41db38aad33"
     }
   },
   "schemaVersion": "3.0.19",
-  "updatedAt": "2019-11-30T11:47:43.027Z",
+  "updatedAt": "2019-11-30T11:50:06.450Z",
+  "networkType": "ethereum",
   "devdoc": {
     "methods": {
       "renounceOwnership()": {

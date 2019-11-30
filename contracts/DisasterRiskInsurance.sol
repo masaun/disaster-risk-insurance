@@ -45,7 +45,7 @@ contract DisasterRiskInsurance is ChainlinkClient, Ownable, DrStorage, DrConstan
         jobId_3 = _jobId_3;  // This jobId's data-type is uint256
         oraclePaymentAmount = _oraclePaymentAmount;
         
-        totalFundPool = 1e18;  // @notice Assume that totalFundPool start from 10ETH
+        totalFundPool = 1e19;  // @notice Assume that totalFundPool start from 10ETH
         RECEIVABLE_RATE = 2;   // @notice Use for calculate receivale amount
     }
 
