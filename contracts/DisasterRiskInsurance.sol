@@ -44,8 +44,7 @@ contract DisasterRiskInsurance is ChainlinkClient, Ownable, DrStorage, DrConstan
         jobId_2 = _jobId_2;  // This jobId's data-type is int256
         jobId_3 = _jobId_3;  // This jobId's data-type is uint256
         oraclePaymentAmount = _oraclePaymentAmount;
-        
-        totalFundPool = 1e19;  // @notice Assume that totalFundPool start from 10ETH
+
         RECEIVABLE_RATE = 2;   // @notice Use for calculate receivale amount
     }
 
@@ -66,7 +65,7 @@ contract DisasterRiskInsurance is ChainlinkClient, Ownable, DrStorage, DrConstan
         /*** 
          * @notice Each beneficially can receive 2 times amount which total amount of funding
          ***/
-        msg.sender.transfer(totalFundIndividual[msg.sender] * (RECEIVABLE_RATE));                        // New Logic
+        msg.sender.transfer((totalFundIndividual[msg.sender] * RECEIVABLE_RATE));                        // New Logic
         //msg.sender.transfer(((totalFundPool) * totalFundIndividual[msg.sender]) / totalFundPool);    // Original Logic
         totalFundIndividual[msg.sender] = 0;
     }
