@@ -8,9 +8,8 @@ import "./storage/DrConstants.sol";
 
 
 contract DisasterRiskInsurance is ChainlinkClient, Ownable, DrStorage, DrConstants {
-    mapping(address => uint256) private fundTrue;
-    mapping(address => uint256) private fundFalse;
-    uint256 public totalFundTrue;
+    mapping(address => uint256) private fundPool;
+    uint256 public totalFund;
 
     uint256 private oraclePaymentAmount;
     bytes32 private jobId_1;  // This jobId's data-type is bytes32
@@ -47,16 +46,16 @@ contract DisasterRiskInsurance is ChainlinkClient, Ownable, DrStorage, DrConstan
     {
         //require(!resultReceived, "You cannot fund after the result has been received.");
         if (fundOutcome) {
-            fundTrue[msg.sender] += msg.value;
-            totalFundTrue += msg.value;
+            fundPool[msg.sender] += msg.value;
+            totalFund += msg.value;
         }
 
     }
 
     function withdrawFromFundPool() external {
         //require(resultReceived, "You cannot withdraw before the result has been received.");
-        msg.sender.transfer(((totalFundTrue) * fundTrue[msg.sender]) / totalFundTrue);
-            fundTrue[msg.sender] = 0;
+        msg.sender.transfer(((totalFund) * fundPool[msg.sender]) / totalFund);
+            fundPool[msg.sender] = 0;
     }
 
     // You probably do not want onlyOwner here
@@ -100,7 +99,7 @@ contract DisasterRiskInsurance is ChainlinkClient, Ownable, DrStorage, DrConstan
     function getFundAmount(bool outcome) external view returns (uint256 fundAmount) 
     {
         if (outcome) {
-            fundAmount = fundTrue[msg.sender];
+            fundAmount = fundPool[msg.sender];
         }
         
     }

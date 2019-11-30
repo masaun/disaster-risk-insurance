@@ -29,7 +29,7 @@ class App extends Component {
             //// Disaster Risk Insurance   
             disaster_risk_insurance: null,
             beneficiary_registry: null,
-            totalFundTrue: 0,
+            totalFund: 0,
             myFundTrue: 0,
             fundAmount: 0
         };
@@ -97,7 +97,7 @@ class App extends Component {
     refreshDisasterState = async () => {
         const { accounts, disaster_risk_insurance } = this.state;
 
-        const totalFundTrue = await this.state.web3.utils.fromWei(await disaster_risk_insurance.methods.totalFundTrue().call());
+        const totalFund = await this.state.web3.utils.fromWei(await disaster_risk_insurance.methods.totalFund().call());
 
         const myFundTrue = await this.state.web3.utils.fromWei(await disaster_risk_insurance.methods.getFundAmount(true).call({ from: this.state.accounts[0] }));
 
@@ -132,7 +132,7 @@ class App extends Component {
         // }
 
         this.setState({ 
-          totalFundTrue, 
+          totalFund, 
           myFundTrue, 
           resultCapitalReceived,
           resultLatitudeReceived,
@@ -163,8 +163,10 @@ class App extends Component {
         }
 
         try {
-            await disaster_risk_insurance.methods.fundInsurance(fundResult).send({ from: accounts[0], value: this.state.web3.utils.toWei(this.state.fundAmount), gas: GAS, gasPrice: GAS_PRICE });
-            //await disaster_risk_insurance.methods.fundInsurance(fundResult).send({ from: this.state.accounts[0], value: this.state.web3.utils.toWei(this.state.fundAmount), gas: GAS, gasPrice: GAS_PRICE });
+            await disaster_risk_insurance.methods.fundInsurance(fundResult).send({ from: accounts[0], 
+                                                                                   value: this.state.web3.utils.toWei(this.state.fundAmount), 
+                                                                                   gas: GAS, 
+                                                                                   gasPrice: GAS_PRICE });
             this.refreshDisasterState();
             //this.refreshState();
             this.setState({ message: 'Fund placed' });
@@ -304,7 +306,7 @@ class App extends Component {
                         </Grid>
                         <Grid item xs={3}>
                             <Typography variant="h5">
-                                {`${this.state.totalFundTrue}`}
+                                {`${this.state.totalFund}`}
                             </Typography>
                         </Grid>
                     </Grid>
