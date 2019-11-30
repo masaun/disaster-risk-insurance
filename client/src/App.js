@@ -29,8 +29,8 @@ class App extends Component {
             //// Disaster Risk Insurance   
             disaster_risk_insurance: null,
             beneficiary_registry: null,
-            totalFund: 0,
-            myFundTrue: 0,
+            totalFundPool: 0,
+            totalFundIndividual: 0,
             fundAmount: 0
         };
     }
@@ -97,9 +97,9 @@ class App extends Component {
     refreshDisasterState = async () => {
         const { accounts, disaster_risk_insurance } = this.state;
 
-        const totalFund = await this.state.web3.utils.fromWei(await disaster_risk_insurance.methods.totalFund().call());
+        const totalFundPool = await this.state.web3.utils.fromWei(await disaster_risk_insurance.methods.totalFundPool().call());
 
-        const myFundTrue = await this.state.web3.utils.fromWei(await disaster_risk_insurance.methods.getFundAmount(true).call({ from: this.state.accounts[0] }));
+        const totalFundIndividual = await this.state.web3.utils.fromWei(await disaster_risk_insurance.methods.getFundAmount(true).call({ from: this.state.accounts[0] }));
 
         const resultCapitalReceived = await disaster_risk_insurance.methods.resultCapitalReceived().call();
         const resultLatitudeReceived = await disaster_risk_insurance.methods.resultLatitudeReceived().call();
@@ -132,8 +132,8 @@ class App extends Component {
         // }
 
         this.setState({ 
-          totalFund, 
-          myFundTrue, 
+          totalFundPool, 
+          totalFundIndividual, 
           resultCapitalReceived,
           resultLatitudeReceived,
           resultLongitudeReceived,
@@ -306,7 +306,7 @@ class App extends Component {
                         </Grid>
                         <Grid item xs={3}>
                             <Typography variant="h5">
-                                {`${this.state.totalFund}`}
+                                {`${this.state.totalFundPool}`}
                             </Typography>
                         </Grid>
                     </Grid>
@@ -319,7 +319,7 @@ class App extends Component {
                         </Grid>
                         <Grid item xs={3}>
                             <Typography variant="h5">
-                                {`${this.state.myFundTrue}`}
+                                {`${this.state.totalFundIndividual}`}
                             </Typography>
                         </Grid>
                     </Grid>
