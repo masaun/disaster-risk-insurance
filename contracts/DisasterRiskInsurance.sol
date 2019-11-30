@@ -54,6 +54,8 @@ contract DisasterRiskInsurance is ChainlinkClient, Ownable, DrStorage, DrConstan
 
     function withdrawFromFundPool() external {
         //require(resultReceived, "You cannot withdraw before the result has been received.");
+        require (totalFundPool >= totalFundIndividual, "Not enough fund pool to send insurance money");
+        
         msg.sender.transfer(((totalFundPool) * totalFundIndividual[msg.sender]) / totalFundPool);
         totalFundIndividual[msg.sender] = 0;
     }

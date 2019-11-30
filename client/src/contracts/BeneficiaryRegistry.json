@@ -1763,12 +1763,12 @@
         }
       },
       "links": {},
-      "address": "0xB2849C39B99A2513dd1c00744eBD2E667cFf274D",
-      "transactionHash": "0xa3ae95b253830d691921b6c5e4862499c21c0bc18afe871e33f64ab73f5644c3"
+      "address": "0xd0bb9b8698538c68c31e11aa9B0527a21478D3E8",
+      "transactionHash": "0x0afb08c849b6913d7d8a7380f27203df422787ae77f369f1a6530fb9bf0719b8"
     }
   },
   "schemaVersion": "3.0.19",
-  "updatedAt": "2019-11-30T11:04:41.570Z",
+  "updatedAt": "2019-11-30T11:14:46.419Z",
   "networkType": "ethereum",
   "devdoc": {
     "methods": {
