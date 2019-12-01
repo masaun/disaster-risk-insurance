@@ -260,7 +260,13 @@ class App extends Component {
             const response = await beneficiary_registry.methods.createBeneficiary(walletAddress, ipAddress).send({ from: accounts[0] });
             console.log("=== createBeneficiary ===", response)
     
-            this.setState({ message: "Success to create beneficiary" });
+            // @notice After it return response above, it initialize value which on form. 
+            await this.setState({
+                    walletAddress: '', 
+                    ipAddress: '', 
+                  });
+
+            await this.setState({ message: "Success to create beneficiary" });
         }
         catch (error) {
             console.error(error);
