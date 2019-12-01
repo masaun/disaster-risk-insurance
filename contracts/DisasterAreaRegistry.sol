@@ -1,4 +1,5 @@
 pragma solidity 0.4.24;
+pragma experimental ABIEncoderV2;
 
 import "../node_modules/openzeppelin-solidity/contracts/ownership/Ownable.sol";
 
@@ -22,5 +23,11 @@ contract DisasterAreaRegistry is Ownable, DrStorage, DrConstants {
             area.isDisaster
         );
     }
-    
+
+    /***
+     * @dev return struct of DisasterArea
+     ***/ 
+    function getDisasterAreaList() public view returns (DisasterArea[]) {
+        return areas;
+    }
 }

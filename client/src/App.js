@@ -186,12 +186,15 @@ class App extends Component {
     }
 
     handleRequestResultsOfDisasterRisk = async () => {
-        const { accounts, disaster_risk_insurance, beneficiary_registry } = this.state;
+        const { accounts, disaster_risk_insurance, beneficiary_registry, disaster_area_registry } = this.state;
 
         /***** Call IP-address and disaster area from struct *****/
         // [In progress]
         const beneficiaries = await beneficiary_registry.methods.getBeneficiaryList().call();
         console.log('=== beneficiaries ===', beneficiaries);
+
+        const areas = await disaster_area_registry.methods.getDisasterAreaList().call();
+        console.log('=== areas ===', areas);
 
         /***** Define IP-address of user and list of area of disaster *****/ 
         let ipAddress = "194.199.104.14"
@@ -299,7 +302,7 @@ class App extends Component {
             console.log("=== createDisasterArea 2 ===", response_2)
             console.log("=== createDisasterArea 3 ===", response_3)
     
-            this.setState({ message: "Success to create beneficiary" });
+            this.setState({ message: "Success to create disaster area" });
         }
         catch (error) {
             console.error(error);
