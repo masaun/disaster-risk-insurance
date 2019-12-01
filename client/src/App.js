@@ -5,6 +5,8 @@ import { ThemeProvider } from '@material-ui/styles';
 // Import json file for artifact
 import DisasterRiskInsurance from "./contracts/DisasterRiskInsurance.json";
 import BeneficiaryRegistry from "./contracts/BeneficiaryRegistry.json";
+import DisasterAreaRegistry from "./contracts/DisasterAreaRegistry.json";
+
 
 import getWeb3 from "./utils/getWeb3";
 
@@ -29,9 +31,12 @@ class App extends Component {
             //// Disaster Risk Insurance   
             disaster_risk_insurance: null,
             beneficiary_registry: null,
+            disaster_area_registry: null,
             totalFundPool: 0,
             totalFundIndividual: 0,
-            fundAmount: 0
+            fundAmount: 0,
+            walletAddress: "",
+            ipAddress: "",
         };
     }
 
@@ -61,11 +66,18 @@ class App extends Component {
                 deployedNetworkBeneficiaryRegistry && deployedNetworkBeneficiaryRegistry.address,
             );
 
+            const deployedNetworkDisasterAreaRegistry = DisasterAreaRegistry.networks[networkId];
+            const disaster_area_registry = new web3.eth.Contract(
+                DisasterAreaRegistry.abi,
+                deployedNetworkDisasterAreaRegistry && deployedNetworkDisasterAreaRegistry.address,
+            );
+
             this.setState({ 
               web3, 
               accounts, 
               disaster_risk_insurance: disaster_risk_insurance,
-              beneficiary_registry: beneficiary_registry
+              beneficiary_registry: beneficiary_registry,
+              disaster_area_registry: disaster_area_registry
             });
 
             window.ethereum.on('accountsChanged', async (accounts) => {
@@ -99,24 +111,21 @@ class App extends Component {
 
         const totalFundPool = await this.state.web3.utils.fromWei(await disaster_risk_insurance.methods.totalFundPool().call());
 
-        const totalFundIndividual = await this.state.web3.utils.fromWei(await disaster_risk_insurance.methods.getFundAmount(true).call({ from: this.state.accounts[0] }));
+        const totalFundIndividual = await this.state.web3.utils.fromWei(await disaster_risk_insurance.methods.getFundAmount(true).call({ from: accounts[0] }));
 
-        const resultCapitalReceived = await disaster_risk_insurance.methods.resultCapitalReceived().call();
+        const resultCityReceived = await disaster_risk_insurance.methods.resultCityReceived().call();
         const resultLatitudeReceived = await disaster_risk_insurance.methods.resultLatitudeReceived().call();
         const resultLongitudeReceived = await disaster_risk_insurance.methods.resultLongitudeReceived().call();
-        console.log('=== resultCapitalReceived ===', resultCapitalReceived);
+        console.log('=== resultCityReceived ===', resultCityReceived);
         console.log('=== resultLatitudeReceived ===', resultLatitudeReceived);
         console.log('=== resultLongitudeReceived ===', resultLongitudeReceived);
 
-        //const result = await this.state.disaster_risk_insurance.methods.result().call();
-        const resultCapital = await disaster_risk_insurance.methods.resultCapital().call();
+        const resultCity = await disaster_risk_insurance.methods.resultCity().call();
         const resultLatitude = await disaster_risk_insurance.methods.resultLatitude().call();
         const resultLongitude = await disaster_risk_insurance.methods.resultLongitude().call();
-        console.log('=== resultCapital ===', this.state.web3.utils.toAscii(resultCapital));
+        console.log('=== resultCity ===', this.state.web3.utils.toAscii(resultCity));
         console.log('=== resultLatitude ===', resultLatitude);
         console.log('=== resultLongitude ===', resultLongitude);
-        // console.log('=== resultLatitude ===', `${resultLatitude.toString()}`);
-        // console.log('=== resultLongitude ===', `${resultLongitude.toString()}`);
 
         var resultMessage;
         // if (resultReceived) {
@@ -133,12 +142,12 @@ class App extends Component {
 
         this.setState({ 
           totalFundPool, 
-          totalFundIndividual, 
-          resultCapitalReceived,
+          totalFundIndividual,
+          resultCityReceived,
           resultLatitudeReceived,
           resultLongitudeReceived,
           //result,
-          resultCapital,
+          resultCity,
           resultLatitude,
           resultLongitude,
           resultMessage
@@ -177,60 +186,152 @@ class App extends Component {
     }
 
     handleRequestResultsOfDisasterRisk = async () => {
-        const { accounts, disaster_risk_insurance } = this.state;
+        const { accounts, 
+                disaster_risk_insurance, 
+                beneficiary_registry, 
+                disaster_area_registry, 
+                beneficiaryList, 
+                disasterAreaList } = this.state;
 
-        /***** Define IP-address of user and list of area of disaster *****/ 
-        let ipAddress = "194.199.104.14"
-        let ListOfAreaOfDisaster = ["194.199.104.14", "181.199.101.12", "173.124.111.16"]
+        /***** Call IP-address and disaster area from struct *****/
+        // [In progress]
+        const beneficiaries = await beneficiary_registry.methods.getBeneficiaryList().call();
+        console.log('=== beneficiaries ===', beneficiaries);
+
+        const areas = await disaster_area_registry.methods.getDisasterAreaList().call();
+        console.log('=== areas ===', areas);
+
+        // this.setState({
+        //   beneficiaryList: beneficiaries,
+        //   disasterAreaList: areas
+        // });
+
+        /***** Check match wallet address and ip adress of login user. *****/
+        let b;
+        let loginUserWalletAddr;
+        let loginUserIpAddress;
+        for (b = 0; b < beneficiaries.length; b++) {
+          if (accounts[0] == beneficiaries[b].walletAddr) {
+            loginUserWalletAddr = beneficiaries[b].walletAddr;
+            loginUserIpAddress = beneficiaries[b].ipAddress;
+            console.log('=== Wallet address of login user ===', beneficiaries[b].walletAddr, beneficiaries[b].ipAddress);
+          } else {
+            console.log('=== Nothing to match ===')
+          }
+        }
+
+        /***** Send request and get response cityName of disaster area *****/ 
+        let city;
+        let latitude;
+        let longitude;
+
+        let resultCity;
+        let resultLatitude;
+        let resultLongitude;
+
+        const lastBlock = await this.state.web3.eth.getBlock("latest");
+        this.setState({ message: "Requesting the result from the oracle..." });
+        try {
+            city = await disaster_risk_insurance.methods.requestResultOfCity(loginUserIpAddress).send({ from: accounts[0], 
+                                                                                                        gas: GAS, 
+                                                                                                        gasPrice: GAS_PRICE });
+            latitude = await disaster_risk_insurance.methods.requestResultOfLatitude(loginUserIpAddress).send({ from: accounts[0], 
+                                                                                                                gas: GAS, 
+                                                                                                                gasPrice: GAS_PRICE });
+            longitude = await disaster_risk_insurance.methods.requestResultOfLongitude(loginUserIpAddress).send({ from: accounts[0], 
+                                                                                                                  gas: GAS, 
+                                                                                                                  gasPrice: GAS_PRICE });
+            console.log('=== city ===', city);
+            console.log('=== latitude ===', city);
+            console.log('=== longitude ===', city);
+
+            resultCity = await disaster_risk_insurance.methods.resultCity().call();
+            resultLatitude = await disaster_risk_insurance.methods.resultLatitude().call();
+            resultLongitude = await disaster_risk_insurance.methods.resultLongitude().call();
+            console.log('=== resultCity ===', this.state.web3.utils.toAscii(resultCity));
+            console.log('=== resultLatitude ===', resultLatitude);
+            console.log('=== resultLongitude ===', resultLongitude);
+
+            while (true) {
+                const responseEvents = await disaster_risk_insurance.getPastEvents('ChainlinkFulfilled', { fromBlock: lastBlock.number, toBlock: 'latest' });
+                console.log('=== responseEvents ===', responseEvents)
+                if (responseEvents.length !== 0) {
+                    break;
+                }
+            }
+
+            await this.refreshDisasterState();
+            //this.refreshState();
+            await this.setState({ message: "The result is delivered" });
+        } catch (error) {
+            console.error(error);
+            this.setState({ message: "Failed getting the result" });
+        }
+        
+        /***** Check whether cityName is disaster area or not *****/
+        console.log('=== areas[0].isDisaster ===', areas[0].isDisaster)  // Test
+        let a;
+        for (a = 0; a < areas.length; a++) {
+          if (resultCity == areas[a].cityName) {
+            if (areas[a].isDisaster == true) {
+              // Get right of receiving money from fund pool
+              console.log('=== City of login user is disaster area (True) ===');
+            } else {
+              console.log('=== City of login user is not disaster area (False) ===')
+            }
+          }
+        }
+
+
+
+        /***** Define IP-address of user and list of area of disaster *****/
+        // let ipAddress = "194.199.104.14"
+        // let ListOfAreaOfDisaster = ["194.199.104.14", "181.199.101.12", "173.124.111.16"]
 
         /***** Judge area whehter area of disaster or not *****/
-        let isDisaster;
-        if (ListOfAreaOfDisaster.indexOf(ipAddress) !== -1) {
-          isDisaster = true
-        } else {
-          isDisaster = false
-        }
+        // let isDisaster;
+        // if (ListOfAreaOfDisaster.indexOf(ipAddress) !== -1) {
+        //  isDisaster = true
+        // } else {
+        //  isDisaster = false
+        // }
 
         /***** Execute requestResult method depend on whehter area of disaster or not *****/
-        if (isDisaster == true) {
-          this.setState({ message: "Area of your IP address is area of disaster" })
+        // if (isDisaster == true) {
+        //   this.setState({ message: "Area of your IP address is area of disaster" })
 
-          const lastBlock = await this.state.web3.eth.getBlock("latest");
-          this.setState({ message: "Requesting the result from the oracle..." });
-          try {
-              await disaster_risk_insurance.methods.requestResultOfCapital(ipAddress).send({ from: accounts[0], gas: GAS, gasPrice: GAS_PRICE });
-              await disaster_risk_insurance.methods.requestResultOfLatitude(ipAddress).send({ from: accounts[0], gas: GAS, gasPrice: GAS_PRICE });
-              await disaster_risk_insurance.methods.requestResultOfLongitude(ipAddress).send({ from: accounts[0], gas: GAS, gasPrice: GAS_PRICE });
+        //   const lastBlock = await this.state.web3.eth.getBlock("latest");
+        //   this.setState({ message: "Requesting the result from the oracle..." });
+        //   try {
+        //       await disaster_risk_insurance.methods.requestResultOfCity(ipAddress).send({ from: accounts[0], gas: GAS, gasPrice: GAS_PRICE });
+        //       await disaster_risk_insurance.methods.requestResultOfLatitude(ipAddress).send({ from: accounts[0], gas: GAS, gasPrice: GAS_PRICE });
+        //       await disaster_risk_insurance.methods.requestResultOfLongitude(ipAddress).send({ from: accounts[0], gas: GAS, gasPrice: GAS_PRICE });
 
-              while (true) {
-                  const responseEvents = await disaster_risk_insurance.getPastEvents('ChainlinkFulfilled', { fromBlock: lastBlock.number, toBlock: 'latest' });
-                  console.log('=== responseEvents ===', responseEvents)
-                  if (responseEvents.length !== 0) {
-                      break;
-                  }
-              }
+        //       while (true) {
+        //           const responseEvents = await disaster_risk_insurance.getPastEvents('ChainlinkFulfilled', { fromBlock: lastBlock.number, toBlock: 'latest' });
+        //           console.log('=== responseEvents ===', responseEvents)
+        //           if (responseEvents.length !== 0) {
+        //               break;
+        //           }
+        //       }
 
-              await this.refreshDisasterState();
-              //this.refreshState();
-              await this.setState({ message: "The result is delivered" });
-          } catch (error) {
-              console.error(error);
-              this.setState({ message: "Failed getting the result" });
-          }
-
-
-
-
-        } else {
-          this.setState({ message: "Area of your IP address is not area of disaster" })
-        }
+        //       await this.refreshDisasterState();
+        //       //this.refreshState();
+        //       await this.setState({ message: "The result is delivered" });
+        //   } catch (error) {
+        //       console.error(error);
+        //       this.setState({ message: "Failed getting the result" });
+        //   }
+        // } else {
+        //   this.setState({ message: "Area of your IP address is not area of disaster" })
+        // }
     }
 
     handleWithdrawFromFundPool = async () => {
         const { accounts, disaster_risk_insurance } = this.state;
 
         try {
-            const balanceBefore = await this.state.web3.utils.fromWei(await this.state.web3.eth.getBalance(this.state.accounts[0]));
+            const balanceBefore = await this.state.web3.utils.fromWei(await this.state.web3.eth.getBalance(accounts[0]));
             await disaster_risk_insurance.methods.withdrawFromFundPool().send({ from: accounts[0], gas: GAS, gasPrice: GAS_PRICE });
             const balanceAfter = await this.state.web3.utils.fromWei(await this.state.web3.eth.getBalance(accounts[0]))
 
@@ -244,14 +345,48 @@ class App extends Component {
     }
 
     handleBeneficiaryRegistry = async () => {
-        const { accounts, beneficiary_registry } = this.state;
+        const { accounts, beneficiary_registry, walletAddress, ipAddress } = this.state;
         try {
-            let walletAddr = accounts[0];
-            let ipAddress = "185.199.104.14";
-            const response = await beneficiary_registry.methods.createBeneficiary(walletAddr, ipAddress).send({ from: accounts[0] });
+            //let walletAddr = accounts[0];
+            //let ipAddress = "185.199.104.14";
+            const response = await beneficiary_registry.methods.createBeneficiary(walletAddress, ipAddress).send({ from: accounts[0] });
             console.log("=== createBeneficiary ===", response)
     
-            this.setState({ message: "Success to create beneficiary" });
+            // @notice After it return response above, it initialize value which on form. 
+            await this.setState({
+                    walletAddress: '', 
+                    ipAddress: '', 
+                  });
+
+            await this.setState({ message: "Success to create beneficiary" });
+        }
+        catch (error) {
+            console.error(error);
+            this.setState({ message: "Failed withdrawing" });
+        }   
+    }
+
+    handleDisasterAreaRegistry = async () => {
+        const { accounts, disaster_area_registry } = this.state;
+        try {
+            // This is seed data for specify argument in createDisasterArea method
+            let _cityName_1 = "Blackheath";  // London / { "ip": "192.138.1.0" }
+            let _isDisaster_1 = false;
+
+            let _cityName_2 = "Bushwick";  // NewYork / { "ip": "167.153.150.0" }
+            let _isDisaster_2 = true;
+
+            let _cityName_3 = "Paris";    // Paris / { "ip": "176.31.84.249" }
+            let _isDisaster_3 = false;
+
+            const response_1 = await disaster_area_registry.methods.createDisasterArea(_cityName_1, _isDisaster_1).send({ from: accounts[0] });
+            const response_2 = await disaster_area_registry.methods.createDisasterArea(_cityName_2, _isDisaster_2).send({ from: accounts[0] });
+            const response_3 = await disaster_area_registry.methods.createDisasterArea(_cityName_3, _isDisaster_3).send({ from: accounts[0] });
+            console.log("=== createDisasterArea 1 ===", response_1)
+            console.log("=== createDisasterArea 2 ===", response_2)
+            console.log("=== createDisasterArea 3 ===", response_3)
+    
+            this.setState({ message: "Success to create disaster area" });
         }
         catch (error) {
             console.error(error);
@@ -345,7 +480,7 @@ class App extends Component {
                         </Grid>
                         <Grid item xs={3}>
                             <Button variant="contained" color="primary" onClick={() => this.handleFund("true")}>
-                                Fund amount for this month
+                                Fund amount
                             </Button>
                         </Grid>
                     </Grid>
@@ -371,11 +506,66 @@ class App extends Component {
 
                     <hr />
 
+                    <Typography variant="h5" style={{ marginTop: 32 }}>
+                        Register Benefically
+                    </Typography>
 
                     <Grid container style={{ marginTop: 32 }}>
                         <Grid item xs={3}>
+                            <Typography variant="h5">
+                                {"Wallet Address"}
+                            </Typography>
+                        </Grid>                   
+                        <Grid item xs={6}>
+                            <TextField
+                                id="bet-amount"
+                                className="input"
+                                value={this.state.walletAddress}
+                                onChange={e => this.handleUpdateFundForm('walletAddress', e.target.value)}
+                            />
+                        </Grid>
+                    </Grid>
+
+                    <Grid container style={{ marginTop: 32 }}>
+                        <Grid item xs={3}>
+                            <Typography variant="h5">
+                                {"IP Address"}
+                            </Typography>
+                        </Grid>   
+                        <Grid item xs={6}>
+                            <TextField
+                                id="bet-amount"
+                                className="input"
+                                value={this.state.ipAddress}
+                                onChange={e => this.handleUpdateFundForm('ipAddress', e.target.value)}
+                            />
+                        </Grid>
+                    </Grid>
+
+                    <Grid container style={{ marginTop: 32 }}>
+                        <Grid item xs={3}>
+                        </Grid>
+
+                        <Grid item xs={3}>
                             <Button variant="contained" color="primary" onClick={() => this.handleBeneficiaryRegistry()}>
                                 Create Beneficiary
+                            </Button>
+                        </Grid>
+                    </Grid>
+
+                    <hr />
+
+                    <Typography variant="h5" style={{ marginTop: 32 }}>
+                        Register Disaster Area
+                    </Typography>
+
+                    <Grid container style={{ marginTop: 32 }}>
+                        <Grid item xs={3}>
+                        </Grid>
+
+                        <Grid item xs={3}>
+                            <Button variant="contained" color="primary" onClick={() => this.handleDisasterAreaRegistry()}>
+                                Create Disaster Area
                             </Button>
                         </Grid>
                     </Grid>

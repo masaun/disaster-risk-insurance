@@ -22,6 +22,15 @@ contract DrEvents {
     );
 
 
+    /*********
+     * DisasterAreaRegistry.sol
+     *********/
+    event CreateDisasterArea (
+        string cityName,
+        bool isDisaster
+    );
+
+
     event ExampleEvent (
         bytes32 requestId,
         string exampleName,

@@ -11,6 +11,8 @@ contract DrStorage is DrObjects, DrEvents, Ownable {
 
     Beneficiary[] public beneficiaries;
 
+    DisasterArea[] public areas;
+
     mapping (uint => ExampleObject) examples;
 
 }
