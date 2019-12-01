@@ -186,12 +186,11 @@ class App extends Component {
     }
 
     handleRequestResultsOfDisasterRisk = async () => {
-        const { accounts, disaster_risk_insurance } = this.state;
+        const { accounts, disaster_risk_insurance, beneficiary_registry } = this.state;
 
         /***** Call IP-address and disaster area from struct *****/
         // [In progress]
-        const beneficiaries = await disaster_risk_insurance.methods.getBeneficiary().call();
-        //const beneficiaries = await disaster_risk_insurance.methods.beneficiaries().call();
+        const beneficiaries = await beneficiary_registry.methods.getBeneficiaryList().call();
         console.log('=== beneficiaries ===', beneficiaries);
 
         /***** Define IP-address of user and list of area of disaster *****/ 

@@ -35,7 +35,7 @@ contract BeneficiaryRegistry is Ownable, DrStorage, DrConstants {
     }
 
 
-    function getBeneficiary() public view returns (Beneficiary[]) {
+    function getBeneficiaryList() public view returns (Beneficiary[]) {
         return beneficiaries;
     }
     
