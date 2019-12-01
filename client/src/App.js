@@ -5,6 +5,8 @@ import { ThemeProvider } from '@material-ui/styles';
 // Import json file for artifact
 import DisasterRiskInsurance from "./contracts/DisasterRiskInsurance.json";
 import BeneficiaryRegistry from "./contracts/BeneficiaryRegistry.json";
+import DisasterAreaRegistry from "./contracts/DisasterAreaRegistry.json";
+
 
 import getWeb3 from "./utils/getWeb3";
 
@@ -29,6 +31,7 @@ class App extends Component {
             //// Disaster Risk Insurance   
             disaster_risk_insurance: null,
             beneficiary_registry: null,
+            disaster_area_registry: null,
             totalFundPool: 0,
             totalFundIndividual: 0,
             fundAmount: 0
@@ -61,11 +64,18 @@ class App extends Component {
                 deployedNetworkBeneficiaryRegistry && deployedNetworkBeneficiaryRegistry.address,
             );
 
+            const deployedNetworkDisasterAreaRegistry = DisasterAreaRegistry.networks[networkId];
+            const disaster_area_registry = new web3.eth.Contract(
+                DisasterAreaRegistry.abi,
+                deployedNetworkDisasterAreaRegistry && deployedNetworkDisasterAreaRegistry.address,
+            );
+
             this.setState({ 
               web3, 
               accounts, 
               disaster_risk_insurance: disaster_risk_insurance,
-              beneficiary_registry: beneficiary_registry
+              beneficiary_registry: beneficiary_registry,
+              disaster_area_registry: disaster_area_registry
             });
 
             window.ethereum.on('accountsChanged', async (accounts) => {
@@ -259,6 +269,34 @@ class App extends Component {
         }   
     }
 
+    handleDisasterAreaRegistry = async () => {
+        const { accounts, disaster_area_registry } = this.state;
+        try {
+            // This is seed data for specify argument in createDisasterArea method
+            let _cityName_1 = "Blackheath";  // London / { "ip": "192.138.1.0" }
+            let _isDisaster_1 = false;
+
+            let _cityName_2 = "Bushwick";  // NewYork / { "ip": "167.153.150.0" }
+            let _isDisaster_2 = true;
+
+            let _cityName_3 = "Paris";    // Paris / { "ip": "176.31.84.249" }
+            let _isDisaster_3 = false;
+
+            const response_1 = await beneficiary_registry.methods.createDisasterArea(_cityName, _isDisaster).send({ from: accounts[0] });
+            const response_2 = await beneficiary_registry.methods.createDisasterArea(_cityName, _isDisaster).send({ from: accounts[0] });
+            const response_3 = await beneficiary_registry.methods.createDisasterArea(_cityName, _isDisaster).send({ from: accounts[0] });
+            console.log("=== createDisasterArea 1 ===", response_1)
+            console.log("=== createDisasterArea 2 ===", response_2)
+            console.log("=== createDisasterArea 3 ===", response_3)
+    
+            this.setState({ message: "Success to create beneficiary" });
+        }
+        catch (error) {
+            console.error(error);
+            this.setState({ message: "Failed withdrawing" });
+        }   
+    }
+
 
     render() {
         if (!this.state.web3) {
@@ -376,6 +414,12 @@ class App extends Component {
                         <Grid item xs={3}>
                             <Button variant="contained" color="primary" onClick={() => this.handleBeneficiaryRegistry()}>
                                 Create Beneficiary
+                            </Button>
+                        </Grid>
+
+                        <Grid item xs={3}>
+                            <Button variant="contained" color="primary" onClick={() => this.handleDisasterAreaRegistry()}>
+                                Create Disaster Area
                             </Button>
                         </Grid>
                     </Grid>

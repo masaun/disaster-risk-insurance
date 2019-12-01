@@ -14,7 +14,7 @@ contract DrObjects {
 
     // Whether DisasterArea or not
     struct DisasterArea {
-        string ipAddress;  // IP adress of area
+        string cityName;     // City Name
         bool isDisaster;   // Whether areas is happenn disaster or not
     }
     
