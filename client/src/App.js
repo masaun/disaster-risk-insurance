@@ -36,7 +36,7 @@ class App extends Component {
             totalFundIndividual: 0,
             fundAmount: 0,
             walletAddress: "",
-            ipAddress: ""
+            ipAddress: "",
         };
     }
 
@@ -186,7 +186,12 @@ class App extends Component {
     }
 
     handleRequestResultsOfDisasterRisk = async () => {
-        const { accounts, disaster_risk_insurance, beneficiary_registry, disaster_area_registry } = this.state;
+        const { accounts, 
+                disaster_risk_insurance, 
+                beneficiary_registry, 
+                disaster_area_registry, 
+                beneficiaryList, 
+                disasterAreaList } = this.state;
 
         /***** Call IP-address and disaster area from struct *****/
         // [In progress]
@@ -196,7 +201,27 @@ class App extends Component {
         const areas = await disaster_area_registry.methods.getDisasterAreaList().call();
         console.log('=== areas ===', areas);
 
-        /***** Define IP-address of user and list of area of disaster *****/ 
+        // this.setState({
+        //   beneficiaryList: beneficiaries,
+        //   disasterAreaList: areas
+        // });
+
+
+        console.log('=== beneficiaries[0].walletAddr ===', beneficiaries[0].walletAddr, beneficiaries[0].ipAddress);
+
+        /***** Check match wallet address and ip adress of login user. *****/
+        let b;
+        let loginUser;
+        for (b = 0; b < beneficiaries.length; b++) {
+          if (accounts[0] == beneficiaries[b].walletAddr) {
+            loginUser = beneficiaries[b].walletAddr;
+            console.log('=== Wallet address of login user ===', beneficiaries[b].walletAddr, beneficiaries[b].ipAddress);
+          } else {
+            console.log('=== Nothing to match ===')
+          }
+        }
+
+        /***** Define IP-address of user and list of area of disaster *****/
         let ipAddress = "194.199.104.14"
         let ListOfAreaOfDisaster = ["194.199.104.14", "181.199.101.12", "173.124.111.16"]
 
