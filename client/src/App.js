@@ -113,17 +113,17 @@ class App extends Component {
 
         const totalFundIndividual = await this.state.web3.utils.fromWei(await disaster_risk_insurance.methods.getFundAmount(true).call({ from: accounts[0] }));
 
-        const resultCapitalReceived = await disaster_risk_insurance.methods.resultCapitalReceived().call();
+        const resultCityReceived = await disaster_risk_insurance.methods.resultCityReceived().call();
         const resultLatitudeReceived = await disaster_risk_insurance.methods.resultLatitudeReceived().call();
         const resultLongitudeReceived = await disaster_risk_insurance.methods.resultLongitudeReceived().call();
-        console.log('=== resultCapitalReceived ===', resultCapitalReceived);
+        console.log('=== resultCityReceived ===', resultCityReceived);
         console.log('=== resultLatitudeReceived ===', resultLatitudeReceived);
         console.log('=== resultLongitudeReceived ===', resultLongitudeReceived);
 
-        const resultCapital = await disaster_risk_insurance.methods.resultCapital().call();
+        const resultCity = await disaster_risk_insurance.methods.resultCity().call();
         const resultLatitude = await disaster_risk_insurance.methods.resultLatitude().call();
         const resultLongitude = await disaster_risk_insurance.methods.resultLongitude().call();
-        console.log('=== resultCapital ===', this.state.web3.utils.toAscii(resultCapital));
+        console.log('=== resultCity ===', this.state.web3.utils.toAscii(resultCity));
         console.log('=== resultLatitude ===', resultLatitude);
         console.log('=== resultLongitude ===', resultLongitude);
 
@@ -142,12 +142,12 @@ class App extends Component {
 
         this.setState({ 
           totalFundPool, 
-          totalFundIndividual, 
-          resultCapitalReceived,
+          totalFundIndividual,
+          resultCityReceived,
           resultLatitudeReceived,
           resultLongitudeReceived,
           //result,
-          resultCapital,
+          resultCity,
           resultLatitude,
           resultLongitude,
           resultMessage
@@ -211,61 +211,99 @@ class App extends Component {
 
         /***** Check match wallet address and ip adress of login user. *****/
         let b;
-        let loginUser;
+        let loginUserWalletAddr;
+        let loginUserIpAddress;
         for (b = 0; b < beneficiaries.length; b++) {
           if (accounts[0] == beneficiaries[b].walletAddr) {
-            loginUser = beneficiaries[b].walletAddr;
+            loginUserWalletAddr = beneficiaries[b].walletAddr;
+            loginUserIpAddress = beneficiaries[b].ipAddress;
             console.log('=== Wallet address of login user ===', beneficiaries[b].walletAddr, beneficiaries[b].ipAddress);
           } else {
             console.log('=== Nothing to match ===')
           }
         }
 
+        /***** Send request and get response cityName of disaster area *****/ 
+        let city;
+        let latitude;
+        let longitude;
+        const lastBlock = await this.state.web3.eth.getBlock("latest");
+        this.setState({ message: "Requesting the result from the oracle..." });
+        try {
+            city = await disaster_risk_insurance.methods.requestResultOfCity(loginUserIpAddress).send({ from: accounts[0], gas: GAS, gasPrice: GAS_PRICE });
+            latitude = await disaster_risk_insurance.methods.requestResultOfLatitude(loginUserIpAddress).send({ from: accounts[0], gas: GAS, gasPrice: GAS_PRICE });
+            longitude = await disaster_risk_insurance.methods.requestResultOfLongitude(loginUserIpAddress).send({ from: accounts[0], gas: GAS, gasPrice: GAS_PRICE });
+
+            while (true) {
+                const responseEvents = await disaster_risk_insurance.getPastEvents('ChainlinkFulfilled', { fromBlock: lastBlock.number, toBlock: 'latest' });
+                console.log('=== responseEvents ===', responseEvents)
+                if (responseEvents.length !== 0) {
+                    break;
+                }
+            }
+
+            await this.refreshDisasterState();
+            //this.refreshState();
+            await this.setState({ message: "The result is delivered" });
+        } catch (error) {
+            console.error(error);
+            this.setState({ message: "Failed getting the result" });
+        }
+        
+        /***** Check whether cityName is disaster area or not *****/ 
+        let a;
+        for (a = 0; a < areas.length; a++) {
+          if (city == areas[a].cityName) {
+            if (areas[a].isDisaster == true) {
+              // Get right of receiving money from fund pool
+              console.log('=== City of login user is disaster area (True) ===');
+            }
+          }
+        }
+
+
+
         /***** Define IP-address of user and list of area of disaster *****/
-        let ipAddress = "194.199.104.14"
-        let ListOfAreaOfDisaster = ["194.199.104.14", "181.199.101.12", "173.124.111.16"]
+        // let ipAddress = "194.199.104.14"
+        // let ListOfAreaOfDisaster = ["194.199.104.14", "181.199.101.12", "173.124.111.16"]
 
         /***** Judge area whehter area of disaster or not *****/
-        let isDisaster;
-        if (ListOfAreaOfDisaster.indexOf(ipAddress) !== -1) {
-          isDisaster = true
-        } else {
-          isDisaster = false
-        }
+        // let isDisaster;
+        // if (ListOfAreaOfDisaster.indexOf(ipAddress) !== -1) {
+        //  isDisaster = true
+        // } else {
+        //  isDisaster = false
+        // }
 
         /***** Execute requestResult method depend on whehter area of disaster or not *****/
-        if (isDisaster == true) {
-          this.setState({ message: "Area of your IP address is area of disaster" })
+        // if (isDisaster == true) {
+        //   this.setState({ message: "Area of your IP address is area of disaster" })
 
-          const lastBlock = await this.state.web3.eth.getBlock("latest");
-          this.setState({ message: "Requesting the result from the oracle..." });
-          try {
-              await disaster_risk_insurance.methods.requestResultOfCapital(ipAddress).send({ from: accounts[0], gas: GAS, gasPrice: GAS_PRICE });
-              await disaster_risk_insurance.methods.requestResultOfLatitude(ipAddress).send({ from: accounts[0], gas: GAS, gasPrice: GAS_PRICE });
-              await disaster_risk_insurance.methods.requestResultOfLongitude(ipAddress).send({ from: accounts[0], gas: GAS, gasPrice: GAS_PRICE });
+        //   const lastBlock = await this.state.web3.eth.getBlock("latest");
+        //   this.setState({ message: "Requesting the result from the oracle..." });
+        //   try {
+        //       await disaster_risk_insurance.methods.requestResultOfCity(ipAddress).send({ from: accounts[0], gas: GAS, gasPrice: GAS_PRICE });
+        //       await disaster_risk_insurance.methods.requestResultOfLatitude(ipAddress).send({ from: accounts[0], gas: GAS, gasPrice: GAS_PRICE });
+        //       await disaster_risk_insurance.methods.requestResultOfLongitude(ipAddress).send({ from: accounts[0], gas: GAS, gasPrice: GAS_PRICE });
 
-              while (true) {
-                  const responseEvents = await disaster_risk_insurance.getPastEvents('ChainlinkFulfilled', { fromBlock: lastBlock.number, toBlock: 'latest' });
-                  console.log('=== responseEvents ===', responseEvents)
-                  if (responseEvents.length !== 0) {
-                      break;
-                  }
-              }
+        //       while (true) {
+        //           const responseEvents = await disaster_risk_insurance.getPastEvents('ChainlinkFulfilled', { fromBlock: lastBlock.number, toBlock: 'latest' });
+        //           console.log('=== responseEvents ===', responseEvents)
+        //           if (responseEvents.length !== 0) {
+        //               break;
+        //           }
+        //       }
 
-              await this.refreshDisasterState();
-              //this.refreshState();
-              await this.setState({ message: "The result is delivered" });
-          } catch (error) {
-              console.error(error);
-              this.setState({ message: "Failed getting the result" });
-          }
-
-
-
-
-        } else {
-          this.setState({ message: "Area of your IP address is not area of disaster" })
-        }
+        //       await this.refreshDisasterState();
+        //       //this.refreshState();
+        //       await this.setState({ message: "The result is delivered" });
+        //   } catch (error) {
+        //       console.error(error);
+        //       this.setState({ message: "Failed getting the result" });
+        //   }
+        // } else {
+        //   this.setState({ message: "Area of your IP address is not area of disaster" })
+        // }
     }
 
     handleWithdrawFromFundPool = async () => {

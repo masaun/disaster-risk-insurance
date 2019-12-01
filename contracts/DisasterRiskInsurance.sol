@@ -20,12 +20,12 @@ contract DisasterRiskInsurance is ChainlinkClient, Ownable, DrStorage, DrConstan
     bytes32 private jobId_2;  // This jobId's data-type is int256
     bytes32 private jobId_3;  // This jobId's data-type is uint256
 
-    bool public resultCapitalReceived;     // default value is "false"
+    bool public resultCityReceived;     // default value is "false"
     bool public resultLatitudeReceived;    // default value is "false"
     bool public resultLongitudeReceived;   // default value is "false"
     //bool public resultReceived;          // default value is "false"
 
-    bytes32 public resultCapital;       // This is result value of request
+    bytes32 public resultCity;       // This is result value of request
     int256 public resultLatitude;       // This is result value of request
     int256 public resultLongitude;     // This is result value of request
 
@@ -72,12 +72,12 @@ contract DisasterRiskInsurance is ChainlinkClient, Ownable, DrStorage, DrConstan
 
     // You probably do not want onlyOwner here
     // But then, you need some mechanism to prevent people from spamming this
-    function requestResultOfCapital(string ipAddress) external returns (bytes32 requestId)    // Without onlyOwner
+    function requestResultOfCity(string ipAddress) external returns (bytes32 requestId)    // Without onlyOwner
     {
         //require(!resultReceived, "The result has already been received.");
 
         //Chainlink.Request memory req = buildChainlinkRequest(jobId_1, this, this.fulfill.selector);
-        Chainlink.Request memory req = buildChainlinkRequest(jobId_1, this, this.fulfill_capital.selector);
+        Chainlink.Request memory req = buildChainlinkRequest(jobId_1, this, this.fulfill_city.selector);
         // Using Ipstack - IP geolocation API
         req.add("ip", ipAddress);
         //req.add("ip", "194.199.104.14");
@@ -117,14 +117,14 @@ contract DisasterRiskInsurance is ChainlinkClient, Ownable, DrStorage, DrConstan
     }
 
 
-    function fulfill_capital(bytes32 _requestId, bytes32 data)
+    function fulfill_city(bytes32 _requestId, bytes32 data)
     public
     recordChainlinkFulfillment(_requestId)
     {
-        resultCapitalReceived = true;
+        resultCityReceived = true;
         //resultReceived = true;
 
-        resultCapital = data;
+        resultCity = data;
         //result = data;
     }
 
