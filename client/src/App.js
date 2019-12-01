@@ -34,7 +34,9 @@ class App extends Component {
             disaster_area_registry: null,
             totalFundPool: 0,
             totalFundIndividual: 0,
-            fundAmount: 0
+            fundAmount: 0,
+            walletAddress: "",
+            ipAddress: ""
         };
     }
 
@@ -251,11 +253,11 @@ class App extends Component {
     }
 
     handleBeneficiaryRegistry = async () => {
-        const { accounts, beneficiary_registry } = this.state;
+        const { accounts, beneficiary_registry, walletAddress, ipAddress } = this.state;
         try {
-            let walletAddr = accounts[0];
-            let ipAddress = "185.199.104.14";
-            const response = await beneficiary_registry.methods.createBeneficiary(walletAddr, ipAddress).send({ from: accounts[0] });
+            //let walletAddr = accounts[0];
+            //let ipAddress = "185.199.104.14";
+            const response = await beneficiary_registry.methods.createBeneficiary(walletAddress, ipAddress).send({ from: accounts[0] });
             console.log("=== createBeneficiary ===", response)
     
             this.setState({ message: "Success to create beneficiary" });
@@ -420,8 +422,8 @@ class App extends Component {
                             <TextField
                                 id="bet-amount"
                                 className="input"
-                                value={this.state.fundAmount}
-                                onChange={e => this.handleUpdateFundForm('fundAmount', e.target.value)}
+                                value={this.state.walletAddress}
+                                onChange={e => this.handleUpdateFundForm('walletAddress', e.target.value)}
                             />
                         </Grid>
                     </Grid>
@@ -436,8 +438,8 @@ class App extends Component {
                             <TextField
                                 id="bet-amount"
                                 className="input"
-                                value={this.state.fundAmount}
-                                onChange={e => this.handleUpdateFundForm('fundAmount', e.target.value)}
+                                value={this.state.ipAddress}
+                                onChange={e => this.handleUpdateFundForm('ipAddress', e.target.value)}
                             />
                         </Grid>
                     </Grid>
