@@ -282,9 +282,9 @@ class App extends Component {
             let _cityName_3 = "Paris";    // Paris / { "ip": "176.31.84.249" }
             let _isDisaster_3 = false;
 
-            const response_1 = await beneficiary_registry.methods.createDisasterArea(_cityName, _isDisaster).send({ from: accounts[0] });
-            const response_2 = await beneficiary_registry.methods.createDisasterArea(_cityName, _isDisaster).send({ from: accounts[0] });
-            const response_3 = await beneficiary_registry.methods.createDisasterArea(_cityName, _isDisaster).send({ from: accounts[0] });
+            const response_1 = await disaster_area_registry.methods.createDisasterArea(_cityName_1, _isDisaster_1).send({ from: accounts[0] });
+            const response_2 = await disaster_area_registry.methods.createDisasterArea(_cityName_2, _isDisaster_2).send({ from: accounts[0] });
+            const response_3 = await disaster_area_registry.methods.createDisasterArea(_cityName_3, _isDisaster_3).send({ from: accounts[0] });
             console.log("=== createDisasterArea 1 ===", response_1)
             console.log("=== createDisasterArea 2 ===", response_2)
             console.log("=== createDisasterArea 3 ===", response_3)
