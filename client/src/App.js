@@ -188,6 +188,12 @@ class App extends Component {
     handleRequestResultsOfDisasterRisk = async () => {
         const { accounts, disaster_risk_insurance } = this.state;
 
+        /***** Call IP-address and disaster area from struct *****/
+        // [In progress]
+        const beneficiaries = await disaster_risk_insurance.methods.getBeneficiary().call();
+        //const beneficiaries = await disaster_risk_insurance.methods.beneficiaries().call();
+        console.log('=== beneficiaries ===', beneficiaries);
+
         /***** Define IP-address of user and list of area of disaster *****/ 
         let ipAddress = "194.199.104.14"
         let ListOfAreaOfDisaster = ["194.199.104.14", "181.199.101.12", "173.124.111.16"]

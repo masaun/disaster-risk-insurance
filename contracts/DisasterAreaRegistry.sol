@@ -22,4 +22,5 @@ contract DisasterAreaRegistry is Ownable, DrStorage, DrConstants {
             area.isDisaster
         );
     }
+    
 }

@@ -1,4 +1,5 @@
 pragma solidity 0.4.24;
+pragma experimental ABIEncoderV2;
 
 import "../node_modules/openzeppelin-solidity/contracts/ownership/Ownable.sol";
 
@@ -32,4 +33,10 @@ contract BeneficiaryRegistry is Ownable, DrStorage, DrConstants {
             beneficiary.isDisaster
         );
     }
+
+
+    function getBeneficiary() public view returns (Beneficiary[]) {
+        return beneficiaries;
+    }
+    
 }
