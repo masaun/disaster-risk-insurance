@@ -109,7 +109,7 @@ class App extends Component {
 
         const totalFundPool = await this.state.web3.utils.fromWei(await disaster_risk_insurance.methods.totalFundPool().call());
 
-        const totalFundIndividual = await this.state.web3.utils.fromWei(await disaster_risk_insurance.methods.getFundAmount(true).call({ from: this.state.accounts[0] }));
+        const totalFundIndividual = await this.state.web3.utils.fromWei(await disaster_risk_insurance.methods.getFundAmount(true).call({ from: accounts[0] }));
 
         const resultCapitalReceived = await disaster_risk_insurance.methods.resultCapitalReceived().call();
         const resultLatitudeReceived = await disaster_risk_insurance.methods.resultLatitudeReceived().call();
@@ -118,15 +118,12 @@ class App extends Component {
         console.log('=== resultLatitudeReceived ===', resultLatitudeReceived);
         console.log('=== resultLongitudeReceived ===', resultLongitudeReceived);
 
-        //const result = await this.state.disaster_risk_insurance.methods.result().call();
         const resultCapital = await disaster_risk_insurance.methods.resultCapital().call();
         const resultLatitude = await disaster_risk_insurance.methods.resultLatitude().call();
         const resultLongitude = await disaster_risk_insurance.methods.resultLongitude().call();
         console.log('=== resultCapital ===', this.state.web3.utils.toAscii(resultCapital));
         console.log('=== resultLatitude ===', resultLatitude);
         console.log('=== resultLongitude ===', resultLongitude);
-        // console.log('=== resultLatitude ===', `${resultLatitude.toString()}`);
-        // console.log('=== resultLongitude ===', `${resultLongitude.toString()}`);
 
         var resultMessage;
         // if (resultReceived) {
@@ -240,7 +237,7 @@ class App extends Component {
         const { accounts, disaster_risk_insurance } = this.state;
 
         try {
-            const balanceBefore = await this.state.web3.utils.fromWei(await this.state.web3.eth.getBalance(this.state.accounts[0]));
+            const balanceBefore = await this.state.web3.utils.fromWei(await this.state.web3.eth.getBalance(accounts[0]));
             await disaster_risk_insurance.methods.withdrawFromFundPool().send({ from: accounts[0], gas: GAS, gasPrice: GAS_PRICE });
             const balanceAfter = await this.state.web3.utils.fromWei(await this.state.web3.eth.getBalance(accounts[0]))
 
@@ -383,7 +380,7 @@ class App extends Component {
                         </Grid>
                         <Grid item xs={3}>
                             <Button variant="contained" color="primary" onClick={() => this.handleFund("true")}>
-                                Fund amount for this month
+                                Fund amount
                             </Button>
                         </Grid>
                     </Grid>
@@ -409,12 +406,61 @@ class App extends Component {
 
                     <hr />
 
+                    <Typography variant="h5" style={{ marginTop: 32 }}>
+                        Register Benefically
+                    </Typography>
 
                     <Grid container style={{ marginTop: 32 }}>
+                        <Grid item xs={3}>
+                            <Typography variant="h5">
+                                {"Wallet Address"}
+                            </Typography>
+                        </Grid>                   
+                        <Grid item xs={6}>
+                            <TextField
+                                id="bet-amount"
+                                className="input"
+                                value={this.state.fundAmount}
+                                onChange={e => this.handleUpdateFundForm('fundAmount', e.target.value)}
+                            />
+                        </Grid>
+                    </Grid>
+
+                    <Grid container style={{ marginTop: 32 }}>
+                        <Grid item xs={3}>
+                            <Typography variant="h5">
+                                {"IP Address"}
+                            </Typography>
+                        </Grid>   
+                        <Grid item xs={6}>
+                            <TextField
+                                id="bet-amount"
+                                className="input"
+                                value={this.state.fundAmount}
+                                onChange={e => this.handleUpdateFundForm('fundAmount', e.target.value)}
+                            />
+                        </Grid>
+                    </Grid>
+
+                    <Grid container style={{ marginTop: 32 }}>
+                        <Grid item xs={3}>
+                        </Grid>
+
                         <Grid item xs={3}>
                             <Button variant="contained" color="primary" onClick={() => this.handleBeneficiaryRegistry()}>
                                 Create Beneficiary
                             </Button>
+                        </Grid>
+                    </Grid>
+
+                    <hr />
+
+                    <Typography variant="h5" style={{ marginTop: 32 }}>
+                        Register Disaster Area
+                    </Typography>
+
+                    <Grid container style={{ marginTop: 32 }}>
+                        <Grid item xs={3}>
                         </Grid>
 
                         <Grid item xs={3}>
