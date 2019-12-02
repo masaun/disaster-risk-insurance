@@ -123,7 +123,7 @@ class App extends Component {
         const resultCity = await disaster_risk_insurance.methods.resultCity().call();
         const resultLatitude = await disaster_risk_insurance.methods.resultLatitude().call();
         const resultLongitude = await disaster_risk_insurance.methods.resultLongitude().call();
-        console.log('=== resultCity ===', this.state.web3.utils.toAscii(resultCity));
+        console.log('=== resultCity ===', this.state.web3.utils.hexToString(resultCity));
         console.log('=== resultLatitude ===', resultLatitude);
         console.log('=== resultLongitude ===', resultLongitude);
 
@@ -248,7 +248,7 @@ class App extends Component {
             resultCity = await disaster_risk_insurance.methods.resultCity().call();
             resultLatitude = await disaster_risk_insurance.methods.resultLatitude().call();
             resultLongitude = await disaster_risk_insurance.methods.resultLongitude().call();
-            console.log('=== resultCity ===', this.state.web3.utils.toAscii(resultCity));
+            console.log('=== resultCity ===', this.state.web3.utils.hexToString(resultCity));
             console.log('=== resultLatitude ===', resultLatitude);
             console.log('=== resultLongitude ===', resultLongitude);
 
