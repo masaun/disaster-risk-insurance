@@ -392,12 +392,12 @@ class App extends Component {
 
 
                     <Grid container style={{ marginTop: 32 }}>
-                        <Grid item xs={3}>
+                        <Grid item xs={6}>
                         <Typography variant="h5">
                                 Fund rule for this insurance
                             </Typography>
                         </Grid>
-                        <Grid item xs={3}>
+                        <Grid item xs={6}>
                             <Typography variant="h5">
                                 0.1 ETH per month
                             </Typography>
@@ -405,7 +405,7 @@ class App extends Component {
                     </Grid>
 
                     <Grid container style={{ marginTop: 32 }}>
-                        <Grid item xs={3}>
+                        <Grid item xs={6}>
                             <Typography variant="h5">
                                 {"Total Fund Pool"}
                             </Typography>
@@ -418,7 +418,7 @@ class App extends Component {
                     </Grid>
 
                     <Grid container>
-                        <Grid item xs={3}>
+                        <Grid item xs={6}>
                             <Typography variant="h5">
                                 {"Total Fund Individual"}
                             </Typography>
@@ -431,7 +431,7 @@ class App extends Component {
                     </Grid>
 
                     <Grid container style={{ marginTop: 32 }}>
-                        <Grid item xs={3}>
+                        <Grid item xs={6}>
                             <Typography variant="h5">
                                 {"Fund amount / this month"}
                             </Typography>
@@ -447,7 +447,7 @@ class App extends Component {
                     </Grid>
 
                     <Grid container style={{ marginTop: 32 }}>
-                        <Grid item xs={3}>
+                        <Grid item xs={6}>
                         </Grid>
                         <Grid item xs={3}>
                             <Button variant="contained" color="primary" onClick={() => this.handleFund("true")}>
@@ -457,7 +457,7 @@ class App extends Component {
                     </Grid>
 
                     <Grid container style={{ marginTop: 32 }}>
-                        <Grid item xs={3}>
+                        <Grid item xs={6}>
                            If result of request that your registerd area of IP address is the disaster area, you can receive insurance money from fund pool automatically by smart contract. 
                         </Grid>
                         <Grid item xs={3}>
