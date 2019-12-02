@@ -516,7 +516,7 @@ class App extends Component {
                     </Grid>
 
                     <Grid container style={{ marginTop: 32 }}>
-                        <Grid item xs={3}>
+                        <Grid item xs={4}>
                         </Grid>
 
                         <Grid item xs={3}>
@@ -533,7 +533,7 @@ class App extends Component {
                     </Typography>
 
                     <Grid container style={{ marginTop: 32 }}>
-                        <Grid item xs={3}>
+                        <Grid item xs={4}>
                         </Grid>
 
                         <Grid item xs={3}>

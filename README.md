@@ -24,9 +24,10 @@ If the page is blank, try logging in to your MetaMask add-on.
 <br>
 
 - [Some premise]:
-  - User need to register with their wallet-address and IP-address as benefically
-  - Disaster area also need to register with city name and isDisaster (Define both of properties in struct of `DisasterArea` ) 
-    (Next time, I will find and implement disaster area API)
+  - User need to register with their `wallet-address` and `IP-address` as benefically
+  - Disaster area also need to register with `city name` and `isDisaster`  (Define both of properties in struct of `DisasterArea` ) 
+    - This time I prepare seed data of 3 disaster area. If it push bottom of button which is called "Create Disaster Area", it can save seed data of 3 disaster area.
+    (Next time, I will find disaster area API and implement them as oracle and implement matching logic)
 
 <br>
 
