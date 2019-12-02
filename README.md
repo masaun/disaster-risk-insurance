@@ -1,5 +1,6 @@
 # Disaster Risk Insurance
-
+- Disaster Risk Insurance is micro insurance in case of happening disaster by using smart contract.
+- Any users who fund premiums and match condition can receive insurance money instantly by smart contract. 
 - This is the Disaster Risk Insurance project to build a dapp that calls a [Honeycomb marketplace](https://honeycomb.market) API through a [Chainlink](https://chain.link) node over the Ropsten testnet.
 
 
