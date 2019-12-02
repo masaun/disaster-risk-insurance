@@ -269,7 +269,7 @@ class App extends Component {
         }
         
         /***** Check whether cityName is disaster area or not *****/
-        console.log('=== resultCity / condition ===', this.state.web3.utils.toAscii(resultCity))      // Test
+        console.log('=== resultCity / condition ===', this.state.web3.utils.hexToString(resultCity))      // Test
         
         console.log('=== areas[0].cityName ===', areas[0].cityName)      // Test
         console.log('=== areas[0].isDisaster ===', areas[0].isDisaster)  // Test
@@ -281,13 +281,15 @@ class App extends Component {
         
         let a;
         for (a = 0; a < areas.length; a++) {
-          if (this.state.web3.utils.toAscii(resultCity) == areas[a].cityName) {
+          if (this.state.web3.utils.hexToString(resultCity) == areas[a].cityName) {
             if (areas[a].isDisaster == true) {
               // Get right of receiving money from fund pool
               console.log('=== City of login user is disaster area (True) ===');
             } else {
               console.log('=== City of login user is not disaster area (False) ===')
             }
+          } else {
+            console.log('=== Nothing to match ===')
           }
         }
 
