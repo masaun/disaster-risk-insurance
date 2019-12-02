@@ -3,6 +3,8 @@
 - This is the Disaster Risk Insurance project to build a dapp that calls a [Honeycomb marketplace](https://honeycomb.market) API through a [Chainlink](https://chain.link) node over the Ropsten testnet.
 
 
+<br>
+
 ## UI and process of Disaster Risk Insurance
 
 Once you follow the previous steps, your browser should display the page below at `http://localhost:3000/`.
@@ -12,12 +14,22 @@ If the page is blank, try logging in to your MetaMask add-on.
   <img src="https://user-images.githubusercontent.com/19357502/69968567-f4e1e780-151a-11ea-9a1c-2f2015e51e05.png"/>
 </p>
 
-- This is the Disaster Risk Insurance project of an oracle-connected dapp.
-- The oracle returns a city name which is matched IP-address of being requested from current user.
-- The users can fund premiums between 0.1ETH ~ 0.5ETH.
+- [Basic process]:
+  - This is the Disaster Risk Insurance project of an oracle-connected dapp.
+  - The oracle returns a city name which is matched IP-address of being requested from current user.
+  - The users can fund premiums between 0.1ETH ~ 0.5ETH.
   In case it happen disaster in your city, you can receive 2 times insurance money which you funded premiums until previous time of happening disaster.
-- If result of request that user's city name which called by registerd IP address match with city name of disaster area, user can receive withdrawed insurance money from fund pool of premiums automatically by smart contract. 
+  - If result of request that user's city name which called by registerd IP address match with city name of disaster area, user can receive withdrawed insurance money from fund pool of premiums automatically by smart contract. 
 
+<br>
+
+- [Some premise]:
+  - User need to register with their `wallet-address` and `IP-address` as benefically
+  - Disaster area also need to register with `city name` and `isDisaster`  (Define both of properties in struct of `DisasterArea` ) 
+    - This time I prepare seed data of 3 disaster area. If it push bottom of button which is called "Create Disaster Area", it can save seed data of 3 disaster area.
+    (Next time, I will find disaster area API and implement them as oracle and implement matching logic)
+
+<br>
 
 
 ## Replace the ipStack with a Honeycomb API
@@ -46,6 +58,7 @@ Replace the JobID in `migrations/4_deploy_disaster_risk_insurance.js` with the n
 Note that you are also going to have to modify the smart contract based on the API you have used.
 See this article for an example.
 
+<br>
 
 
 ## Before installation
@@ -65,6 +78,8 @@ Fund it with [Ropsten ETH](https://faucet.metamask.io/) and [Ropsten LINK](https
 - Create an [Infura](https://infura.io/) account, get an endpoint URL for the Ropsten testnet and note it down.
 
 - (Optional) Install [Visual Studio Code](https://code.visualstudio.com/)
+
+<br>
 
 ## Installation
 
