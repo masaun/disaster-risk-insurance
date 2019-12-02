@@ -1,8 +1,52 @@
 # Disaster Risk Insurance
 
-This is a sample project to build a dapp that calls a [Honeycomb marketplace](https://honeycomb.market) API through a [Chainlink](https://chain.link) node over the Ropsten testnet.
+- This is the Disaster Risk Insurance project to build a dapp that calls a [Honeycomb marketplace](https://honeycomb.market) API through a [Chainlink](https://chain.link) node over the Ropsten testnet.
 
-*This project is under development, so make sure to follow it if you are participating in the hackathon/developing actively.*
+
+## UI and process of Disaster Risk Insurance
+
+Once you follow the previous steps, your browser should display the page below at `http://localhost:3000/`.
+If the page is blank, try logging in to your MetaMask add-on.
+
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/19357502/69968567-f4e1e780-151a-11ea-9a1c-2f2015e51e05.png"/>
+</p>
+
+- This is the Disaster Risk Insurance project of an oracle-connected dapp.
+- The oracle returns a city name which is matched IP-address of being requested from current user.
+- The users can fund premiums between 0.1ETH ~ 0.5ETH.
+  In case it happen disaster in your city, you can receive 2 times insurance money which you funded premiums until previous time of happening disaster.
+- If result of request that user's city name which called by registerd IP address match with city name of disaster area, user can receive withdrawed insurance money from fund pool of premiums automatically by smart contract. 
+
+
+
+## Replace the ipStack with a Honeycomb API
+
+See how the JobID of ipStack API is set in `migrations/4_deploy_disaster_risk_insurance.js`:
+
+`const jobId_1 = web3.utils.toHex("d1d029a5f50c44789f19da3ec4e51e7b");`    // This jobId's data-type is bytes32
+`const jobId_2 = web3.utils.toHex("c62efeba282f48dcb5a1d5b7b7cade9d");`    // This jobId's data-type is int256
+`const jobId_3 = web3.utils.toHex("11a18a9089bd4c668f13f5e5df5547b8");`    // This jobId's data-type is uint256
+
+The `honeycomb.market` Ropsten node serves a random `int256` between two limits with this JobID.
+To develop a smart contract that depends on another type of call, you are going to need to change it.
+
+First, see [this article](https://medium.com/clc-group/honeycomb-marketplace-101-for-ethereum-developers-c7c63c2d3049) that gives a general overview of Honeycomb Marketplace.
+Then, follow these steps:
+- Go to [Honeycomb Marketplace](https://honeycomb.market), log in
+- Click on the *Browse APIs* tab
+- Click on an API
+- Click on the *Connect* button of one of the paths
+- Select *Ropsten Test Network* as the network
+- Select [the data type you want](https://medium.com/clc-group/how-to-choose-the-data-type-on-honeycomb-marketplace-f77552099a1f)
+
+As a result, you are going to see the Ropsten listing for that endpoint.
+Replace the JobID in `migrations/4_deploy_disaster_risk_insurance.js` with the new JobID.
+
+Note that you are also going to have to modify the smart contract based on the API you have used.
+See this article for an example.
+
+
 
 ## Before installation
 
@@ -53,46 +97,3 @@ Fund it with [Ropsten ETH](https://faucet.metamask.io/) and [Ropsten LINK](https
 - Start the server
 
 `npm run start`
-
-## Example project
-
-Once you follow the previous steps, your browser should display the page below at `http://localhost:3000/`.
-If the page is blank, try logging in to your MetaMask add-on.
-
-<p align="center">
-  <img src="https://user-images.githubusercontent.com/19530665/69197786-7b043400-0b00-11ea-8f08-210577380f0d.png"/>
-</p>
-
-This is the most basic example of an oracle-connected dapp.
-The oracle returns a number between 1 and 6 with equal probability.
-The users bet on the returned number being 6 or lower.
-The winners get paid out proportional to their wager.
-
-To bet, fill in the bet amount in (Ropsten) ETH and click on either *Bet on 6* or *Bet on not 6*.
-Once the betting is done, the contract deployer can click on *Request Result*, which creates a Chainlink request for a random number between 1 and 6.
-After the Chainlink request is fulfilled, the dapp displays the winning side.
-If you have guessed the outcome correctly, you can click *Withdraw Winnings*, which sends you your reward.
-
-## Replace the random number generator with a Honeycomb API
-
-See how the JobID is set in `migrations/2_deploy_contracts.js`:
-
-`const jobId = web3.utils.toHex("d02b14632b6141ec90bb8b2b9b937848");`
-
-The `honeycomb.market` Ropsten node serves a random `int256` between two limits with this JobID.
-To develop a smart contract that depends on another type of call, you are going to need to change it.
-
-First, see [this article](https://medium.com/clc-group/honeycomb-marketplace-101-for-ethereum-developers-c7c63c2d3049) that gives a general overview of Honeycomb Marketplace.
-Then, follow these steps:
-- Go to [Honeycomb Marketplace](https://honeycomb.market), log in
-- Click on the *Browse APIs* tab
-- Click on an API
-- Click on the *Connect* button of one of the paths
-- Select *Ropsten Test Network* as the network
-- Select [the data type you want](https://medium.com/clc-group/how-to-choose-the-data-type-on-honeycomb-marketplace-f77552099a1f)
-
-As a result, you are going to see the Ropsten listing for that endpoint.
-Replace the JobID in `migrations/2_deploy_contracts.js` with the new JobID.
-
-Note that you are also going to have to modify the smart contract based on the API you have used.
-See this article for an example.
