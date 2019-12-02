@@ -399,7 +399,7 @@ class App extends Component {
                         </Grid>
                         <Grid item xs={6}>
                             <Typography variant="h5">
-                                Fund 0.1 ETH per month as premiums
+                                Fund 0.1ETH ~ 0.5ETH per month as premiums
                             </Typography>
                         </Grid>
                     </Grid>
@@ -407,7 +407,7 @@ class App extends Component {
                     <Grid container style={{ marginTop: 32 }}>
                         <Grid item xs={6}>
                             <Typography variant="h5">
-                                {"Total Fund Pool"}
+                                {"Total amount of Fund Pool"}
                             </Typography>
                         </Grid>
                         <Grid item xs={3}>
@@ -420,7 +420,7 @@ class App extends Component {
                     <Grid container>
                         <Grid item xs={6}>
                             <Typography variant="h5">
-                                {"Total Fund Individual"}
+                                {"Total amount of Fund Individual"}
                             </Typography>
                         </Grid>
                         <Grid item xs={3}>
@@ -433,7 +433,7 @@ class App extends Component {
                     <Grid container style={{ marginTop: 32 }}>
                         <Grid item xs={6}>
                             <Typography variant="h5">
-                                {"Fund amount / this month"}
+                                {"Fund amount of premiums / monthly"}
                             </Typography>
                         </Grid>
                         <Grid item xs={6}>
@@ -455,7 +455,7 @@ class App extends Component {
                         </Grid>
                         <Grid item xs={3}>
                             <Button variant="contained" color="primary" onClick={() => this.handleFund("true")}>
-                               Fund amount of premiums
+                               Fund premiums
                             </Button>
                         </Grid>
                     </Grid>
