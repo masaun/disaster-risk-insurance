@@ -399,7 +399,7 @@ class App extends Component {
                         </Grid>
                         <Grid item xs={6}>
                             <Typography variant="h5">
-                                0.1 ETH per month
+                                Fund 0.1 ETH per month as premiums
                             </Typography>
                         </Grid>
                     </Grid>
@@ -448,23 +448,27 @@ class App extends Component {
 
                     <Grid container style={{ marginTop: 32 }}>
                         <Grid item xs={6}>
-                           You can fund insurance money between 0.1ETH ~ 0.5ETH. <br />
-                           In case it happen disaster in your city, you can receive 2 times money which you funded until previous time.
+                           You can fund premiums between 0.1ETH ~ 0.5ETH. <br />
+                           In case it happen disaster in your city, you can receive 2 times insurance money which you funded premiums until previous time of happening disaster.
+                        </Grid>
+                        <Grid item xs={1}>
                         </Grid>
                         <Grid item xs={3}>
                             <Button variant="contained" color="primary" onClick={() => this.handleFund("true")}>
-                                Fund amount
+                               Fund amount of premiums
                             </Button>
                         </Grid>
                     </Grid>
 
                     <Grid container style={{ marginTop: 32 }}>
                         <Grid item xs={6}>
-                           If result of request that your city name which called by registerd IP address match with city name of disaster area, you can receive withdrawed insurance money from fund pool automatically by smart contract. 
+                            If result of request that your city name which called by registerd IP address match with city name of disaster area, you can receive withdrawed insurance money from fund pool of premiums automatically by smart contract. 
+                        </Grid>
+                        <Grid item xs={1}>
                         </Grid>
                         <Grid item xs={3}>
                             <Button variant="contained" color="primary" onClick={() => this.handleRequestResultsOfDisasterRisk()}>
-                                Request Claim
+                                Request Claim of insurance money
                             </Button>
                         </Grid>
                     </Grid>
