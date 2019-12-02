@@ -113,3 +113,17 @@ Fund it with [Ropsten ETH](https://faucet.metamask.io/) and [Ropsten LINK](https
 - Start the server
 
 `npm run start`
+
+<br>
+
+## References
+- honeycomb-wiki
+https://github.com/clc-group/honeycomb-wiki/wiki
+
+- Videos of workshop（Honeycomb）
+https://www.youtube.com/channel/UCCk_ofRpFHDYxtnepCUmfKA
+
+- Usage of honeycomb marketplace
+https://medium.com/clc-group/honeycomb-marketplace-101-for-ethereum-developers-c7c63c2d3049
+
+
