@@ -458,6 +458,7 @@ class App extends Component {
 
                     <Grid container style={{ marginTop: 32 }}>
                         <Grid item xs={3}>
+                           If result of request that your registerd area of IP address is the disaster area, you can receive insurance money from fund pool automatically by smart contract. 
                         </Grid>
                         <Grid item xs={3}>
                             <Button variant="contained" color="primary" onClick={() => this.handleRequestResultsOfDisasterRisk()}>
