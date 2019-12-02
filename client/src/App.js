@@ -269,10 +269,19 @@ class App extends Component {
         }
         
         /***** Check whether cityName is disaster area or not *****/
+        console.log('=== resultCity / condition ===', this.state.web3.utils.toAscii(resultCity))      // Test
+        
+        console.log('=== areas[0].cityName ===', areas[0].cityName)      // Test
         console.log('=== areas[0].isDisaster ===', areas[0].isDisaster)  // Test
+
+        console.log('=== areas[1].cityName ===', areas[1].cityName)      // Test
+        console.log('=== areas[1].isDisaster ===', areas[1].isDisaster)  // Test
+        console.log('=== areas[2].cityName ===', areas[2].cityName)      // Test
+        console.log('=== areas[2].isDisaster ===', areas[2].isDisaster)  // Test
+        
         let a;
         for (a = 0; a < areas.length; a++) {
-          if (resultCity == areas[a].cityName) {
+          if (this.state.web3.utils.toAscii(resultCity) == areas[a].cityName) {
             if (areas[a].isDisaster == true) {
               // Get right of receiving money from fund pool
               console.log('=== City of login user is disaster area (True) ===');
@@ -374,10 +383,10 @@ class App extends Component {
             let _isDisaster_1 = false;
 
             let _cityName_2 = "Bushwick";  // NewYork / { "ip": "167.153.150.0" }
-            let _isDisaster_2 = true;
+            let _isDisaster_2 = false;
 
             let _cityName_3 = "Paris";    // Paris / { "ip": "176.31.84.249" }
-            let _isDisaster_3 = false;
+            let _isDisaster_3 = true;
 
             const response_1 = await disaster_area_registry.methods.createDisasterArea(_cityName_1, _isDisaster_1).send({ from: accounts[0] });
             const response_2 = await disaster_area_registry.methods.createDisasterArea(_cityName_2, _isDisaster_2).send({ from: accounts[0] });
