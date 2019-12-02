@@ -448,6 +448,8 @@ class App extends Component {
 
                     <Grid container style={{ marginTop: 32 }}>
                         <Grid item xs={6}>
+                           You can fund insurance money between 0.1ETH ~ 0.5ETH. <br />
+                           In case it happen disaster in your city, you can receive 2 times money which you funded until previous time.
                         </Grid>
                         <Grid item xs={3}>
                             <Button variant="contained" color="primary" onClick={() => this.handleFund("true")}>
@@ -458,7 +460,7 @@ class App extends Component {
 
                     <Grid container style={{ marginTop: 32 }}>
                         <Grid item xs={6}>
-                           If result of request that your registerd area of IP address is the disaster area, you can receive insurance money from fund pool automatically by smart contract. 
+                           If result of request that your city name which called by registerd IP address match with city name of disaster area, you can receive withdrawed insurance money from fund pool automatically by smart contract. 
                         </Grid>
                         <Grid item xs={3}>
                             <Button variant="contained" color="primary" onClick={() => this.handleRequestResultsOfDisasterRisk()}>
